@@ -884,6 +884,7 @@ export type NavChild = { label: string; href: string; desc?: string }
 export type NavItem = { label: string; href: string; match?: string[]; children?: NavChild[] }
 
 export const navigation: NavItem[] = [
+  { label: 'Accueil', href: '/', match: ['/'] },
   {
     label: 'L’ONG', href: '/a-propos', match: ['/a-propos'], children: [
       { label: 'Qui sommes-nous', href: '/a-propos#presentation', desc: 'Histoire, vision, mission et valeurs' },

@@ -40,7 +40,7 @@ export function Header({ onOpenSearch }: HeaderProps) {
   }, [mobileOpen])
 
   const isActive = (match?: string[]) =>
-    !!match?.some((m) => pathname === m || pathname.startsWith(m + '/'))
+    !!match?.some((m) => (m === '/' ? pathname === '/' : pathname === m || pathname.startsWith(m + '/')))
 
   return (
     <>
@@ -56,7 +56,7 @@ export function Header({ onOpenSearch }: HeaderProps) {
             </span>
           </Link>
 
-          {/* Navigation desktop : 5 entrées seulement */}
+          {/* Navigation desktop */}
           <nav className="nav" aria-label="Navigation principale">
             {navigation.map((item) => (
               <div key={item.label} className="nav-item">
@@ -127,20 +127,26 @@ export function Header({ onOpenSearch }: HeaderProps) {
                 </summary>
                 <div>
                   {item.children.map((child) => (
-                    <Link key={child.href} href={child.href}>
+                    <Link key={child.href} href={child.href} onClick={() => setMobileOpen(false)}>
                       {child.label}
                     </Link>
                   ))}
                 </div>
               </details>
             ) : (
-              <Link key={item.label} href={item.href} className="mobile-link" style={{ ['--i' as string]: i }}>
+              <Link
+                key={item.label}
+                href={item.href}
+                className="mobile-link"
+                style={{ ['--i' as string]: i }}
+                onClick={() => setMobileOpen(false)}
+              >
                 {item.label}
               </Link>
             )
           )}
 
-          <Link href="/appels-a-partenariat" className="btn btn-gold">
+          <Link href="/appels-a-partenariat" className="btn btn-gold" onClick={() => setMobileOpen(false)}>
             Devenir partenaire <ArrowUpRight size={16} />
           </Link>
 

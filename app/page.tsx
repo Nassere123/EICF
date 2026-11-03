@@ -97,11 +97,6 @@ export default function HomePage() {
               <ArrowRight size={15} />
             </Link>
 
-            <Link href="/cartographie" className="btn btn-outline">
-              <MapPin size={15} />
-              <span>Cartographie des interventions</span>
-            </Link>
-
             <Link href="/appels-a-partenariat" className="btn btn-ghost">
               <span>Devenir partenaire</span>
             </Link>
