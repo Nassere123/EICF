@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import {
   ArrowRight,
@@ -21,6 +22,8 @@ import {
   Building2,
   Download,
   Quote,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react'
 import {
   org,
@@ -34,11 +37,13 @@ import {
   formatDate,
   statusLabel,
   impactSentence,
+  founder,
 } from '@/lib/data'
 import { InteractiveMap } from '@/components/InteractiveMap'
 import { RotatingWords, CountUp } from '@/components/Motion'
 
 export default function HomePage() {
+  const [showFullPresidentMessage, setShowFullPresidentMessage] = useState(false)
   const activeProjects = projects.filter((p) => p.status === 'en-cours')
   const pasea = projects.find((p) => p.slug === 'pasea') ?? projects[0]
   const recentNews = news.slice(0, 3)
@@ -134,7 +139,91 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. RAISON D'ÊTRE & VISION / MISSION */}
+      {/* 2. MOT DU PRÉSIDENT FONDATEUR */}
+      <section className="section bg-white" id="mot-du-president">
+        <div className="container">
+          <div className="president-block">
+            {/* Colonne Portrait officiel */}
+            <div className="president-portrait-col">
+              <div className="president-portrait-card">
+                <div className="president-img-wrap">
+                  <img
+                    src={founder.photo}
+                    alt={`${founder.name} — ${founder.role}`}
+                    className="president-img"
+                  />
+                  <div className="president-badge-overlay">
+                    <span className="president-role-tag">{founder.role}</span>
+                    <h3 className="president-name">{founder.name}</h3>
+                    <p className="president-sub">{founder.institution}</p>
+                    <span className="president-since">{founder.since}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Colonne Message institutionnel */}
+            <div className="president-content-col">
+              <span className="badge badge-gold" style={{ alignSelf: 'flex-start', marginBottom: '14px' }}>
+                Mot du Président Fondateur
+              </span>
+
+              <h2 className="display" style={{ marginBottom: '18px' }}>
+                Construire ensemble<br />
+                <em>un avenir solidaire et durable.</em>
+              </h2>
+
+              <blockquote className="president-quote">
+                « {founder.citation} »
+              </blockquote>
+
+              <p className="president-salutations">
+                {founder.salutations.join(' ')}
+              </p>
+
+              <div className="president-text">
+                <p>{founder.message[0]}</p>
+                <p>{founder.message[1]}</p>
+
+                {showFullPresidentMessage && (
+                  <div className="president-extended-message anim-up">
+                    {founder.message.slice(2).map((para, i) => (
+                      <p key={i}>{para}</p>
+                    ))}
+                    <p className="president-conclusion">
+                      <strong>{founder.conclusion}</strong>
+                    </p>
+                    <div className="president-signature">
+                      <strong>{founder.signature.name}</strong>
+                      <span>{founder.signature.title}</span>
+                      <small>{founder.signature.org} · {founder.signature.date}</small>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="president-actions">
+                <button
+                  type="button"
+                  className="btn btn-gold"
+                  onClick={() => setShowFullPresidentMessage(!showFullPresidentMessage)}
+                  aria-expanded={showFullPresidentMessage}
+                >
+                  <span>{showFullPresidentMessage ? 'Réduire la lecture' : 'Lire le message complet'}</span>
+                  {showFullPresidentMessage ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                </button>
+
+                <Link href="/a-propos" className="btn btn-secondary">
+                  <span>Découvrir l’ONG EICF</span>
+                  <ArrowRight size={15} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. RAISON D'ÊTRE & VISION / MISSION */}
       <section className="section bg-paper">
         <div className="container">
           <div className="split">

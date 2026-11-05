@@ -13,13 +13,13 @@
 export const org = {
   name: 'EICF',
   fullName: 'Ensemble Imaginons et Construisons le Futur',
-  tagline: 'Agir aujourd’hui pour un avenir durable.',
+  tagline: 'Ensemble Sauvons des Vies · Agir aujourd’hui pour un avenir durable.',
   logo: '/images/logo-eicf.png',
-  address: 'Cocody Riviera 3, Abidjan, Côte d’Ivoire',
-  phone: '+225 22 27 52 34 60',
-  whatsapp: '2252227523460',
-  email: 'contact@eicf.org',
-  founded: 2012,
+  address: 'Cocody Angré, Abidjan, Côte d’Ivoire',
+  phone: '+225 27 22 53 46 40',
+  whatsapp: '2252722534640',
+  email: 'ongeicf@gmail.com',
+  founded: 2008,
   vision:
     'Des communautés autonomes, solidaires et résilientes, où chaque personne peut exercer ses droits et contribuer au développement de son territoire.',
   mission:
@@ -36,14 +36,69 @@ export const images = {
   hero: '/images/hero.jpg',
   education: '/images/education.jpg',
   sante: '/images/sante.jpg',
-  communaute: '/images/communaute.jpg',
+  communaute: '/images/communaute-groupe-notables.jpg',
   eau: '/images/eau.jpg',
   femmes: '/images/femmes.jpg',
   espaceSur: '/images/espace-sur.jpg',
   latrines: '/images/latrines.jpg',
-  dialogue: '/images/dialogue.jpg',
+  dialogue: '/images/communaute-dialogue-paix.jpg',
   aminata: '/images/portrait-aminata.jpg',
   moussa: '/images/portrait-moussa.jpg',
+  // Photos réelles de terrain et cérémonies officielles EICF
+  signatureMinistere: '/images/signature-convention-ministere.jpg',
+  remiseAccord: '/images/remise-accord-partenariat.jpg',
+  missionPartenaires: '/images/mission-supervision-partenaires.jpg',
+  pejedecJeunes: '/images/pejedec-jeunes-emploi.jpg',
+  dialoguePaix: '/images/communaute-dialogue-paix.jpg',
+  assembleeVillage: '/images/assemblee-villageoise.jpg',
+  groupeNotables: '/images/communaute-groupe-notables.jpg',
+  // Photos officielles et portraits importés de la plateforme de référence
+  fondateur: '/images/president.jpeg',
+  president: '/images/president.jpeg',
+  swedd: '/images/projets/swedd.jpeg',
+  sweddGenre: '/images/projets/swedd-genre.jpeg',
+  pejedecThimo: '/images/projets/pejedec-thimo-agneby-tiassa.jpeg',
+  pejedecBanqueMondiale: '/images/projets/pejedec-partenaire-banque-mondiale.jpeg',
+  sensibilisationPaix: '/images/projets/sensibilisation-paix.jpeg',
+  terrain: '/images/projets/terrain.jpeg',
+  imageTerrain: '/images/projets/image-terrain.jpeg',
+  carteInterventions: '/interventions_eicf.jpeg',
+}
+
+export const founder = {
+  name: 'BROU N’guessan Albert',
+  role: 'Président Fondateur de l’ONG EICF',
+  institution: 'ONG EICF — Ensemble Imaginons et Construisons le Futur',
+  since: 'Depuis le 1er février 2008',
+  photo: '/images/president.jpeg',
+  citation:
+    'Ensemble, imaginons et construisons un avenir meilleur, fondé sur la solidarité, la dignité humaine et le développement durable.',
+  salutations: [
+    'Chers visiteurs,',
+    'Chers partenaires techniques et financiers,',
+    'Chers collaborateurs et amis de l’ONG EICF,',
+  ],
+  message: [
+    'C’est avec un profond sentiment de responsabilité, de fierté et d’espérance que je vous souhaite la bienvenue sur le site officiel de l’ONG Ensemble Imaginons et Construisons le Futur (EICF), créée le 1er février 2008.',
+    'La création de notre organisation est née d’une conviction profonde : celle qu’il est possible de contribuer à un monde plus juste, plus solidaire et plus inclusif en plaçant l’être humain au cœur de toutes les initiatives de développement.',
+    'Depuis nos premiers engagements, notre ambition demeure la même : accompagner les communautés, soutenir les populations les plus vulnérables et contribuer à l’amélioration durable des conditions de vie, en favorisant la participation citoyenne, l’égalité des chances et l’autonomisation des personnes.',
+    'Au fil de notre parcours, l’ONG EICF s’est engagée dans plusieurs domaines essentiels au développement humain et communautaire, notamment le développement social et communautaire, l’éducation et la formation, la santé et la nutrition, le développement de la petite enfance, l’autonomisation des femmes et des jeunes, l’entrepreneuriat et l’insertion socio-économique des jeunes et des femmes, la cohésion sociale et la culture de la paix, l’action humanitaire ainsi que la protection de l’environnement et le développement durable.',
+    'Nous sommes convaincus que les transformations sociales les plus durables reposent sur l’écoute des communautés, la valorisation des initiatives locales, la qualité des partenariats et la capacité collective à apporter des réponses concrètes aux défis du développement.',
+    'Cette vision exige de nous un engagement constant, une gouvernance responsable, une gestion transparente de nos ressources et une culture de résultats au bénéfice des populations. Elle nous invite également à renforcer nos collaborations avec les institutions publiques, les collectivités territoriales, les partenaires techniques et financiers, les organisations de la société civile et tous les acteurs qui partagent notre idéal.',
+    'Je voudrais, à cet égard, exprimer ma profonde reconnaissance à l’ensemble de nos partenaires, à nos collaborateurs, à nos bénévoles et aux communautés bénéficiaires pour leur confiance et leur contribution à la réalisation de notre mission. Leur engagement constitue une source de motivation permanente pour poursuivre notre action avec détermination et humilité.',
+    'Aujourd’hui, face aux défis économiques, sociaux, environnementaux et humanitaires, l’ONG EICF entend poursuivre son développement, consolider ses acquis et promouvoir des initiatives innovantes, inclusives et durables, en Côte d’Ivoire, en Afrique et partout où son expertise et son engagement peuvent contribuer au progrès humain.',
+    'Je reste fermement convaincu que le développement n’est pas l’œuvre d’un seul individu ou d’une seule organisation. Il est le résultat d’une volonté partagée, d’une solidarité active et d’une action collective menée avec persévérance.',
+    'C’est pourquoi je vous invite à découvrir nos réalisations, à vous approprier notre vision et à rejoindre cette dynamique de partenariat et d’engagement au service des générations présentes et futures.',
+    'Ensemble, faisons de la solidarité une force, de l’engagement une action et de l’espérance une réalité.',
+    'Ensemble, imaginons et construisons un futur plus juste, plus inclusif et plus durable.',
+  ],
+  conclusion: 'Avec mes sentiments de profonde considération et ma fraternelle reconnaissance.',
+  signature: {
+    name: 'BROU N’guessan Albert',
+    title: 'Président Fondateur',
+    org: 'ONG EICF — Ensemble Imaginons et Construisons le Futur',
+    date: 'Depuis le 1er février 2008',
+  },
 }
 
 /* ------------------------------------------------------------------ */
@@ -69,7 +124,7 @@ export const domains: Domain[] = [
     title: 'Développement social et communautaire',
     short: 'Renforcer les capacités des communautés à porter leur propre développement.',
     icon: 'Users',
-    image: images.dialogue,
+    image: images.assembleeVillage,
     objective: 'Faire des communautés les premières actrices de leur développement, de l’identification des besoins jusqu’au suivi des réalisations.',
     approach: ['Diagnostic participatif villageois', 'Comités de développement locaux', 'Plans d’action communautaires', 'Suivi citoyen des réalisations'],
     results: [{ value: '62', label: 'comités villageois structurés' }, { value: '48', label: 'plans d’action communautaires' }],
@@ -113,7 +168,7 @@ export const domains: Domain[] = [
     title: 'Entrepreneuriat et insertion socio-économique',
     short: 'Créer des revenus durables par la formation et l’accompagnement des initiatives.',
     icon: 'Briefcase',
-    image: images.moussa,
+    image: images.pejedecJeunes,
     objective: 'Favoriser l’insertion professionnelle et la création d’activités génératrices de revenus (AGR) durables.',
     approach: ['Formation professionnelle par apprentissage', 'Kits d’installation', 'Coaching des micro-entreprises', 'Mise en relation avec la micro-finance'],
     results: [{ value: '920', label: 'jeunes formés à un métier' }, { value: '410', label: 'AGR financées et installées' }],
@@ -146,7 +201,7 @@ export const domains: Domain[] = [
     title: 'Droits humains, protection et lutte contre les VBG',
     short: 'Défendre les droits et accompagner les survivantes de violences basées sur le genre.',
     icon: 'Scale',
-    image: images.dialogue,
+    image: images.signatureMinistere,
     objective: 'Prévenir les violences basées sur le genre et garantir une prise en charge holistique des survivant·e·s.',
     approach: ['Sensibilisation communautaire', 'Prise en charge psychosociale', 'Accompagnement juridique', 'Engagement des hommes et des leaders'],
     results: [{ value: '24 000', label: 'personnes sensibilisées' }, { value: '380', label: 'survivantes accompagnées' }],
@@ -157,7 +212,7 @@ export const domains: Domain[] = [
     title: 'Paix, cohésion sociale et engagement citoyen',
     short: 'Prévenir les conflits et renforcer le vivre-ensemble au sein des territoires.',
     icon: 'Handshake',
-    image: images.dialogue,
+    image: images.dialoguePaix,
     objective: 'Prévenir les conflits communautaires et renforcer la participation citoyenne, notamment des jeunes et des femmes.',
     approach: ['Dialogues intercommunautaires', 'Médiateurs locaux', 'Clubs citoyens de jeunes', 'Mécanismes d’alerte précoce'],
     results: [{ value: '57', label: 'communautés mobilisées' }, { value: '140', label: 'médiateurs formés' }],
@@ -201,6 +256,7 @@ export type Partner = {
   description: string
   zone: string
   url: string
+  logo?: string
 }
 
 export const partnerCategories: { id: PartnerCategory; label: string; desc: string }[] = [
@@ -211,15 +267,18 @@ export const partnerCategories: { id: PartnerCategory; label: string; desc: stri
 ]
 
 export const partners: Partner[] = [
-  { slug: 'banque-mondiale', name: 'Banque mondiale', short: 'BM', category: 'techniques-financiers', type: 'Bailleur multilatéral', description: 'Partenaire financier de programmes structurants en eau-assainissement et en autonomisation des femmes.', zone: 'Hambol, Bounkani, Gontougo', url: 'https://www.banquemondiale.org' },
+  { slug: 'banque-mondiale', name: 'Banque mondiale', short: 'BM', category: 'techniques-financiers', type: 'Bailleur multilatéral', description: 'Partenaire financier de programmes structurants en eau-assainissement et en autonomisation des femmes.', zone: 'Hambol, Bounkani, Gontougo', url: 'https://www.banquemondiale.org', logo: '/images/partenaires/banque-mondiale.svg' },
+  { slug: 'pnud', name: 'Programme des Nations Unies pour le développement', short: 'PNUD', category: 'techniques-financiers', type: 'Agence des Nations Unies', description: 'Appui à la cohésion sociale, à la résilience communautaire et au relèvement.', zone: 'National', url: 'https://www.undp.org', logo: '/images/partenaires/pnud.svg' },
+  { slug: 'usaid', name: 'USAID', short: 'USAID', category: 'techniques-financiers', type: 'Agence de coopération', description: 'Appui aux programmes de santé communautaire, d’éducation et d’autonomisation.', zone: 'National', url: 'https://www.usaid.gov', logo: '/images/partenaires/usaid.svg' },
   { slug: 'unicef', name: 'UNICEF', short: 'UNICEF', category: 'techniques-financiers', type: 'Agence des Nations Unies', description: 'Appui technique et financier pour l’éducation, la protection de l’enfant et la nutrition.', zone: 'Bounkani, Poro, Béré', url: 'https://www.unicef.org/cotedivoire' },
   { slug: 'union-europeenne', name: 'Union européenne', short: 'UE', category: 'techniques-financiers', type: 'Coopération internationale', description: 'Soutien aux initiatives de paix, de cohésion sociale et de gouvernance locale.', zone: 'Tchologo, Tonkpi, Bounkani', url: 'https://www.eeas.europa.eu' },
   { slug: 'afd', name: 'Agence française de développement', short: 'AFD', category: 'techniques-financiers', type: 'Agence de coopération', description: 'Cofinancement de programmes d’insertion socio-économique des jeunes.', zone: 'Hambol, Gbêkê', url: 'https://www.afd.fr' },
   { slug: 'unfpa', name: 'UNFPA', short: 'UNFPA', category: 'techniques-financiers', type: 'Agence des Nations Unies', description: 'Appui aux programmes de santé reproductive et de lutte contre les VBG.', zone: 'Gontougo, Indénié-Djuablin', url: 'https://cotedivoire.unfpa.org' },
-  { slug: 'ministere-solidarite', name: 'Ministère de la Solidarité et de la Lutte contre la Pauvreté', short: 'MSLP', category: 'institutionnels', type: 'Ministère', description: 'Tutelle et partenaire stratégique des actions de protection sociale.', zone: 'National', url: 'https://www.gouv.ci' },
-  { slug: 'ministere-hydraulique', name: 'Ministère de l’Hydraulique, de l’Assainissement et de la Salubrité', short: 'MINHAS', category: 'institutionnels', type: 'Ministère', description: 'Cadre institutionnel des interventions eau, hygiène et assainissement.', zone: 'National', url: 'https://www.gouv.ci' },
-  { slug: 'ministere-education', name: 'Ministère de l’Éducation nationale et de l’Alphabétisation', short: 'MENA', category: 'institutionnels', type: 'Ministère', description: 'Partenaire des programmes de classes passerelles et d’alphabétisation.', zone: 'National', url: 'https://www.education.gouv.ci' },
-  { slug: 'conseils-regionaux', name: 'Conseils régionaux du Hambol et du Bounkani', short: 'CR', category: 'institutionnels', type: 'Collectivités territoriales', description: 'Co-pilotage territorial et intégration des actions dans les plans de développement locaux.', zone: 'Hambol, Bounkani', url: 'https://www.gouv.ci' },
+  { slug: 'aej', name: 'Agence Emploi Jeunes', short: 'AEJ', category: 'institutionnels', type: 'Agence publique', description: 'Dispositifs d’insertion socio-économique et programmes PEJEDEC THIMO.', zone: 'National', url: 'https://www.agenceemploijeunes.ci', logo: '/images/partenaires/aej.png' },
+  { slug: 'ministere-solidarite', name: 'Ministère de la Solidarité et de la Lutte contre la Pauvreté', short: 'MSLP', category: 'institutionnels', type: 'Ministère', description: 'Tutelle et partenaire stratégique des actions de protection sociale.', zone: 'National', url: 'https://www.gouv.ci', logo: '/images/partenaires/cote-d-ivoire.svg' },
+  { slug: 'ministere-hydraulique', name: 'Ministère de l’Hydraulique, de l’Assainissement et de la Salubrité', short: 'MINHAS', category: 'institutionnels', type: 'Ministère', description: 'Cadre institutionnel des interventions eau, hygiène et assainissement.', zone: 'National', url: 'https://www.gouv.ci', logo: '/images/partenaires/cote-d-ivoire.svg' },
+  { slug: 'ministere-education', name: 'Ministère de l’Éducation nationale et de l’Alphabétisation', short: 'MENA', category: 'institutionnels', type: 'Ministère', description: 'Partenaire des programmes de classes passerelles et d’alphabétisation.', zone: 'National', url: 'https://www.education.gouv.ci', logo: '/images/partenaires/cote-d-ivoire.svg' },
+  { slug: 'conseils-regionaux', name: 'Conseils régionaux du Hambol et du Bounkani', short: 'CR', category: 'institutionnels', type: 'Collectivités territoriales', description: 'Co-pilotage territorial et intégration des actions dans les plans de développement locaux.', zone: 'Hambol, Bounkani', url: 'https://www.gouv.ci', logo: '/images/partenaires/cote-d-ivoire.svg' },
   { slug: 'ong-partenaires', name: 'Réseau des ONG du Nord-Est', short: 'RONE', category: 'operationnels', type: 'Réseau d’ONG', description: 'Mise en œuvre conjointe et mutualisation des expertises de terrain.', zone: 'Bounkani, Gontougo', url: '#' },
   { slug: 'centres-sante', name: 'Districts sanitaires partenaires', short: 'DS', category: 'operationnels', type: 'Structures sanitaires', description: 'Référencement, dépistage nutritionnel et campagnes de santé communautaire.', zone: 'Gontougo, Indénié-Djuablin', url: '#' },
   { slug: 'ecoles', name: 'Établissements scolaires partenaires', short: 'ÉCOLES', category: 'operationnels', type: 'Établissements scolaires', description: 'Accueil des classes passerelles et des clubs citoyens.', zone: 'Bounkani, Béré, Worodougou', url: '#' },
@@ -552,24 +611,30 @@ export const regions: Region[] = [
   {
     id: 'hambol', name: 'Hambol', chefLieu: 'Katiola', zone: 'Centre', lat: 8.14, lng: -5.1,
     departements: [
-      { name: 'Katiola', sousPrefectures: [
-        { name: 'Fronan', localites: [{ name: 'Fronan', projects: ['pasea'], detail: '4 villages · 312 latrines' }] },
-        { name: 'Timbé', localites: [{ name: 'Timbé', projects: ['pasea'], detail: '3 villages · 254 latrines' }] },
-        { name: 'Katiola', localites: [
-          { name: 'Katiola (périphérie)', projects: ['pasea'], detail: '3 villages · 222 latrines' },
-          { name: 'Katiola (ville)', projects: ['jeunes-emploi'], detail: '310 jeunes formés' },
-        ] },
-      ] },
+      {
+        name: 'Katiola', sousPrefectures: [
+          { name: 'Fronan', localites: [{ name: 'Fronan', projects: ['pasea'], detail: '4 villages · 312 latrines' }] },
+          { name: 'Timbé', localites: [{ name: 'Timbé', projects: ['pasea'], detail: '3 villages · 254 latrines' }] },
+          {
+            name: 'Katiola', localites: [
+              { name: 'Katiola (périphérie)', projects: ['pasea'], detail: '3 villages · 222 latrines' },
+              { name: 'Katiola (ville)', projects: ['jeunes-emploi'], detail: '310 jeunes formés' },
+            ]
+          },
+        ]
+      },
       { name: 'Dabakala', sousPrefectures: [{ name: 'Dabakala', localites: [{ name: 'Dabakala', projects: ['jeunes-emploi'], detail: '140 AGR installées' }] }] },
     ],
   },
   {
     id: 'bounkani', name: 'Bounkani', chefLieu: 'Bouna', zone: 'Nord-Est', lat: 9.27, lng: -3.0,
     departements: [
-      { name: 'Bouna', sousPrefectures: [
-        { name: 'Bouna', localites: [{ name: 'Bouna', projects: ['swedd', 'cohesion-plus'], detail: '32 espaces sûrs · 810 jeunes filles' }] },
-        { name: 'Ondéfidouo', localites: [{ name: 'Ondéfidouo', projects: ['swedd'], detail: '12 espaces sûrs · 300 jeunes filles' }] },
-      ] },
+      {
+        name: 'Bouna', sousPrefectures: [
+          { name: 'Bouna', localites: [{ name: 'Bouna', projects: ['swedd', 'cohesion-plus'], detail: '32 espaces sûrs · 810 jeunes filles' }] },
+          { name: 'Ondéfidouo', localites: [{ name: 'Ondéfidouo', projects: ['swedd'], detail: '12 espaces sûrs · 300 jeunes filles' }] },
+        ]
+      },
       { name: 'Doropo', sousPrefectures: [{ name: 'Doropo', localites: [{ name: 'Doropo', projects: ['classes-passerelles'], detail: '48 classes passerelles' }] }] },
       { name: 'Téhini', sousPrefectures: [{ name: 'Téhini', localites: [{ name: 'Téhini', projects: ['classes-passerelles', 'cohesion-plus'], detail: '22 classes · 14 dialogues' }] }] },
     ],
@@ -584,10 +649,12 @@ export const regions: Region[] = [
   {
     id: 'poro', name: 'Poro', chefLieu: 'Korhogo', zone: 'Nord', lat: 9.46, lng: -5.63,
     departements: [
-      { name: 'Korhogo', sousPrefectures: [
-        { name: 'Korhogo', localites: [{ name: 'Korhogo', projects: ['protege', 'ecoles-vertes'], detail: '24 comités de protection' }] },
-        { name: 'Napiéolédougou', localites: [{ name: 'Napiéolédougou', projects: ['karite-femmes'], detail: '8 coopératives ciblées' }] },
-      ] },
+      {
+        name: 'Korhogo', sousPrefectures: [
+          { name: 'Korhogo', localites: [{ name: 'Korhogo', projects: ['protege', 'ecoles-vertes'], detail: '24 comités de protection' }] },
+          { name: 'Napiéolédougou', localites: [{ name: 'Napiéolédougou', projects: ['karite-femmes'], detail: '8 coopératives ciblées' }] },
+        ]
+      },
       { name: 'Sinématiali', sousPrefectures: [{ name: 'Sinématiali', localites: [{ name: 'Sinématiali', projects: ['protege'], detail: '9 comités de protection' }] }] },
     ],
   },
@@ -658,11 +725,11 @@ export const news: NewsItem[] = [
   { slug: 'katiola-communautes-avenir', title: 'À Katiola, les communautés prennent leur avenir en main', date: '2026-10-16', category: 'Activités terrain', image: images.latrines, project: 'pasea', excerpt: 'Dix villages du département de Katiola ont franchi une étape décisive vers la fin de la défécation à l’air libre.', body: ['Dans le cadre du projet PASEA, les dix villages accompagnés par EICF dans le département de Katiola ont désormais tous engagé leur démarche de certification « Fin de la défécation à l’air libre ».', 'Au total, 788 latrines familiales ont été construites par les ménages eux-mêmes, avec l’appui technique des équipes EICF et des artisans locaux formés.', 'Les comités d’hygiène villageois assurent désormais le suivi des bonnes pratiques, notamment le lavage des mains au savon.'] },
   { slug: 'campagne-sante-bounkani', title: 'Une nouvelle campagne de santé communautaire dans l’Est', date: '2026-10-10', category: 'Activités terrain', image: images.sante, project: 'sante-nut', excerpt: 'Plus de 2 000 enfants dépistés en une semaine dans les régions du Gontougo et de l’Indénié-Djuablin.', body: ['La campagne de dépistage nutritionnel conduite avec les districts sanitaires a permis d’identifier et de référer 214 enfants souffrant de malnutrition aiguë.', 'Les agents de santé communautaire formés par EICF assureront le suivi des enfants dans les foyers d’apprentissage nutritionnel.'] },
   { slug: 'education-filles-reussite', title: 'Éducation : accompagner les filles vers la réussite', date: '2026-10-02', category: 'Témoignages', image: images.espaceSur, project: 'swedd', excerpt: 'Dans les espaces sûrs du Bounkani, les adolescentes reprennent confiance et restent à l’école.', body: ['Avec 96 % de maintien scolaire parmi les participantes, les espaces sûrs du projet SWEDD montrent l’impact d’un accompagnement de proximité.', 'Les mentores communautaires jouent un rôle central dans le dialogue avec les familles.'] },
-  { slug: 'formation-mediateurs-tchologo', title: '40 nouveaux médiateurs communautaires formés dans le Tchologo', date: '2026-09-21', category: 'Formations', image: images.dialogue, project: 'cohesion-plus', excerpt: 'Une session de cinq jours pour renforcer la prévention et la gestion pacifique des conflits fonciers.', body: ['Chefs de village, femmes leaders et jeunes ont été formés aux techniques de médiation et à l’utilisation du système d’alerte précoce.'] },
-  { slug: 'signature-convention-unicef', title: 'Signature d’une convention de partenariat avec l’UNICEF', date: '2026-09-05', category: 'Cérémonies', image: images.communaute, project: 'protege', excerpt: 'Un nouvel accord pour renforcer la protection de l’enfant dans le Poro et le Tchologo.', body: ['La cérémonie s’est tenue à Abidjan en présence des autorités administratives et des représentants des communautés bénéficiaires.'] },
-  { slug: 'mission-supervision-bm', title: 'Mission de supervision de la Banque mondiale à Katiola', date: '2026-08-28', category: 'Missions', image: images.eau, project: 'pasea', excerpt: 'La délégation a salué la forte appropriation communautaire des ouvrages d’assainissement.', body: ['La mission a visité quatre villages et échangé avec les comités de gestion et les autorités locales.'] },
+  { slug: 'formation-mediateurs-tchologo', title: '40 nouveaux médiateurs communautaires formés dans le Tchologo', date: '2026-09-21', category: 'Formations', image: images.dialoguePaix, project: 'cohesion-plus', excerpt: 'Une session de cinq jours pour renforcer la prévention et la gestion pacifique des conflits fonciers.', body: ['Chefs de village, femmes leaders et jeunes ont été formés aux techniques de médiation et à l’utilisation du système d’alerte précoce.'] },
+  { slug: 'signature-convention-unicef', title: 'Signature d’une convention de partenariat avec l’UNICEF', date: '2026-09-05', category: 'Cérémonies', image: images.signatureMinistere, project: 'protege', excerpt: 'Un nouvel accord pour renforcer la protection de l’enfant dans le Poro et le Tchologo.', body: ['La cérémonie s’est tenue à Abidjan en présence des autorités administratives et des représentants des communautés bénéficiaires.'] },
+  { slug: 'mission-supervision-bm', title: 'Mission de supervision de la Banque mondiale à Katiola', date: '2026-08-28', category: 'Missions', image: images.missionPartenaires, project: 'pasea', excerpt: 'La délégation a salué la forte appropriation communautaire des ouvrages d’assainissement.', body: ['La mission a visité quatre villages et échangé avec les comités de gestion et les autorités locales.'] },
   { slug: 'communique-rapport-annuel-2025', title: 'Communiqué : publication du rapport annuel 2025', date: '2026-07-15', category: 'Communiqués', image: images.femmes, excerpt: 'Le rapport annuel 2025 d’EICF est désormais disponible dans la médiathèque.', body: ['Ce rapport présente l’ensemble des réalisations, résultats et comptes de l’organisation pour l’exercice 2025.'] },
-  { slug: 'forum-partenaires-2026', title: 'Forum des partenaires EICF 2026 — Save the date', date: '2026-12-04', category: 'Événements', image: images.dialogue, excerpt: 'Rendez-vous le 4 décembre à Abidjan pour le premier forum des partenaires techniques et financiers d’EICF.', body: ['Le forum présentera le plan stratégique 2027-2031 et les projets en recherche de financement.'] },
+  { slug: 'forum-partenaires-2026', title: 'Forum des partenaires EICF 2026 — Save the date', date: '2026-12-04', category: 'Événements', image: images.remiseAccord, excerpt: 'Rendez-vous le 4 décembre à Abidjan pour le premier forum des partenaires techniques et financiers d’EICF.', body: ['Le forum présentera le plan stratégique 2027-2031 et les projets en recherche de financement.'] },
 ]
 
 /* ------------------------------------------------------------------ */
@@ -703,14 +770,16 @@ export const documents: DocumentItem[] = [
 
 export const media = {
   photos: [
-    { src: images.latrines, caption: 'Lavage des mains — Fronan, Hambol', project: 'pasea' },
+    { src: images.signatureMinistere, caption: 'Cérémonie officielle de signature de convention avec les autorités nationales — Abidjan', project: 'gouvernance' },
+    { src: images.missionPartenaires, caption: 'Mission conjointe de supervision de terrain avec les partenaires techniques et financiers', project: 'partenaires' },
+    { src: images.dialoguePaix, caption: 'Sensibilisation communautaire « Non à l’extrémisme, Oui à la paix » — Région du Tchologo', project: 'cohesion-plus' },
+    { src: images.pejedecJeunes, caption: 'Bénéficiaires du projet Emploi des Jeunes et Développement des Compétences (PEJEDEC)', project: 'jeunes-emploi' },
+    { src: images.assembleeVillage, caption: 'Assemblée villageoise participative pour le diagnostic communautaire', project: 'developpement-communautaire' },
+    { src: images.groupeNotables, caption: 'Comité de développement villageois et chefferie traditionnelle mobilisés', project: 'developpement-communautaire' },
+    { src: images.remiseAccord, caption: 'Remise officielle d’accord de partenariat institutionnel', project: 'partenaires' },
+    { src: images.latrines, caption: 'Lavage des mains et hygiène — Fronan, Hambol', project: 'pasea' },
     { src: images.espaceSur, caption: 'Espace sûr — Bouna, Bounkani', project: 'swedd' },
-    { src: images.dialogue, caption: 'Dialogue communautaire — Ferkessédougou', project: 'cohesion-plus' },
     { src: images.femmes, caption: 'Coopérative de karité — Poro', project: 'karite-femmes' },
-    { src: images.education, caption: 'Classe passerelle — Doropo', project: 'classes-passerelles' },
-    { src: images.sante, caption: 'Dépistage nutritionnel — Bondoukou', project: 'sante-nut' },
-    { src: images.moussa, caption: 'Atelier de soudure — Katiola', project: 'jeunes-emploi' },
-    { src: images.aminata, caption: 'Portrait — Aminata, commerçante', project: 'swedd' },
   ],
   videos: [
     { title: 'PASEA : la fin de la défécation à l’air libre à Katiola', duration: '4:12', thumb: images.latrines },
@@ -784,12 +853,12 @@ export const governance = {
 }
 
 export const history = [
-  { year: '2012', text: 'Création d’EICF à Abidjan par un collectif de professionnels du développement.' },
+  { year: '2008', text: 'Création officielle d’EICF le 1er février 2008 à Abidjan par son Président Fondateur BROU N’guessan Albert et des cadres engagés du développement.' },
   { year: '2015', text: 'Premiers projets d’éducation et d’alphabétisation dans le Bounkani.' },
   { year: '2018', text: 'Ouverture des bases opérationnelles de Bouna et de Katiola.' },
-  { year: '2021', text: 'Lancement des classes passerelles avec l’UNICEF dans 3 régions.' },
-  { year: '2023', text: 'Démarrage du projet SWEDD avec la Banque mondiale.' },
-  { year: '2026', text: '11 régions d’intervention et nouvelle stratégie 2027-2031.' },
+  { year: '2021', text: 'Lancement des classes passerelles avec l’UNICEF et programmes d’insertion des jeunes.' },
+  { year: '2023', text: 'Démarrage du projet SWEDD et interventions d’envergure avec la Banque mondiale.' },
+  { year: '2026', text: 'Présence territoriale nationale dans 11 régions et nouvelle stratégie décennale.' },
 ]
 
 export const values = [
@@ -806,36 +875,46 @@ export const values = [
 export type KpiGroup = { id: string; label: string; icon: string; kpis: { label: string; value: number; target: number; suffix?: string }[] }
 
 export const kpiGroups: KpiGroup[] = [
-  { id: 'education', label: 'Éducation', icon: 'GraduationCap', kpis: [
-    { label: 'Enfants accompagnés', value: 5200, target: 6000 },
-    { label: 'Filles bénéficiaires', value: 2704, target: 3000 },
-    { label: 'Classes passerelles', value: 120, target: 120 },
-    { label: 'Écoles accompagnées', value: 38, target: 50 },
-  ] },
-  { id: 'eau', label: 'Eau & assainissement', icon: 'Droplets', kpis: [
-    { label: 'Latrines réalisées', value: 788, target: 850 },
-    { label: 'Personnes bénéficiaires', value: 8400, target: 9000 },
-    { label: 'Villages couverts', value: 10, target: 10 },
-    { label: 'Points de lavage des mains', value: 640, target: 900 },
-  ] },
-  { id: 'autonomisation', label: 'Autonomisation', icon: 'HandHeart', kpis: [
-    { label: 'Femmes accompagnées', value: 3100, target: 3500 },
-    { label: 'Jeunes formés', value: 920, target: 900 },
-    { label: 'AGR financées et installées', value: 410, target: 400 },
-    { label: 'Adolescentes en espaces sûrs', value: 1850, target: 2000 },
-  ] },
-  { id: 'protection', label: 'Protection', icon: 'Shield', kpis: [
-    { label: 'Personnes sensibilisées', value: 24000, target: 30000 },
-    { label: 'Communautés mobilisées', value: 57, target: 60 },
-    { label: 'Cas référés', value: 214, target: 300 },
-    { label: 'Comités de protection actifs', value: 40, target: 50 },
-  ] },
-  { id: 'sante', label: 'Santé & nutrition', icon: 'HeartPulse', kpis: [
-    { label: 'Enfants dépistés', value: 12600, target: 15000 },
-    { label: 'Agents de santé formés', value: 86, target: 90 },
-    { label: 'Cas de malnutrition pris en charge', value: 1120, target: 1300 },
-    { label: 'Foyers nutritionnels', value: 28, target: 40 },
-  ] },
+  {
+    id: 'education', label: 'Éducation', icon: 'GraduationCap', kpis: [
+      { label: 'Enfants accompagnés', value: 5200, target: 6000 },
+      { label: 'Filles bénéficiaires', value: 2704, target: 3000 },
+      { label: 'Classes passerelles', value: 120, target: 120 },
+      { label: 'Écoles accompagnées', value: 38, target: 50 },
+    ]
+  },
+  {
+    id: 'eau', label: 'Eau & assainissement', icon: 'Droplets', kpis: [
+      { label: 'Latrines réalisées', value: 788, target: 850 },
+      { label: 'Personnes bénéficiaires', value: 8400, target: 9000 },
+      { label: 'Villages couverts', value: 10, target: 10 },
+      { label: 'Points de lavage des mains', value: 640, target: 900 },
+    ]
+  },
+  {
+    id: 'autonomisation', label: 'Autonomisation', icon: 'HandHeart', kpis: [
+      { label: 'Femmes accompagnées', value: 3100, target: 3500 },
+      { label: 'Jeunes formés', value: 920, target: 900 },
+      { label: 'AGR financées et installées', value: 410, target: 400 },
+      { label: 'Adolescentes en espaces sûrs', value: 1850, target: 2000 },
+    ]
+  },
+  {
+    id: 'protection', label: 'Protection', icon: 'Shield', kpis: [
+      { label: 'Personnes sensibilisées', value: 24000, target: 30000 },
+      { label: 'Communautés mobilisées', value: 57, target: 60 },
+      { label: 'Cas référés', value: 214, target: 300 },
+      { label: 'Comités de protection actifs', value: 40, target: 50 },
+    ]
+  },
+  {
+    id: 'sante', label: 'Santé & nutrition', icon: 'HeartPulse', kpis: [
+      { label: 'Enfants dépistés', value: 12600, target: 15000 },
+      { label: 'Agents de santé formés', value: 86, target: 90 },
+      { label: 'Cas de malnutrition pris en charge', value: 1120, target: 1300 },
+      { label: 'Foyers nutritionnels', value: 28, target: 40 },
+    ]
+  },
 ]
 
 /* ------------------------------------------------------------------ */

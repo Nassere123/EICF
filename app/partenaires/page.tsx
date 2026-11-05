@@ -14,6 +14,7 @@ import {
   partners,
   partnerCategories,
   projects,
+  images,
   type PartnerCategory,
 } from '@/lib/data'
 
@@ -82,6 +83,39 @@ export default function PartenairesPage() {
             </div>
           </div>
 
+          {/* Cérémonies officielles et missions de terrain avec nos partenaires */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '22px', marginBottom: '50px' }}>
+            <div style={{ borderRadius: '20px', overflow: 'hidden', background: '#fff', border: '1px solid var(--line)', boxShadow: 'var(--shadow-sm)' }}>
+              <div style={{ height: '220px', overflow: 'hidden' }}>
+                <img
+                  src={images.signatureMinistere}
+                  alt="Signature de convention officielle avec les autorités nationales"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              <div style={{ padding: '18px 22px' }}>
+                <span className="badge badge-gold" style={{ fontSize: '11px', marginBottom: '6px' }}>Conventions officielles</span>
+                <h3 style={{ fontSize: '16.5px', fontWeight: 700, color: 'var(--green)', margin: '4px 0 6px' }}>Alliances ministérielles & programmes nationaux</h3>
+                <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0, lineHeight: 1.55 }}>Signature officielle d’accords cadre et conventions opérationnelles avec les ministères techniques et les programmes sectoriels de Côte d’Ivoire.</p>
+              </div>
+            </div>
+
+            <div style={{ borderRadius: '20px', overflow: 'hidden', background: '#fff', border: '1px solid var(--line)', boxShadow: 'var(--shadow-sm)' }}>
+              <div style={{ height: '220px', overflow: 'hidden' }}>
+                <img
+                  src={images.missionPartenaires}
+                  alt="Supervision conjointe sur le terrain avec les partenaires techniques et financiers"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              <div style={{ padding: '18px 22px' }}>
+                <span className="badge badge-live" style={{ fontSize: '11px', marginBottom: '6px' }}><span className="dot" /> Suivi & Redevabilité</span>
+                <h3 style={{ fontSize: '16.5px', fontWeight: 700, color: 'var(--green)', margin: '4px 0 6px' }}>Missions conjointes de supervision de terrain</h3>
+                <p style={{ fontSize: '13px', color: 'var(--muted)', margin: 0, lineHeight: 1.55 }}>Évaluation conjointe de l’avancement et de l’impact des projets directement au contact des communautés avec les bailleurs de fonds.</p>
+              </div>
+            </div>
+          </div>
+
           {/* Affichage structuré par collège */}
           <div style={{ display: 'grid', gap: '50px' }}>
             {displayedCategories.map((cat) => {
@@ -110,7 +144,27 @@ export default function PartenairesPage() {
                       return (
                         <div key={pt.slug} className="card card-hover partner-card">
                           <div className="head">
-                            <div className="logo-mark">{pt.short}</div>
+                            {pt.logo ? (
+                              <div
+                                className="logo-mark"
+                                style={{
+                                  background: '#fff',
+                                  border: '1px solid var(--line)',
+                                  padding: '8px',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                }}
+                              >
+                                <img
+                                  src={pt.logo}
+                                  alt={pt.name}
+                                  style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                                />
+                              </div>
+                            ) : (
+                              <div className="logo-mark">{pt.short}</div>
+                            )}
                             <div>
                               <span className="type">{pt.type}</span>
                               <h3>{pt.name}</h3>

@@ -13,7 +13,7 @@ import {
   Award,
   BookOpen,
 } from 'lucide-react'
-import { org, governance, history, values, images } from '@/lib/data'
+import { org, governance, history, values, images, founder } from '@/lib/data'
 import { SixtySeconds } from '@/components/SixtySeconds'
 
 export default function AProposPage() {
@@ -35,26 +35,97 @@ export default function AProposPage() {
             <em>pour l’humain et la paix.</em>
           </h1>
           <p className="lead">
-            Depuis 2012, l’ONG EICF conçoit et met en œuvre avec les communautés
+            Depuis sa création officielle le 1er février 2008, l’ONG EICF conçoit et met en œuvre avec les communautés
             des réponses concrètes, adaptées aux réalités locales et durables.
           </p>
         </div>
       </section>
 
+      {/* Mot du Président Fondateur (CDC / Référence EICF) */}
+      <section className="section bg-white" id="mot-du-president">
+        <div className="container">
+          <div
+            style={{
+              background: 'linear-gradient(135deg, #ffffff 0%, #fbf8f1 100%)',
+              borderRadius: '24px',
+              border: '1px solid var(--line)',
+              boxShadow: 'var(--shadow-md)',
+              overflow: 'hidden',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            }}
+          >
+            <div style={{ position: 'relative', minHeight: '400px' }}>
+              <img
+                src={founder.photo}
+                alt={founder.name}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  padding: '28px 24px 20px',
+                  background: 'linear-gradient(to top, rgba(10,38,26,0.96) 0%, rgba(10,38,26,0.6) 70%, transparent 100%)',
+                  color: '#fff',
+                }}
+              >
+                <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                  {founder.role}
+                </div>
+                <div style={{ fontSize: '24px', fontWeight: 800, marginTop: '4px' }}>
+                  {founder.name}
+                </div>
+              </div>
+            </div>
+
+            <div style={{ padding: '40px 36px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <span className="badge badge-gold" style={{ alignSelf: 'flex-start', marginBottom: '16px' }}>
+                Message institutionnel
+              </span>
+              <div
+                style={{
+                  borderLeft: '4px solid var(--gold)',
+                  paddingLeft: '20px',
+                  marginBottom: '22px',
+                  fontStyle: 'italic',
+                  fontSize: '17px',
+                  lineHeight: 1.6,
+                  color: 'var(--green)',
+                  fontWeight: 600,
+                }}
+              >
+                « {founder.citation} »
+              </div>
+
+              <div style={{ color: 'var(--muted)', fontSize: '14.5px', lineHeight: 1.75, display: 'grid', gap: '12px' }}>
+                <p style={{ fontWeight: 700, color: 'var(--green)' }}>
+                  {founder.salutations.join(' ')}
+                </p>
+                {founder.message.slice(0, 3).map((p, idx) => (
+                  <p key={idx}>{p}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 1. Présentation & Histoire */}
-      <section className="section bg-white" id="presentation">
+      <section className="section bg-paper" id="presentation">
         <div className="container">
           <div className="split">
             <div>
               <h2 className="display" style={{ marginBottom: '20px' }}>
-                Plus d’une décennie d’action<br />
+                Plus de 15 ans d’action<br />
                 <em>sur le terrain ivoirien.</em>
               </h2>
               <p className="lead" style={{ marginBottom: '24px' }}>
-                Créée en 2012 à Abidjan par un collectif de cadres et de
-                professionnels du développement communautaire, EICF s’est imposée
-                comme un partenaire de référence pour les populations et les
-                bailleurs internationaux.
+                Créée le 1er février 2008 à Abidjan par son Président Fondateur BROU N’guessan Albert
+                et des professionnels engagés du développement communautaire, EICF s’est imposée
+                comme un partenaire de référence pour les populations et les bailleurs internationaux.
               </p>
               <p style={{ color: 'var(--muted)', lineHeight: '1.7' }}>
                 Notre méthodologie repose sur le renforcement du pouvoir d’agir :

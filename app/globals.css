@@ -1587,3 +1587,222 @@ p { margin: 0; }
   from { opacity: 0; transform: translateY(100%); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* ===================================================================
+   MOT DU PRÉSIDENT FONDATEUR (Accueil & À propos)
+   =================================================================== */
+.president-block {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 52px;
+  align-items: start;
+  background: linear-gradient(145deg, #ffffff 0%, #fcfaf5 100%);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 44px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.president-portrait-col {
+  position: sticky;
+  top: 96px;
+}
+
+.president-portrait-card {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 16px 36px -10px rgba(10, 38, 26, 0.25);
+  border: 2px solid rgba(226, 178, 58, 0.35);
+  background: var(--green);
+}
+
+.president-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+.president-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.6s var(--ease);
+}
+
+.president-portrait-card:hover .president-img {
+  transform: scale(1.03);
+}
+
+.president-badge-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 20px 18px;
+  background: linear-gradient(to top, rgba(10, 38, 26, 0.98) 0%, rgba(10, 38, 26, 0.75) 60%, transparent 100%);
+  color: #fff;
+}
+
+.president-role-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.president-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+
+.president-sub {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 4px;
+  line-height: 1.35;
+}
+
+.president-since {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold-light);
+  background: rgba(255, 255, 255, 0.12);
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-top: 4px;
+}
+
+.president-content-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.president-quote {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--green);
+  border-left: 4px solid var(--gold);
+  background: rgba(226, 178, 58, 0.08);
+  padding: 18px 24px;
+  border-radius: 0 16px 16px 0;
+  margin: 0 0 22px;
+}
+
+.president-salutations {
+  font-weight: 700;
+  color: var(--green);
+  font-size: 15.5px;
+  margin: 0 0 16px;
+  line-height: 1.6;
+}
+
+.president-text {
+  color: #3b4d44;
+  font-size: 15px;
+  line-height: 1.8;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.president-extended-message {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 8px;
+}
+
+.president-conclusion {
+  color: var(--green);
+  font-size: 15.5px;
+  margin-top: 8px;
+}
+
+.president-signature {
+  margin-top: 14px;
+  padding: 18px 22px;
+  background: #fff;
+  border-left: 3px solid var(--green);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  box-shadow: var(--shadow-sm);
+}
+
+.president-signature strong {
+  color: var(--green);
+  font-size: 16.5px;
+}
+
+.president-signature span {
+  font-size: 13.5px;
+  color: var(--gold-dark);
+  font-weight: 700;
+}
+
+.president-signature small {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.president-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 26px;
+  align-items: center;
+}
+
+@media (max-width: 991px) {
+  .president-block {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 28px 20px;
+    border-radius: 20px;
+  }
+  .president-portrait-col {
+    position: static;
+    max-width: 360px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .president-quote {
+    font-size: 19px;
+    padding: 14px 18px;
+  }
+}
+
+@media (max-width: 540px) {
+  .president-portrait-col {
+    max-width: 100%;
+  }
+  .president-block {
+    padding: 22px 16px;
+  }
+  .president-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .president-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
