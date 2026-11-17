@@ -14,7 +14,7 @@ export const org = {
   name: 'EICF',
   fullName: 'Ensemble Imaginons et Construisons le Futur',
   tagline: 'Ensemble Sauvons des Vies · Agir aujourd’hui pour un avenir durable.',
-  logo: '/images/logo-eicf.png',
+  logo: '/WhatsApp_Image_2026-11-02_at_14.26.35-removebg-preview.png',
   address: 'Cocody Angré, Abidjan, Côte d’Ivoire',
   phone: '+225 27 22 53 46 40',
   whatsapp: '2252722534640',

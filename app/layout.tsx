@@ -34,10 +34,10 @@ export const metadata: Metadata = {
     'ONG ivoirienne de développement communautaire, d’éducation, d’eau-assainissement et de consolidation de la paix. Plateforme institutionnelle et cartographie des interventions.',
   icons: {
     icon: [
-      { url: '/images/logo-eicf.png', type: 'image/png' },
+      { url: '/WhatsApp_Image_2026-11-02_at_14.26.35-removebg-preview.png', type: 'image/png' },
       { url: '/icon.svg', type: 'image/svg+xml' },
     ],
-    apple: '/images/logo-eicf.png',
+    apple: '/WhatsApp_Image_2026-11-02_at_14.26.35-removebg-preview.png',
   },
 }
 
