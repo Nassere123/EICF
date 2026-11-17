@@ -5,18 +5,12 @@ import Link from 'next/link'
 import {
   Calendar,
   ArrowRight,
-  Sparkles,
-  Tag,
-  Newspaper,
-  Wand2,
 } from 'lucide-react'
 import {
   news,
   newsCategories,
   formatDate,
-  type NewsCategory,
 } from '@/lib/data'
-import { AiArticleGenerator } from '@/components/AiArticleGenerator'
 
 export default function ActualitesIndexPage() {
   const [selectedCat, setSelectedCat] = useState<string>('all')
@@ -38,10 +32,16 @@ export default function ActualitesIndexPage() {
             <span>/</span>
             <span>Actualités & Événements</span>
           </div>
+
+          <span className="inline-block text-secondary font-bold tracking-wider uppercase text-xs sm:text-sm mb-3">
+            Récits de Terrain & Vie Institutionnelle
+          </span>
+
           <h1 className="display">
             Actualités, missions &<br />
             <em>activités au plus près des communautés.</em>
           </h1>
+
           <p className="lead">
             Suivez les temps forts de l’EICF : cérémonies, missions de
             supervision, ateliers de formation, communiqués institutionnels et
@@ -50,32 +50,11 @@ export default function ActualitesIndexPage() {
         </div>
       </section>
 
-      {/* Module IA : Rédaction d'article assistée par IA (CDC §8) */}
-      <section className="section-sm bg-white" style={{ borderBottom: '1px solid var(--line)' }}>
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <h2 className="h2">
-                Génération automatique d’articles<br />
-                <em>à partir des données de terrain.</em>
-              </h2>
-              <p className="lead" style={{ marginTop: '8px' }}>
-                Testez ci-dessous le workflow prévu : saisie des notes par
-                l’équipe &rarr; proposition instantanée par l’IA &rarr; validation
-                humaine &rarr; publication.
-              </p>
-            </div>
-          </div>
-
-          <AiArticleGenerator />
-        </div>
-      </section>
-
       {/* Liste des articles avec les 8 catégories du CDC */}
-      <section className="section bg-paper">
-        <div className="container">
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Filtres par catégorie */}
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '40px' }}>
+          <div className="flex justify-center mb-12">
             <div className="chips">
               <button
                 type="button"
