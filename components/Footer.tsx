@@ -35,6 +35,10 @@ export function Footer() {
           <div className="footer-brand">
             <Link href="/" className="brand">
               <img src={org.logo} alt="Logo EICF" />
+              <span className="brand-text">
+                <strong>{org.name}</strong>
+                <small>Depuis 2008 · Côte d’Ivoire</small>
+              </span>
             </Link>
             <p>
               <strong>{org.fullName} (EICF)</strong> est une organisation non
@@ -102,7 +106,7 @@ export function Footer() {
               ))}
               <Link
                 href="/domaines-intervention"
-                style={{ color: 'var(--gold-2)', fontWeight: 700 }}
+                style={{ color: 'var(--green)', fontWeight: 700 }}
               >
                 Voir les 11 domaines &rarr;
               </Link>
@@ -130,7 +134,7 @@ export function Footer() {
             <h4 className="footer-title" style={{ marginTop: '26px' }}>
               Lettre d’information
             </h4>
-            <p style={{ fontSize: '12.5px', color: 'rgba(255,255,255,0.6)' }}>
+            <p style={{ fontSize: '12.5px', color: 'var(--muted)' }}>
               Recevez trimestriellement nos résultats et actualités de terrain.
             </p>
 

@@ -3,19 +3,30 @@
 @import 'shadcn/tailwind.css';
 
 /* ==================================================================
-   EICF — Design system v2
-   Palette issue du logo (vert institutionnel + or).
-   Typographie : Bricolage Grotesque (titres) · Instrument Serif
-   italique (accents éditoriaux) · Plus Jakarta Sans (texte).
-   Motion : reveal au défilement, compteurs, marquee, parallaxe,
-   cartes « spotlight » (cf. .agents/skills/eicf-frontend-design).
+   EICF × Design System « Charity Organization »
+   Palette officielle EICF (vert profond + or + papier crème).
+   Typographie : Libre Baskerville (titres) · Inter (corps & UI).
    ================================================================== */
+
+@theme inline {
+  --color-primary: #06352a;
+  --color-primaryDark: #04231b;
+  --color-secondary: #e2b23a;
+  --color-secondaryHover: #c89a22;
+  --color-accent: #f8eed3;
+  --color-background: #f5f2ea;
+  --color-surface: #ffffff;
+  --color-text: #1c2a24;
+  --color-textDark: #0b1813;
+  --font-heading: var(--font-heading), Georgia, 'Times New Roman', serif;
+  --font-body: var(--font-body), system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+}
 
 :root {
   --ink: #0b1813;
   --ink-2: #1c2a24;
   --green: #06352a;
-  --green-2: #0a4a3a;
+  --green-2: #04231b;
   --green-3: #12775a;
   --green-soft: #e4ede6;
   --gold: #e2b23a;
@@ -27,18 +38,18 @@
   --line: rgba(6, 53, 42, 0.12);
   --muted: #5b6862;
   --white: #ffffff;
-  --radius: 22px;
+  --radius: 16px;
   --radius-sm: 12px;
   --shadow-sm: 0 2px 14px rgba(6, 53, 42, 0.06);
-  --shadow: 0 24px 60px -24px rgba(6, 53, 42, 0.32);
-  --shadow-lg: 0 40px 90px -30px rgba(4, 30, 23, 0.5);
+  --shadow: 0 24px 60px -24px rgba(6, 53, 42, 0.28);
+  --shadow-lg: 0 32px 80px -28px rgba(4, 30, 23, 0.38);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --header-h: 92px;
-  --display: var(--font-display), 'Segoe UI', system-ui, sans-serif;
-  --accent-font: var(--font-accent), Georgia, 'Times New Roman', serif;
+  --header-h: 80px;
+  --display: var(--font-heading), Georgia, 'Times New Roman', serif;
+  --accent-font: var(--font-heading), Georgia, 'Times New Roman', serif;
   --serif: var(--display);
-  --sans: var(--font-sans), system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --sans: var(--font-body), system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
 }
 
 /* ---------- Base ---------- */
@@ -46,22 +57,12 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px)
 body {
   margin: 0;
   background: var(--paper);
-  color: var(--ink);
+  color: var(--ink-2);
   font-family: var(--sans);
   font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-}
-/* Grain photographique très léger sur toute la page */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; cursor: pointer; color: inherit; background: none; border: 0; }
@@ -69,20 +70,25 @@ img { max-width: 100%; }
 ::selection { background: var(--gold-2); color: var(--ink); }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
 
+/* Motif géométrique subtil Charity Organization teinté vert EICF */
+.hero-pattern {
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2306352a' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
 h1, h2, h3, h4, .serif {
   font-family: var(--display);
-  font-weight: 600;
-  letter-spacing: -0.035em;
-  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  line-height: 1.18;
   margin: 0;
-  font-optical-sizing: auto;
   text-wrap: balance;
 }
 h1 em, h2 em, h3 em {
   font-family: var(--accent-font);
   font-style: italic;
-  font-weight: 400;
-  font-size: 1.06em;
+  font-weight: 700;
+  font-size: 1em;
   letter-spacing: -0.015em;
   color: var(--green-3);
 }
@@ -90,8 +96,8 @@ h1 em, h2 em, h3 em {
 p { margin: 0; }
 
 .container { width: min(1240px, calc(100% - 48px)); margin-inline: auto; }
-.section { padding: 120px 0; position: relative; }
-.section-sm { padding: 72px 0; }
+.section { padding: 96px 0; position: relative; }
+.section-sm { padding: 64px 0; }
 .bg-white { background: var(--white); }
 .bg-paper { background: var(--paper); }
 .bg-paper2 { background: var(--paper-2); }
@@ -99,9 +105,9 @@ p { margin: 0; }
 
 .eyebrow { display: none !important; }
 
-.display { font-size: clamp(40px, 5.2vw, 76px); }
-.h2 { font-size: clamp(32px, 3.8vw, 54px); }
-.h3 { font-size: clamp(24px, 2.2vw, 32px); }
+.display { font-size: clamp(32px, 4.2vw, 56px); line-height: 1.16; }
+.h2 { font-size: clamp(28px, 3.4vw, 44px); line-height: 1.18; }
+.h3 { font-size: clamp(22px, 2vw, 28px); line-height: 1.24; }
 .lead { font-size: clamp(17px, 1.35vw, 20px); line-height: 1.65; color: var(--muted); }
 .muted { color: var(--muted); }
 
@@ -154,6 +160,12 @@ p { margin: 0; }
 .btn-ghost { border-color: var(--line); color: var(--green); background: var(--white); }
 .btn-ghost::before { background: var(--green); }
 .btn-ghost:hover { color: #fff; border-color: var(--green); }
+.btn-primary { background: var(--green); color: #fff; }
+.btn-primary::before { background: var(--gold); }
+.btn-primary:hover { color: var(--ink); }
+.btn-secondary { background: var(--white); color: var(--ink); border: 1px solid var(--line); }
+.btn-secondary::before { background: var(--green); }
+.btn-secondary:hover { color: #fff; border-color: var(--green); }
 .btn-sm { min-height: 42px; padding: 0 18px; font-size: 13px; }
 .btn[disabled] { opacity: 0.6; pointer-events: none; }
 
@@ -206,64 +218,61 @@ p { margin: 0; }
   pointer-events: none;
 }
 
+/* Header fixe Charity Organization adapté EICF */
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 60;
-  padding: 14px 0;
-  pointer-events: none;
-  transition: transform 0.55s var(--ease), padding 0.35s var(--ease);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(6, 53, 42, 0.08);
+  box-shadow: 0 2px 12px rgba(6, 53, 42, 0.04);
+  transition: transform 0.45s var(--ease), background 0.3s, box-shadow 0.3s;
 }
-.site-header.is-scrolled { padding: 10px 0; }
-.site-header.is-hidden { transform: translateY(-120%); }
+.site-header.is-scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 8px 28px -12px rgba(6, 53, 42, 0.14);
+}
+.site-header.is-hidden { transform: translateY(-105%); }
 .header-bar {
-  pointer-events: auto;
   width: min(1280px, calc(100% - 32px));
   margin-inline: auto;
-  height: 64px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 0 10px 0 14px;
-  border-radius: 999px;
-  background: rgba(245, 242, 234, 0.74);
-  backdrop-filter: saturate(1.6) blur(18px);
-  -webkit-backdrop-filter: saturate(1.6) blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 12px 40px -22px rgba(6, 53, 42, 0.45);
-  transition: background 0.3s, box-shadow 0.3s;
 }
-.site-header.is-scrolled .header-bar { background: rgba(250, 248, 242, 0.92); box-shadow: 0 18px 50px -24px rgba(6, 53, 42, 0.55); }
 .brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.brand img { width: 44px; height: 44px; object-fit: contain; transition: transform 0.8s var(--ease); }
-.brand:hover img { transform: rotate(-14deg) scale(1.06); }
-.brand-text { display: flex; flex-direction: column; line-height: 1.05; }
-.brand-text strong { font-family: var(--display); font-size: 21px; font-weight: 700; color: var(--green); letter-spacing: -0.03em; }
+.brand img { width: 46px; height: 46px; object-fit: contain; transition: transform 0.5s var(--ease); }
+.brand:hover img { transform: scale(1.06); }
+.brand-text { display: flex; flex-direction: column; line-height: 1.08; }
+.brand-text strong { font-family: var(--display); font-size: 22px; font-weight: 700; color: var(--green); letter-spacing: -0.02em; }
 .brand-text small { font-size: 10.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.01em; }
 
-.nav { display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px; background: rgba(6, 53, 42, 0.05); }
+.nav { display: flex; align-items: center; gap: 6px; }
 .nav-item { position: relative; }
 .nav-link {
   display: inline-flex;
   align-items: center;
   gap: 5px;
   height: 40px;
-  padding: 0 16px;
+  padding: 0 14px;
   border-radius: 999px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink-2);
   transition: background 0.25s, color 0.25s;
   white-space: nowrap;
 }
 .nav-link svg { transition: transform 0.35s var(--ease); opacity: 0.55; }
-.nav-item:hover .nav-link, .nav-link:hover { background: rgba(255, 255, 255, 0.9); }
+.nav-item:hover .nav-link, .nav-link:hover { color: var(--green); background: var(--green-soft); }
 .nav-item:hover .nav-link svg { transform: rotate(180deg); }
-.nav-link.active { background: var(--green); color: #fff; }
-.nav-item:hover .nav-link.active { background: var(--green-2); }
+.nav-link.active { color: var(--green); font-weight: 700; background: var(--green-soft); }
+.nav-item:hover .nav-link.active { background: #d4e5d8; }
 
 .dropdown {
   position: absolute;
@@ -513,7 +522,7 @@ p { margin: 0; }
 .breadcrumb a:hover { color: var(--gold-2); }
 .breadcrumb svg { opacity: 0.5; }
 .page-hero .eyebrow { animation: fade-up 0.8s 0.08s var(--ease) both; }
-.page-hero h1 { font-size: clamp(44px, 6.2vw, 96px); line-height: 0.95; letter-spacing: -0.045em; max-width: 1000px; animation: fade-up 1s 0.16s var(--ease) both; }
+.page-hero h1 { font-size: clamp(34px, 4.8vw, 62px); line-height: 1.15; letter-spacing: -0.02em; max-width: 960px; animation: fade-up 1s 0.16s var(--ease) both; }
 .page-hero .lead { color: rgba(255, 255, 255, 0.76); max-width: 660px; margin-top: 26px; animation: fade-up 1s 0.26s var(--ease) both; }
 .page-hero-meta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
 
@@ -798,27 +807,34 @@ p { margin: 0; }
 .cta-band p { color: rgba(255, 255, 255, 0.78); margin-top: 18px; max-width: 520px; }
 .cta-band .actions { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; justify-self: end; }
 
-/* ---------- Footer ---------- */
-.site-footer { background: #062a21; color: rgba(255, 255, 255, 0.72); padding: 90px 0 0; font-size: 14.5px; }
-.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.3fr; gap: 50px; }
-.footer-brand img { width: 70px; height: 70px; object-fit: contain; background: #fff; border-radius: 50%; padding: 3px; }
-.footer-brand p { margin-top: 18px; max-width: 300px; }
-.footer-title { font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-2); margin-bottom: 20px; }
-.footer-links { display: grid; gap: 10px; }
+/* ---------- Footer (Style Charity Organization clair épuré) ---------- */
+.site-footer {
+  background: var(--white);
+  color: var(--ink-2);
+  border-top: 1px solid var(--line);
+  padding: 80px 0 0;
+  font-size: 14.5px;
+}
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.3fr; gap: 48px; }
+.footer-brand img { width: 64px; height: 64px; object-fit: contain; }
+.footer-brand p { margin-top: 18px; max-width: 340px; color: var(--muted); }
+.footer-title { font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); margin-bottom: 18px; }
+.footer-links { display: grid; gap: 11px; color: var(--muted); }
 .footer-links a { transition: color 0.2s, padding 0.25s var(--ease); }
-.footer-links a:hover { color: #fff; padding-left: 4px; }
-.footer-contact { display: grid; gap: 12px; }
+.footer-links a:hover { color: var(--green); padding-left: 4px; }
+.footer-contact { display: grid; gap: 12px; color: var(--muted); }
 .footer-contact div { display: flex; gap: 10px; align-items: flex-start; }
-.footer-contact svg { color: var(--gold-2); flex-shrink: 0; margin-top: 3px; }
-.newsletter { display: flex; margin-top: 16px; border-radius: 999px; overflow: hidden; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14); }
-.newsletter input { flex: 1; min-width: 0; padding: 14px 18px; background: transparent; border: 0; outline: 0; color: #fff; font-size: 14px; }
-.newsletter input::placeholder { color: rgba(255, 255, 255, 0.5); }
-.newsletter button { padding: 0 18px; background: var(--gold); color: var(--ink); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+.footer-contact svg { color: var(--green); flex-shrink: 0; margin-top: 3px; }
+.newsletter { display: flex; margin-top: 16px; border-radius: 999px; overflow: hidden; background: var(--paper); border: 1px solid var(--line); }
+.newsletter input { flex: 1; min-width: 0; padding: 12px 18px; background: transparent; border: 0; outline: 0; color: var(--ink); font-size: 14px; }
+.newsletter input::placeholder { color: var(--muted); }
+.newsletter button { padding: 0 18px; background: var(--gold); color: var(--ink); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; }
+.newsletter button:hover { background: var(--color-secondaryHover); }
 .socials { display: flex; gap: 10px; margin-top: 22px; }
-.socials a { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.18); transition: background 0.25s, color 0.25s, transform 0.25s; }
-.socials a:hover { background: var(--gold); color: var(--ink); transform: translateY(-3px); border-color: var(--gold); }
-.footer-bottom { margin-top: 70px; padding: 24px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; justify-content: space-between; gap: 20px; font-size: 13px; flex-wrap: wrap; }
-.footer-bottom a:hover { color: #fff; }
+.socials a { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); color: var(--muted); transition: background 0.25s, color 0.25s, transform 0.25s, border-color 0.25s; }
+.socials a:hover { background: var(--green); color: #fff; transform: translateY(-3px); border-color: var(--green); }
+.footer-bottom { margin-top: 64px; padding: 24px 0; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 20px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+.footer-bottom a:hover { color: var(--green); }
 
 /* ---------- ASK EICF (assistant) ---------- */
 .ask-fab {
@@ -1402,10 +1418,10 @@ p { margin: 0; }
 }
 
 @media (max-width: 600px) {
-  :root { --header-h: 66px; }
+  :root { --header-h: 64px; }
   .container { width: calc(100% - 32px); }
-  .site-header { padding: 8px 0; }
-  .header-bar { height: 56px; }
+  .site-header { padding: 0; }
+  .header-bar { height: 64px; }
   .topbar { display: none; }
   .brand-text small { display: none; }
   .grid-3, .grid-4, .kpi-grid, .people, .approach, .domain-grid, .opp-grid, .footer-grid { grid-template-columns: 1fr; }

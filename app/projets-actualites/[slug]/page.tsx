@@ -2,18 +2,14 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import {
   ArrowRight,
+  ArrowLeft,
   Check,
   MapPin,
-  Calendar,
-  Users,
-  Briefcase,
   Download,
   Building2,
-  TrendingUp,
   Quote,
   Lightbulb,
   FileText,
-  Sparkles,
 } from 'lucide-react'
 import {
   projects,
@@ -58,7 +54,7 @@ export default async function ProjetDetailPage({
             <span>{project.name}</span>
           </div>
 
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '16px' }}>
+          <div className="flex flex-wrap items-center gap-2.5 mb-4">
             <span
               className={`badge ${
                 project.status === 'en-cours'
@@ -77,7 +73,7 @@ export default async function ProjetDetailPage({
           </div>
 
           <h1 className="display">{project.name}</h1>
-          <p className="lead" style={{ fontSize: '22px', color: 'var(--gold-2)' }}>
+          <p className="text-xl sm:text-2xl font-heading italic text-secondary mt-2">
             {project.fullName}
           </p>
           <p className="lead">{project.summary}</p>
@@ -85,16 +81,21 @@ export default async function ProjetDetailPage({
       </section>
 
       {/* Contenu de la fiche projet */}
-      <section className="section bg-white">
-        <div className="container">
-          <div className="detail-layout">
-            <div>
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            {/* Colonne principale */}
+            <div className="lg:col-span-8 space-y-8">
               {/* 1. Objectifs assignés */}
-              <div className="detail-block">
-                <h2>
-                  <span className="step">01</span>
-                  <span>Objectifs stratégiques</span>
-                </h2>
+              <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                    01
+                  </span>
+                  <h2 className="text-2xl font-heading font-bold text-textDark">
+                    Objectifs stratégiques
+                  </h2>
+                </div>
                 <ul className="check-list">
                   {project.objectifs.map((obj, i) => (
                     <li key={i}>
@@ -106,11 +107,15 @@ export default async function ProjetDetailPage({
               </div>
 
               {/* 2. Activités prévues & réalisées */}
-              <div className="detail-block">
-                <h2>
-                  <span className="step">02</span>
-                  <span>Activités de terrain</span>
-                </h2>
+              <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                    02
+                  </span>
+                  <h2 className="text-2xl font-heading font-bold text-textDark">
+                    Activités de terrain
+                  </h2>
+                </div>
                 <ul className="check-list">
                   {project.activites.map((act, i) => (
                     <li key={i}>
@@ -122,16 +127,20 @@ export default async function ProjetDetailPage({
               </div>
 
               {/* 3. Résultats attendus ou obtenus */}
-              <div className="detail-block">
-                <h2>
-                  <span className="step">03</span>
-                  <span>Résultats obtenus</span>
-                </h2>
+              <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                    03
+                  </span>
+                  <h2 className="text-2xl font-heading font-bold text-textDark">
+                    Résultats obtenus
+                  </h2>
+                </div>
                 <ul className="check-list">
                   {project.resultats.map((res, i) => (
                     <li key={i}>
                       <Check size={18} />
-                      <strong style={{ color: 'var(--green)' }}>{res}</strong>
+                      <strong className="text-primary">{res}</strong>
                     </li>
                   ))}
                 </ul>
@@ -139,11 +148,15 @@ export default async function ProjetDetailPage({
 
               {/* 4. Tableau des indicateurs (KPI) avec progression */}
               {project.indicateurs && project.indicateurs.length > 0 && (
-                <div className="detail-block">
-                  <h2>
-                    <span className="step">04</span>
-                    <span>Indicateurs de performance (KPI)</span>
-                  </h2>
+                <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                      04
+                    </span>
+                    <h2 className="text-2xl font-heading font-bold text-textDark">
+                      Indicateurs de performance (KPI)
+                    </h2>
+                  </div>
 
                   <table className="ind-table">
                     <thead>
@@ -155,18 +168,27 @@ export default async function ProjetDetailPage({
                     </thead>
                     <tbody>
                       {project.indicateurs.map((ind, i) => {
-                        const pct = Math.min(100, Math.round((ind.atteint / ind.cible) * 100))
+                        const pct = Math.min(
+                          100,
+                          Math.round((ind.atteint / ind.cible) * 100)
+                        )
                         return (
                           <tr key={i}>
                             <td>{ind.label}</td>
                             <td>
-                              <strong>{formatNumber(ind.atteint)}</strong> / {formatNumber(ind.cible)}{ind.unite ? ` ${ind.unite}` : ''}
+                              <strong className="text-primary">
+                                {formatNumber(ind.atteint)}
+                              </strong>{' '}
+                              / {formatNumber(ind.cible)}
+                              {ind.unite ? ` ${ind.unite}` : ''}
                             </td>
                             <td>
                               <div className="progress">
                                 <span style={{ width: `${pct}%` }} />
                               </div>
-                              <span style={{ fontWeight: 800, fontSize: '13px' }}>{pct}%</span>
+                              <span className="font-extrabold text-xs text-primary">
+                                {pct}%
+                              </span>
                             </td>
                           </tr>
                         )
@@ -178,47 +200,41 @@ export default async function ProjetDetailPage({
 
               {/* 5. Témoignage de bénéficiaire */}
               {project.temoignage && (
-                <div className="detail-block">
-                  <h2>
-                    <span className="step">05</span>
-                    <span>Témoignage du terrain</span>
-                  </h2>
-
-                  <div className="quote-card">
-                    <Quote className="q" />
-                    <blockquote>« {project.temoignage.quote} »</blockquote>
-                    <cite>
-                      {project.temoignage.author}
-                      <span>{project.temoignage.role}</span>
-                    </cite>
-                  </div>
+                <div className="quote-card shadow-lg">
+                  <Quote className="q" />
+                  <blockquote>« {project.temoignage.quote} »</blockquote>
+                  <cite>
+                    {project.temoignage.author}
+                    <span>{project.temoignage.role}</span>
+                  </cite>
                 </div>
               )}
 
               {/* 6. Leçons apprises & capitalisation (CDC §4) */}
               {project.lecons && project.lecons.length > 0 && (
-                <div className="detail-block">
-                  <h2>
-                    <span className="step">06</span>
-                    <span>Leçons apprises & Capitalisation</span>
-                  </h2>
+                <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                      06
+                    </span>
+                    <h2 className="text-2xl font-heading font-bold text-textDark">
+                      Leçons apprises & Capitalisation
+                    </h2>
+                  </div>
 
-                  <div style={{ display: 'grid', gap: '12px' }}>
+                  <div className="space-y-3">
                     {project.lecons.map((l, i) => (
                       <div
                         key={i}
-                        style={{
-                          padding: '18px 22px',
-                          borderRadius: '12px',
-                          background: 'var(--paper)',
-                          borderLeft: '4px solid var(--green-3)',
-                          display: 'flex',
-                          gap: '14px',
-                          alignItems: 'flex-start',
-                        }}
+                        className="p-5 rounded-2xl bg-background border-l-4 border-secondary flex items-start gap-3.5"
                       >
-                        <Lightbulb size={20} style={{ color: 'var(--gold)', flexShrink: 0, marginTop: '2px' }} />
-                        <span style={{ fontSize: '15px' }}>{l}</span>
+                        <Lightbulb
+                          size={20}
+                          className="text-secondary flex-shrink-0 mt-0.5"
+                        />
+                        <span className="text-sm sm:text-base text-text leading-relaxed">
+                          {l}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -226,17 +242,23 @@ export default async function ProjetDetailPage({
               )}
 
               {/* 7. Documents & Rapports du projet */}
-              <div className="detail-block">
-                <h2>
-                  <span className="step">07</span>
-                  <span>Rapports & Documents du projet</span>
-                </h2>
+              <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                    07
+                  </span>
+                  <h2 className="text-2xl font-heading font-bold text-textDark">
+                    Rapports & Documents du projet
+                  </h2>
+                </div>
 
                 {projectDocs.length > 0 ? (
-                  <div style={{ display: 'grid', gap: '10px' }}>
+                  <div className="space-y-3">
                     {projectDocs.map((doc) => (
-                      <div key={doc.slug} className="doc-row">
-                        <div className="ficon">PDF</div>
+                      <div key={doc.slug} className="doc-row bg-background">
+                        <div className="ficon">
+                          <FileText size={18} />
+                        </div>
                         <div>
                           <h3>{doc.title}</h3>
                           <p>{doc.summary}</p>
@@ -252,22 +274,34 @@ export default async function ProjetDetailPage({
                     ))}
                   </div>
                 ) : (
-                  <p style={{ color: 'var(--muted)' }}>
+                  <p className="text-muted text-sm">
                     Rapport annuel et fiches de capitalisation accessibles dans la médiathèque générale.
                   </p>
                 )}
               </div>
+
+              <div>
+                <Link
+                  href="/projets-actualites"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
+                >
+                  <ArrowLeft size={15} />
+                  <span>Retour à la liste des projets</span>
+                </Link>
+              </div>
             </div>
 
             {/* Barre latérale : Métadonnées du projet */}
-            <aside className="detail-aside">
-              <div className="fact-card">
-                <h4>Fiche technique du projet</h4>
+            <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-28">
+              <div className="bg-white rounded-3xl p-7 border border-black/5 shadow-sm">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-secondary mb-4">
+                  Fiche technique du projet
+                </h4>
 
                 <dl className="facts">
                   <div>
                     <dt>Statut</dt>
-                    <dd style={{ color: 'var(--green-2)' }}>
+                    <dd className="text-primary">
                       {statusLabel[project.status]}
                     </dd>
                   </div>
@@ -289,7 +323,7 @@ export default async function ProjetDetailPage({
 
                   <div>
                     <dt>Budget global</dt>
-                    <dd style={{ color: 'var(--green)', fontSize: '16px' }}>
+                    <dd className="text-primary text-base">
                       {project.budget}
                     </dd>
                   </div>
@@ -297,78 +331,83 @@ export default async function ProjetDetailPage({
                   <div>
                     <dt>Bénéficiaires</dt>
                     <dd>
-                      {formatNumber(project.beneficiaires)} {project.beneficiairesLabel}
+                      {formatNumber(project.beneficiaires)}{' '}
+                      {project.beneficiairesLabel}
                     </dd>
                   </div>
 
                   {project.tauxRealisation !== undefined && (
                     <div>
                       <dt>Taux de réalisation</dt>
-                      <dd>{project.tauxRealisation}%</dd>
+                      <dd className="text-primary">{project.tauxRealisation}%</dd>
                     </div>
                   )}
                 </dl>
 
                 {/* Bailleurs & Partenaires associés */}
-                <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid var(--line)' }}>
-                  <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--muted)', display: 'block', marginBottom: '10px' }}>
-                    Partenaires & Bailleurs associés
-                  </span>
-                  <div style={{ display: 'grid', gap: '8px' }}>
-                    {projectPartners.map((pt) => (
-                      <div
-                        key={pt.slug}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '10px',
-                          padding: '8px 12px',
-                          borderRadius: '8px',
-                          background: 'var(--paper)',
-                        }}
-                      >
-                        <Building2 size={16} style={{ color: 'var(--green)' }} />
-                        <div>
-                          <strong style={{ fontSize: '13px', display: 'block' }}>
-                            {pt.name}
-                          </strong>
-                          <small style={{ color: 'var(--muted)', fontSize: '11px' }}>
-                            {pt.type}
-                          </small>
+                {projectPartners.length > 0 && (
+                  <div className="mt-6 pt-5 border-t border-black/5">
+                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-muted block mb-3">
+                      Partenaires & Bailleurs associés
+                    </span>
+                    <div className="space-y-2.5">
+                      {projectPartners.map((pt) => (
+                        <div
+                          key={pt.slug}
+                          className="flex items-center gap-3 p-3 rounded-xl bg-background border border-black/5"
+                        >
+                          {pt.logo ? (
+                            <img
+                              src={pt.logo}
+                              alt={pt.name}
+                              className="w-8 h-8 object-contain flex-shrink-0"
+                            />
+                          ) : (
+                            <Building2
+                              size={18}
+                              className="text-primary flex-shrink-0"
+                            />
+                          )}
+                          <div className="min-w-0">
+                            <strong className="text-xs font-bold text-textDark block truncate">
+                              {pt.name}
+                            </strong>
+                            <small className="text-[11px] text-muted block">
+                              {pt.type}
+                            </small>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
-                <div style={{ marginTop: '22px' }}>
+                <div className="mt-6">
                   <Link
                     href="/contact?type=partenariat"
-                    className="btn btn-gold btn-sm"
-                    style={{ width: '100%' }}
+                    className="w-full py-3.5 px-5 rounded-full bg-secondary hover:bg-secondaryHover text-textDark font-bold text-sm transition-all shadow-md inline-flex items-center justify-center gap-2"
                   >
                     <span>Rejoindre ou co-financer</span>
-                    <ArrowRight size={14} />
+                    <ArrowRight size={15} />
                   </Link>
                 </div>
               </div>
 
               {/* Raccourci vers la carte */}
-              <div className="card" style={{ padding: '24px', background: 'var(--green-soft)' }}>
-                <MapPin size={22} style={{ color: 'var(--green-2)', marginBottom: '8px' }} />
-                <h4 style={{ color: 'var(--green)', fontSize: '16px', marginBottom: '6px' }}>
+              <div className="bg-primary text-white rounded-3xl p-7 shadow-md">
+                <MapPin size={22} className="text-secondary mb-3" />
+                <h4 className="font-heading font-bold text-lg text-white mb-2">
                   Localiser sur la carte interactive
                 </h4>
-                <p style={{ fontSize: '13px', color: 'var(--muted)' }}>
-                  Visualisez les localités et villages bénéficiaires de ce projet.
+                <p className="text-xs sm:text-sm text-white/80 mb-4 leading-relaxed">
+                  Visualisez les localités, départements et villages bénéficiaires de ce projet.
                 </p>
                 <Link
                   href="/cartographie"
-                  className="text-link"
-                  style={{ marginTop: '10px' }}
+                  className="text-secondary font-bold text-xs sm:text-sm inline-flex items-center gap-1.5 hover:underline"
                 >
                   <span>Ouvrir la cartographie</span>
-                  <ArrowRight size={13} />
+                  <ArrowRight size={14} />
                 </Link>
               </div>
             </aside>

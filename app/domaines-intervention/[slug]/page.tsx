@@ -2,13 +2,10 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import {
   ArrowRight,
+  ArrowLeft,
   Check,
-  MapPin,
   FileText,
   Download,
-  Users,
-  Target,
-  Layers,
   Sparkles,
 } from 'lucide-react'
 import {
@@ -17,8 +14,6 @@ import {
   projects,
   documents,
   media,
-  statusLabel,
-  formatNumber,
 } from '@/lib/data'
 
 export function generateStaticParams() {
@@ -38,8 +33,13 @@ export default async function DomaineDetailPage({
   const activeProjects = domProjects.filter((p) => p.status === 'en-cours')
   const completedProjects = domProjects.filter((p) => p.status === 'acheve')
   const conceptionProjects = domProjects.filter((p) => p.status === 'conception')
-  const domDocs = documents.filter((d) => d.domain === domain.slug || domProjects.some((p) => p.slug === d.project))
-  const domPhotos = media.photos.filter((ph) => domProjects.some((p) => p.slug === ph.project))
+  const domDocs = documents.filter(
+    (d) =>
+      d.domain === domain.slug || domProjects.some((p) => p.slug === d.project)
+  )
+  const domPhotos = media.photos.filter((ph) =>
+    domProjects.some((p) => p.slug === ph.project)
+  )
 
   return (
     <>
@@ -56,6 +56,11 @@ export default async function DomaineDetailPage({
             <span>/</span>
             <span>{domain.title}</span>
           </div>
+
+          <span className="inline-block text-secondary font-bold tracking-wider uppercase text-xs sm:text-sm mb-3">
+            Domaine Stratégique {domain.num} / 11
+          </span>
+
           <h1 className="display">{domain.title}</h1>
           <p className="lead">{domain.short}</p>
 
@@ -74,27 +79,35 @@ export default async function DomaineDetailPage({
       </section>
 
       {/* Contenu structuré : Objectif -> Approche -> Projets -> Résultats -> Photos -> Publications */}
-      <section className="section bg-white">
-        <div className="container">
-          <div className="detail-layout">
-            <div>
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-8 space-y-8">
               {/* 1. Objectif */}
-              <div className="detail-block">
-                <h2>
-                  <span className="step">01</span>
-                  <span>Objectif général</span>
-                </h2>
-                <p style={{ fontSize: '18px', lineHeight: '1.7', color: 'var(--ink)' }}>
+              <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                    01
+                  </span>
+                  <h2 className="text-2xl font-heading font-bold text-textDark">
+                    Objectif général
+                  </h2>
+                </div>
+                <p className="text-base sm:text-lg text-text leading-relaxed">
                   {domain.objective}
                 </p>
               </div>
 
               {/* 2. Approche EICF */}
-              <div className="detail-block">
-                <h2>
-                  <span className="step">02</span>
-                  <span>Approche méthodologique EICF</span>
-                </h2>
+              <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                    02
+                  </span>
+                  <h2 className="text-2xl font-heading font-bold text-textDark">
+                    Approche méthodologique EICF
+                  </h2>
+                </div>
                 <ul className="check-list">
                   {domain.approach.map((a, i) => (
                     <li key={i}>
@@ -106,47 +119,44 @@ export default async function DomaineDetailPage({
               </div>
 
               {/* 3. Projets en cours & Projets réalisés */}
-              <div className="detail-block">
-                <h2>
-                  <span className="step">03</span>
-                  <span>Projets associés ({domProjects.length})</span>
-                </h2>
+              <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                    03
+                  </span>
+                  <h2 className="text-2xl font-heading font-bold text-textDark">
+                    Projets associés ({domProjects.length})
+                  </h2>
+                </div>
 
                 {activeProjects.length > 0 && (
-                  <div style={{ marginBottom: '26px' }}>
-                    <h3 style={{ fontSize: '18px', color: 'var(--green)', marginBottom: '14px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                  <div className="mb-6">
+                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-secondary mb-3">
                       Projets en cours de réalisation
                     </h3>
-                    <div style={{ display: 'grid', gap: '12px' }}>
+                    <div className="space-y-3">
                       {activeProjects.map((p) => (
                         <div
                           key={p.slug}
-                          style={{
-                            padding: '20px',
-                            borderRadius: '14px',
-                            background: 'var(--paper)',
-                            border: '1px solid var(--line)',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            flexWrap: 'wrap',
-                            gap: '14px',
-                          }}
+                          className="p-5 rounded-2xl bg-background border border-black/5 flex flex-wrap justify-between items-center gap-4"
                         >
                           <div>
-                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                            <div className="flex items-center gap-2.5">
                               <span className="badge badge-live">
                                 <span className="dot" /> En cours
                               </span>
-                              <strong style={{ fontSize: '18px', color: 'var(--green)' }}>
+                              <strong className="text-lg font-heading font-bold text-textDark">
                                 {p.name}
                               </strong>
                             </div>
-                            <p style={{ fontSize: '14px', color: 'var(--muted)', marginTop: '4px' }}>
+                            <p className="text-xs sm:text-sm text-muted mt-1">
                               {p.fullName} · {p.zone}
                             </p>
                           </div>
-                          <Link href={`/projets-actualites/${p.slug}`} className="btn btn-green btn-sm">
+                          <Link
+                            href={`/projets-actualites/${p.slug}`}
+                            className="px-5 py-2.5 rounded-full bg-primary hover:bg-primaryDark text-white font-bold text-xs transition-colors inline-flex items-center gap-1.5"
+                          >
                             <span>Voir le projet</span>
                             <ArrowRight size={13} />
                           </Link>
@@ -157,38 +167,31 @@ export default async function DomaineDetailPage({
                 )}
 
                 {completedProjects.length > 0 && (
-                  <div style={{ marginBottom: '26px' }}>
-                    <h3 style={{ fontSize: '18px', color: 'var(--green)', marginBottom: '14px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                  <div className="mb-6">
+                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-muted mb-3">
                       Projets achevés & capitalisés
                     </h3>
-                    <div style={{ display: 'grid', gap: '12px' }}>
+                    <div className="space-y-3">
                       {completedProjects.map((p) => (
                         <div
                           key={p.slug}
-                          style={{
-                            padding: '20px',
-                            borderRadius: '14px',
-                            background: 'var(--paper)',
-                            border: '1px solid var(--line)',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            flexWrap: 'wrap',
-                            gap: '14px',
-                          }}
+                          className="p-5 rounded-2xl bg-background border border-black/5 flex flex-wrap justify-between items-center gap-4"
                         >
                           <div>
-                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                            <div className="flex items-center gap-2.5">
                               <span className="badge">Achevé</span>
-                              <strong style={{ fontSize: '18px', color: 'var(--green)' }}>
+                              <strong className="text-lg font-heading font-bold text-textDark">
                                 {p.name}
                               </strong>
                             </div>
-                            <p style={{ fontSize: '14px', color: 'var(--muted)', marginTop: '4px' }}>
+                            <p className="text-xs sm:text-sm text-muted mt-1">
                               {p.fullName} · {p.zone}
                             </p>
                           </div>
-                          <Link href={`/projets-actualites/${p.slug}`} className="btn btn-ghost btn-sm">
+                          <Link
+                            href={`/projets-actualites/${p.slug}`}
+                            className="px-5 py-2.5 rounded-full bg-white border border-black/15 hover:border-primary text-primary font-bold text-xs transition-colors inline-flex items-center gap-1.5"
+                          >
                             <span>Bilan & Leçons</span>
                             <ArrowRight size={13} />
                           </Link>
@@ -200,35 +203,31 @@ export default async function DomaineDetailPage({
 
                 {conceptionProjects.length > 0 && (
                   <div>
-                    <h3 style={{ fontSize: '18px', color: 'var(--green)', marginBottom: '14px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-secondary mb-3">
                       Projets en conception (recherche de partenaires)
                     </h3>
-                    <div style={{ display: 'grid', gap: '12px' }}>
+                    <div className="space-y-3">
                       {conceptionProjects.map((p) => (
                         <div
                           key={p.slug}
-                          style={{
-                            padding: '20px',
-                            borderRadius: '14px',
-                            background: 'var(--gold-soft)',
-                            border: '1px solid #ebdcb2',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            flexWrap: 'wrap',
-                            gap: '14px',
-                          }}
+                          className="p-5 rounded-2xl bg-accent/60 border border-secondary/30 flex flex-wrap justify-between items-center gap-4"
                         >
                           <div>
                             <span className="badge badge-gold">En conception</span>
-                            <strong style={{ fontSize: '18px', color: 'var(--green)', display: 'block', marginTop: '6px' }}>
+                            <strong className="text-lg font-heading font-bold text-textDark block mt-1.5">
                               {p.name} — {p.fullName}
                             </strong>
-                            <p style={{ fontSize: '13.5px', color: 'var(--ink)', marginTop: '4px' }}>
-                              Besoin de financement : <strong>{p.besoinFinancement}</strong>
+                            <p className="text-xs sm:text-sm text-text mt-1">
+                              Besoin de financement :{' '}
+                              <strong className="text-primary">
+                                {p.besoinFinancement}
+                              </strong>
                             </p>
                           </div>
-                          <Link href="/appels-a-partenariat" className="btn btn-gold btn-sm">
+                          <Link
+                            href="/appels-a-partenariat"
+                            className="px-5 py-2.5 rounded-full bg-secondary hover:bg-secondaryHover text-textDark font-bold text-xs transition-colors inline-flex items-center gap-1.5"
+                          >
                             <span>Soutenir ce projet</span>
                             <ArrowRight size={13} />
                           </Link>
@@ -240,18 +239,25 @@ export default async function DomaineDetailPage({
               </div>
 
               {/* 4. Résultats chiffrés */}
-              <div className="detail-block">
-                <h2>
-                  <span className="step">04</span>
-                  <span>Résultats & Impact mesuré</span>
-                </h2>
-                <div className="grid-2">
+              <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                    04
+                  </span>
+                  <h2 className="text-2xl font-heading font-bold text-textDark">
+                    Résultats & Impact mesuré
+                  </h2>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   {domain.results.map((res, i) => (
-                    <div key={i} className="card" style={{ padding: '24px', background: 'var(--green-soft)' }}>
-                      <strong style={{ fontFamily: 'var(--serif)', fontSize: '42px', color: 'var(--green)', lineHeight: 1 }}>
+                    <div
+                      key={i}
+                      className="p-6 rounded-2xl bg-background border border-black/5"
+                    >
+                      <strong className="text-3xl sm:text-4xl font-heading font-bold text-primary block">
                         {res.value}
                       </strong>
-                      <p style={{ fontSize: '15px', color: 'var(--ink)', marginTop: '8px', fontWeight: 600 }}>
+                      <p className="text-sm font-semibold text-textDark mt-2">
                         {res.label}
                       </p>
                     </div>
@@ -261,11 +267,15 @@ export default async function DomaineDetailPage({
 
               {/* 5. Photos de terrain */}
               {domPhotos.length > 0 && (
-                <div className="detail-block">
-                  <h2>
-                    <span className="step">05</span>
-                    <span>Photographies de terrain</span>
-                  </h2>
+                <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                      05
+                    </span>
+                    <h2 className="text-2xl font-heading font-bold text-textDark">
+                      Photographies de terrain
+                    </h2>
+                  </div>
                   <div className="photo-strip">
                     {domPhotos.map((ph, i) => (
                       <img key={i} src={ph.src} alt={ph.caption} />
@@ -275,16 +285,22 @@ export default async function DomaineDetailPage({
               )}
 
               {/* 6. Publications & Rapports téléchargeables */}
-              <div className="detail-block">
-                <h2>
-                  <span className="step">06</span>
-                  <span>Publications & Documentation associée</span>
-                </h2>
+              <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                    06
+                  </span>
+                  <h2 className="text-2xl font-heading font-bold text-textDark">
+                    Publications & Documentation associée
+                  </h2>
+                </div>
                 {domDocs.length > 0 ? (
-                  <div style={{ display: 'grid', gap: '10px' }}>
+                  <div className="space-y-3">
                     {domDocs.map((doc) => (
-                      <div key={doc.slug} className="doc-row">
-                        <div className="ficon">PDF</div>
+                      <div key={doc.slug} className="doc-row bg-background">
+                        <div className="ficon">
+                          <FileText size={18} />
+                        </div>
                         <div>
                           <h3>{doc.title}</h3>
                           <p>{doc.summary}</p>
@@ -300,17 +316,29 @@ export default async function DomaineDetailPage({
                     ))}
                   </div>
                 ) : (
-                  <p style={{ color: 'var(--muted)' }}>
-                    Rapports trimestriels en cours de numérisation dans la médiathèque.
+                  <p className="text-muted text-sm">
+                    Rapports trimestriels disponibles dans la médiathèque générale.
                   </p>
                 )}
+              </div>
+
+              <div>
+                <Link
+                  href="/domaines-intervention"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
+                >
+                  <ArrowLeft size={15} />
+                  <span>Retour aux 11 domaines d’intervention</span>
+                </Link>
               </div>
             </div>
 
             {/* Barre latérale récapitulative */}
-            <aside className="detail-aside">
-              <div className="fact-card">
-                <h4>Fiche domaine EICF</h4>
+            <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-28">
+              <div className="bg-white rounded-3xl p-7 border border-black/5 shadow-sm">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-secondary mb-4">
+                  Fiche domaine EICF
+                </h4>
                 <dl className="facts">
                   <div>
                     <dt>Numéro</dt>
@@ -322,32 +350,34 @@ export default async function DomaineDetailPage({
                   </div>
                   <div>
                     <dt>Statut opérationnel</dt>
-                    <dd style={{ color: 'var(--green-3)' }}>Actif</dd>
+                    <dd className="text-primary">Actif</dd>
                   </div>
                 </dl>
 
-                <div style={{ marginTop: '22px' }}>
-                  <Link href="/contact?type=partenariat" className="btn btn-gold btn-sm" style={{ width: '100%' }}>
+                <div className="mt-6">
+                  <Link
+                    href="/contact?type=partenariat"
+                    className="w-full py-3.5 px-5 rounded-full bg-secondary hover:bg-secondaryHover text-textDark font-bold text-sm transition-all shadow-md inline-flex items-center justify-center gap-2"
+                  >
                     <span>Co-financer une action</span>
                     <ArrowRight size={14} />
                   </Link>
                 </div>
               </div>
 
-              <div className="card" style={{ padding: '24px', background: 'var(--green)', color: '#fff' }}>
-                <Sparkles size={20} style={{ color: 'var(--gold-2)', marginBottom: '10px' }} />
-                <h4 style={{ color: '#fff', fontSize: '18px', marginBottom: '8px' }}>
+              <div className="bg-primary text-white rounded-3xl p-7 shadow-md">
+                <Sparkles size={22} className="text-secondary mb-3" />
+                <h4 className="font-heading font-bold text-lg text-white mb-2">
                   Poser une question sur ce domaine
                 </h4>
-                <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.75)' }}>
-                  Interrogez ASK EICF pour connaître les interventions dans vos localités d’intérêt.
+                <p className="text-xs sm:text-sm text-white/80 mb-5 leading-relaxed">
+                  Interrogez ASK EICF ou contactez notre responsable sectoriel pour connaître les interventions dans vos localités d’intérêt.
                 </p>
                 <Link
                   href="/contact"
-                  className="btn btn-outline btn-sm"
-                  style={{ marginTop: '14px', width: '100%' }}
+                  className="w-full py-3 px-4 rounded-full bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm transition-colors inline-flex items-center justify-center"
                 >
-                  <span>Contacter le responsable de secteur</span>
+                  Contacter le responsable de secteur
                 </Link>
               </div>
             </aside>

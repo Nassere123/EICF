@@ -102,80 +102,76 @@ export default function ActualitesIndexPage() {
             </div>
           </div>
 
-          {/* Article mis en avant */}
+          {/* Article mis en avant (Style Charity Organization blog.html) */}
           {featured && (
-            <div
-              className="card card-hover"
-              style={{
-                marginBottom: '40px',
-                padding: '0',
-                overflow: 'hidden',
-                display: 'grid',
-                gridTemplateColumns: '1.2fr 0.8fr',
-              }}
-            >
-              <div style={{ minHeight: '380px', position: 'relative' }}>
-                <img
-                  src={featured.image}
-                  alt={featured.title}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
-              </div>
-
-              <div
-                style={{
-                  padding: 'clamp(28px, 4vw, 44px)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '14px',
-                  justifyContent: 'center',
-                }}
-              >
-                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                  <span className="badge badge-gold">{featured.category}</span>
-                  <span style={{ fontSize: '13px', color: 'var(--muted)', fontWeight: 700 }}>
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl group mb-12 min-h-[420px] sm:min-h-[480px] flex items-end">
+              <img
+                src={featured.image}
+                alt={featured.title}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent" />
+              <div className="relative z-10 p-6 sm:p-10 md:p-12 max-w-3xl text-white">
+                <div className="flex flex-wrap items-center gap-3 mb-4">
+                  <span className="bg-secondary text-textDark px-4 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider">
+                    À la une · {featured.category}
+                  </span>
+                  <span className="text-xs sm:text-sm font-semibold text-white/80">
                     {formatDate(featured.date)}
                   </span>
                 </div>
-
-                <h3 style={{ fontSize: 'clamp(26px, 2.5vw, 36px)', color: 'var(--green)', lineHeight: 1.15 }}>
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-white mb-4 leading-snug">
                   {featured.title}
                 </h3>
-
-                <p style={{ color: 'var(--muted)', fontSize: '16px' }}>
+                <p className="text-white/85 text-sm sm:text-base md:text-lg mb-6 line-clamp-2 leading-relaxed">
                   {featured.excerpt}
                 </p>
-
-                <div style={{ marginTop: '12px' }}>
-                  <Link
-                    href={`/actualites/${featured.slug}`}
-                    className="btn btn-green btn-sm"
-                  >
-                    <span>Lire l’article complet</span>
-                    <ArrowRight size={14} />
-                  </Link>
-                </div>
+                <Link
+                  href={`/actualites/${featured.slug}`}
+                  className="inline-flex items-center gap-2 text-secondary font-bold hover:underline text-sm sm:text-base"
+                >
+                  <span>Lire l’article complet</span>
+                  <ArrowRight size={16} />
+                </Link>
               </div>
             </div>
           )}
 
-          {/* Autres articles */}
-          <div className="grid-3">
+          {/* Autres articles (Style Charity Organization blog.html) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {rest.map((n) => (
-              <article key={n.slug} className="news-card card card-hover">
-                <div className="thumb">
-                  <img src={n.image} alt={n.title} />
+              <article
+                key={n.slug}
+                data-reveal
+                className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all group border border-black/5 flex flex-col"
+              >
+                <div className="relative h-56 overflow-hidden">
+                  <img
+                    src={n.image}
+                    alt={n.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
+                    {n.category}
+                  </div>
                 </div>
-                <div className="date">
-                  <span className="badge badge-gold">{n.category}</span>
-                  <span>{formatDate(n.date)}</span>
-                </div>
-                <h3>{n.title}</h3>
-                <p>{n.excerpt}</p>
-                <div style={{ marginTop: 'auto', paddingTop: '10px' }}>
-                  <Link href={`/actualites/${n.slug}`} className="text-link">
-                    <span>Lire l’article</span>
-                    <ArrowRight size={13} />
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex items-center gap-2 text-xs text-muted mb-3">
+                    <Calendar size={14} />
+                    <span>{formatDate(n.date)}</span>
+                  </div>
+                  <h3 className="text-xl font-heading font-bold text-textDark mb-3 group-hover:text-primary transition-colors leading-snug">
+                    <Link href={`/actualites/${n.slug}`}>{n.title}</Link>
+                  </h3>
+                  <p className="text-muted text-sm mb-5 line-clamp-3 flex-1 leading-relaxed">
+                    {n.excerpt}
+                  </p>
+                  <Link
+                    href={`/actualites/${n.slug}`}
+                    className="text-primary font-bold text-sm inline-flex items-center gap-1.5 hover:gap-2.5 transition-all"
+                  >
+                    <span>Lire l’article complet</span>
+                    <ArrowRight size={14} />
                   </Link>
                 </div>
               </article>

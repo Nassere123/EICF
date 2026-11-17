@@ -28,10 +28,10 @@ re-implemented **without jQuery / Bootstrap**, as native React + CSS.
 
 ## Typography (layout.tsx)
 
-- Display / headings: **Bricolage Grotesque** (`--font-display`), weight 600–700, tight tracking.
-- Editorial accent: **Instrument Serif** italic (`--font-accent`) → every `<em>` inside `h1/h2/h3`.
-- Body / UI: **Plus Jakarta Sans** (`--font-sans`).
-- Never use more than these three families.
+- Display / headings: **Libre Baskerville** (`--font-heading` / `font-heading`), weights 400 & 700 (+ italic).
+- Editorial accent: **Libre Baskerville** italic (`<em>` inside `h1/h2/h3`).
+- Body / UI: **Inter** (`--font-body` / `font-body`).
+- Never use more than these two families.
 
 ## Rules
 

@@ -9,18 +9,17 @@ import {
   Shield,
   HeartPulse,
   Sparkles,
-  ArrowRight,
   TrendingUp,
   Download,
-  CheckCircle,
+  Bot,
 } from 'lucide-react'
 import {
   kpiGroups,
   globalStats,
   impactSentence,
   formatNumber,
-  type KpiGroup,
 } from '@/lib/data'
+import { CountUp } from '@/components/Motion'
 
 interface ImpactDashboardProps {
   showHero?: boolean
@@ -30,11 +29,11 @@ export function ImpactDashboard({ showHero = false }: ImpactDashboardProps) {
   const [selectedGroup, setSelectedGroup] = useState<string>('all')
 
   const icons: Record<string, React.ReactNode> = {
-    GraduationCap: <GraduationCap size={20} />,
-    Droplets: <Droplets size={20} />,
-    HandHeart: <HandHeart size={20} />,
-    Shield: <Shield size={20} />,
-    HeartPulse: <HeartPulse size={20} />,
+    GraduationCap: <GraduationCap size={22} />,
+    Droplets: <Droplets size={22} />,
+    HandHeart: <HandHeart size={22} />,
+    Shield: <Shield size={22} />,
+    HeartPulse: <HeartPulse size={22} />,
   }
 
   const displayedGroups =
@@ -43,87 +42,100 @@ export function ImpactDashboard({ showHero = false }: ImpactDashboardProps) {
       : kpiGroups.filter((g) => g.id === selectedGroup)
 
   return (
-    <div style={{ display: 'grid', gap: '34px' }}>
+    <div className="space-y-12">
       {/* Synthèse générée automatiquement par IA (CDC §7) */}
-      <div className="ai-summary on-light">
-        <div className="ai-icon">
-          <Sparkles size={22} />
-        </div>
-        <div style={{ flex: 1 }}>
-          <span
-            style={{
-              fontSize: '11px',
-              fontWeight: 800,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: 'var(--green-3)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              marginBottom: '6px',
-            }}
-          >
-            <span>Synthèse automatisée des indicateurs</span>
-            <span className="badge badge-gold" style={{ fontSize: '9.5px', padding: '2px 8px' }}>
-              IA EICF
-            </span>
-          </span>
-          <p>
-            {impactSentence}
-            <span className="caret" />
-          </p>
-          <small>
-            Indicateurs consolidés au 4e trimestre 2026 à partir des rapports de suivi-évaluation et des fiches bailleurs.
-          </small>
+      <div className="rounded-3xl bg-primary text-white p-7 sm:p-9 shadow-xl relative overflow-hidden">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="flex items-start gap-4 max-w-4xl">
+            <div className="w-12 h-12 rounded-2xl bg-secondary text-textDark flex items-center justify-center flex-shrink-0 shadow-md">
+              <Bot size={24} />
+            </div>
+            <div>
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <span className="text-[11px] font-extrabold tracking-widest uppercase text-secondary inline-flex items-center gap-1.5">
+                  <Sparkles size={13} /> Synthèse automatisée des indicateurs
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-white/15 text-accent text-[10px] font-bold uppercase">
+                  IA EICF
+                </span>
+              </div>
+              <p className="text-white text-base sm:text-xl font-heading leading-relaxed">
+                {impactSentence}
+                <span className="caret" />
+              </p>
+              <small className="block text-xs text-white/70 mt-2">
+                Indicateurs consolidés au 4e trimestre 2026 à partir des rapports de suivi-évaluation et des fiches bailleurs.
+              </small>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Chiffres macro */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '16px',
-        }}
-      >
-        <div className="card" style={{ padding: '24px' }}>
-          <span className="eyebrow plain" style={{ marginBottom: '6px' }}>Bénéficiaires directs</span>
-          <strong style={{ fontFamily: 'var(--serif)', fontSize: '38px', color: 'var(--green)' }}>
-            {formatNumber(globalStats.beneficiaires)}
-            <span style={{ color: 'var(--gold)' }}>+</span>
+      {/* Chiffres macro animés */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div
+          data-reveal
+          className="kpi-card bg-white rounded-2xl p-6 border border-black/5 shadow-xs hover:shadow-md transition-all"
+        >
+          <span className="text-xs font-extrabold uppercase tracking-wider text-secondary">
+            Bénéficiaires directs
+          </span>
+          <strong className="text-3xl sm:text-4xl font-heading font-bold text-primary mt-1 block">
+            <CountUp value={globalStats.beneficiaires} suffix="+" />
           </strong>
-          <p style={{ fontSize: '13px', marginTop: '4px' }}>Personnes touchées directement</p>
+          <p className="text-xs sm:text-sm text-muted mt-1">
+            Personnes touchées directement
+          </p>
         </div>
 
-        <div className="card" style={{ padding: '24px' }}>
-          <span className="eyebrow plain" style={{ marginBottom: '6px' }}>Régions d’intervention</span>
-          <strong style={{ fontFamily: 'var(--serif)', fontSize: '38px', color: 'var(--green)' }}>
-            {globalStats.regions}
+        <div
+          data-reveal
+          className="kpi-card bg-white rounded-2xl p-6 border border-black/5 shadow-xs hover:shadow-md transition-all"
+        >
+          <span className="text-xs font-extrabold uppercase tracking-wider text-secondary">
+            Régions d’intervention
+          </span>
+          <strong className="text-3xl sm:text-4xl font-heading font-bold text-primary mt-1 block">
+            <CountUp value={globalStats.regions} />
           </strong>
-          <p style={{ fontSize: '13px', marginTop: '4px' }}>Présence territoriale nationale</p>
+          <p className="text-xs sm:text-sm text-muted mt-1">
+            Présence territoriale nationale
+          </p>
         </div>
 
-        <div className="card" style={{ padding: '24px' }}>
-          <span className="eyebrow plain" style={{ marginBottom: '6px' }}>Communautés suivies</span>
-          <strong style={{ fontFamily: 'var(--serif)', fontSize: '38px', color: 'var(--green)' }}>
-            {globalStats.communautes}
+        <div
+          data-reveal
+          className="kpi-card bg-white rounded-2xl p-6 border border-black/5 shadow-xs hover:shadow-md transition-all"
+        >
+          <span className="text-xs font-extrabold uppercase tracking-wider text-secondary">
+            Communautés suivies
+          </span>
+          <strong className="text-3xl sm:text-4xl font-heading font-bold text-primary mt-1 block">
+            <CountUp value={globalStats.communautes} suffix="+" />
           </strong>
-          <p style={{ fontSize: '13px', marginTop: '4px' }}>Villages et comités locaux</p>
+          <p className="text-xs sm:text-sm text-muted mt-1">
+            Villages et comités locaux
+          </p>
         </div>
 
-        <div className="card" style={{ padding: '24px' }}>
-          <span className="eyebrow plain" style={{ marginBottom: '6px' }}>Projets documentés</span>
-          <strong style={{ fontFamily: 'var(--serif)', fontSize: '38px', color: 'var(--green)' }}>
-            {globalStats.projets}
+        <div
+          data-reveal
+          className="kpi-card bg-white rounded-2xl p-6 border border-black/5 shadow-xs hover:shadow-md transition-all"
+        >
+          <span className="text-xs font-extrabold uppercase tracking-wider text-secondary">
+            Projets documentés
+          </span>
+          <strong className="text-3xl sm:text-4xl font-heading font-bold text-primary mt-1 block">
+            <CountUp value={globalStats.projets} />
           </strong>
-          <p style={{ fontSize: '13px', marginTop: '4px' }}>
+          <p className="text-xs sm:text-sm text-muted mt-1">
             {globalStats.projetsEnCours} en cours · {globalStats.projetsAcheves} achevés
           </p>
         </div>
       </div>
 
       {/* Onglets thématiques */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px' }}>
+      <div className="flex flex-wrap justify-between items-center gap-4">
         <div className="chips">
           <button
             type="button"
@@ -144,104 +156,57 @@ export function ImpactDashboard({ showHero = false }: ImpactDashboardProps) {
           ))}
         </div>
 
-        <Link href="/mediatheque" className="btn btn-ghost btn-sm">
+        <Link
+          href="/mediatheque"
+          className="px-5 py-2.5 rounded-full bg-white border border-black/10 hover:border-primary text-primary font-bold text-xs sm:text-sm transition-colors inline-flex items-center gap-2 shadow-xs"
+        >
           <Download size={14} />
-          <span>Télécharger le rapport d’impact 2025</span>
+          <span>Télécharger le rapport d’impact</span>
         </Link>
       </div>
 
       {/* Grille des KPI par groupe */}
-      <div style={{ display: 'grid', gap: '30px' }}>
+      <div className="space-y-8">
         {displayedGroups.map((group) => (
-          <div key={group.id} className="card" style={{ padding: '32px' }}>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '14px',
-                marginBottom: '26px',
-                paddingBottom: '16px',
-                borderBottom: '1px solid var(--line)',
-              }}
-            >
-              <div
-                style={{
-                  display: 'grid',
-                  placeItems: 'center',
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '12px',
-                  backgroundColor: 'var(--green-soft)',
-                  color: 'var(--green)',
-                }}
-              >
-                {icons[group.icon] ?? <TrendingUp size={20} />}
+          <div
+            key={group.id}
+            data-reveal
+            className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-sm"
+          >
+            <div className="flex items-center gap-4 mb-7 pb-5 border-b border-black/5">
+              <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+                {icons[group.icon] ?? <TrendingUp size={22} />}
               </div>
               <div>
-                <h3 style={{ fontSize: '24px', margin: 0, color: 'var(--green)' }}>
+                <h3 className="text-2xl font-heading font-bold text-textDark">
                   {group.label}
                 </h3>
-                <small style={{ color: 'var(--muted)', fontSize: '13px' }}>
+                <span className="text-xs text-muted font-medium">
                   Suivi des indicateurs clés de performance (KPI)
-                </small>
+                </span>
               </div>
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                gap: '20px',
-              }}
-            >
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {group.kpis.map((kpi, idx) => {
                 const percent = Math.min(100, Math.round((kpi.value / kpi.target) * 100))
                 return (
                   <div
                     key={idx}
-                    style={{
-                      padding: '18px',
-                      borderRadius: '14px',
-                      backgroundColor: 'var(--paper)',
-                      border: '1px solid var(--line)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '8px',
-                    }}
+                    className="p-5 rounded-2xl bg-background border border-black/5 flex flex-col justify-between gap-3"
                   >
-                    <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--muted)' }}>
+                    <span className="text-xs sm:text-sm font-bold text-text">
                       {kpi.label}
                     </span>
 
-                    <strong
-                      style={{
-                        fontFamily: 'var(--serif)',
-                        fontSize: '34px',
-                        color: 'var(--green)',
-                        lineHeight: 1,
-                      }}
-                    >
-                      {formatNumber(kpi.value)}
-                      {kpi.suffix && (
-                        <span style={{ fontSize: '20px', color: 'var(--gold)' }}>
-                          {kpi.suffix}
-                        </span>
-                      )}
+                    <strong className="text-3xl font-heading font-bold text-primary leading-none my-1">
+                      <CountUp value={kpi.value} suffix={kpi.suffix ?? ''} />
                     </strong>
 
-                    <div style={{ marginTop: 'auto', paddingTop: '8px' }}>
-                      <div
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          fontSize: '11px',
-                          color: 'var(--muted)',
-                          marginBottom: '6px',
-                          fontWeight: 700,
-                        }}
-                      >
+                    <div className="pt-2 border-t border-black/5">
+                      <div className="flex justify-between text-[11px] font-bold text-muted mb-1.5">
                         <span>Cible : {formatNumber(kpi.target)}</span>
-                        <span>{percent}%</span>
+                        <span className="text-primary">{percent}%</span>
                       </div>
                       <div className="progress">
                         <span style={{ width: `${percent}%` }} />

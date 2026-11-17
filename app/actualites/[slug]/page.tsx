@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, Calendar, Tag, ArrowRight, Share2, Briefcase } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Calendar } from 'lucide-react'
 import { news, formatDate, projects } from '@/lib/data'
 
 export function generateStaticParams() {
@@ -37,81 +37,70 @@ export default async function ActualiteDetailPage({
             <span>{article.title}</span>
           </div>
 
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '14px' }}>
+          <div className="flex flex-wrap items-center gap-3 mb-4">
             <span className="badge badge-gold">{article.category}</span>
-            <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', fontWeight: 700 }}>
+            <span className="text-xs sm:text-sm text-white/80 font-semibold inline-flex items-center gap-1.5">
+              <Calendar size={14} />
               {formatDate(article.date)}
             </span>
           </div>
 
-          <h1 className="display" style={{ maxWidth: '900px' }}>
-            {article.title}
-          </h1>
-          <p className="lead" style={{ maxWidth: '780px', color: 'var(--gold-2)' }}>
-            {article.excerpt}
-          </p>
+          <h1 className="display max-w-4xl">{article.title}</h1>
+          <p className="lead max-w-3xl text-secondary">{article.excerpt}</p>
         </div>
       </section>
 
-      <section className="section bg-white">
-        <div className="container">
-          <div className="detail-layout">
-            <div>
-              <div style={{ fontSize: '17px', lineHeight: '1.8', color: 'var(--ink)' }}>
-                {article.body.map((para, i) => (
-                  <p key={i} style={{ marginBottom: '22px' }}>
-                    {para}
-                  </p>
-                ))}
-              </div>
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-8">
+              <div className="bg-white rounded-3xl p-8 sm:p-12 border border-black/5 shadow-sm">
+                <div className="space-y-6 text-base sm:text-lg text-text leading-relaxed">
+                  {article.body.map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))}
+                </div>
 
-              {relatedProject && (
-                <div
-                  className="card"
-                  style={{
-                    marginTop: '40px',
-                    padding: '24px',
-                    background: 'var(--green-soft)',
-                    borderLeft: '4px solid var(--green)',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    flexWrap: 'wrap',
-                    gap: '14px',
-                  }}
-                >
-                  <div>
-                    <span className="badge badge-gold" style={{ marginBottom: '6px' }}>
-                      Projet associé
-                    </span>
-                    <h3 style={{ fontSize: '20px', color: 'var(--green)' }}>
-                      {relatedProject.name} — {relatedProject.fullName}
-                    </h3>
-                    <p style={{ fontSize: '13.5px', color: 'var(--muted)', marginTop: '2px' }}>
-                      {relatedProject.zone} · {relatedProject.budget}
-                    </p>
+                {relatedProject && (
+                  <div className="mt-10 p-6 sm:p-7 rounded-2xl bg-background border-l-4 border-primary flex flex-wrap justify-between items-center gap-4">
+                    <div>
+                      <span className="inline-block bg-secondary/25 text-textDark px-3 py-0.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider mb-1.5">
+                        Projet associé
+                      </span>
+                      <h3 className="text-xl font-heading font-bold text-textDark">
+                        {relatedProject.name} — {relatedProject.fullName}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-muted mt-1">
+                        {relatedProject.zone} · {relatedProject.budget}
+                      </p>
+                    </div>
+                    <Link
+                      href={`/projets-actualites/${relatedProject.slug}`}
+                      className="px-6 py-3 rounded-full bg-primary hover:bg-primaryDark text-white font-bold text-xs sm:text-sm transition-colors inline-flex items-center gap-2"
+                    >
+                      <span>Fiche projet</span>
+                      <ArrowRight size={14} />
+                    </Link>
                   </div>
+                )}
+
+                <div className="mt-10 pt-6 border-t border-black/5">
                   <Link
-                    href={`/projets-actualites/${relatedProject.slug}`}
-                    className="btn btn-green btn-sm"
+                    href="/actualites"
+                    className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
                   >
-                    <span>Fiche projet</span>
-                    <ArrowRight size={13} />
+                    <ArrowLeft size={15} />
+                    <span>Retour aux actualités</span>
                   </Link>
                 </div>
-              )}
-
-              <div style={{ marginTop: '50px', paddingTop: '30px', borderTop: '1px solid var(--line)' }}>
-                <Link href="/actualites" className="text-link">
-                  <ArrowLeft size={15} />
-                  <span>Retour aux actualités</span>
-                </Link>
               </div>
             </div>
 
-            <aside className="detail-aside">
-              <div className="fact-card">
-                <h4>Informations</h4>
+            <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-28">
+              <div className="bg-white rounded-3xl p-7 border border-black/5 shadow-sm">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-secondary mb-4">
+                  Informations de publication
+                </h4>
                 <dl className="facts">
                   <div>
                     <dt>Rubrique</dt>
@@ -128,22 +117,21 @@ export default async function ActualiteDetailPage({
                 </dl>
               </div>
 
-              <div>
-                <h4 style={{ fontSize: '12px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--muted)', marginBottom: '12px' }}>
+              <div className="bg-white rounded-3xl p-7 border border-black/5 shadow-sm">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-secondary mb-4">
                   À lire également
                 </h4>
-                <div style={{ display: 'grid', gap: '12px' }}>
+                <div className="space-y-3">
                   {others.map((o) => (
                     <Link
                       key={o.slug}
                       href={`/actualites/${o.slug}`}
-                      className="card"
-                      style={{ padding: '16px', textDecoration: 'none' }}
+                      className="block p-4 rounded-2xl bg-background hover:bg-primary/5 border border-black/5 transition-colors group"
                     >
-                      <span className="badge badge-gold" style={{ fontSize: '9px', marginBottom: '6px' }}>
+                      <span className="inline-block bg-secondary/25 text-textDark px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider mb-1.5">
                         {o.category}
                       </span>
-                      <strong style={{ fontSize: '14px', display: 'block', color: 'var(--green)' }}>
+                      <strong className="block text-sm font-heading font-bold text-textDark group-hover:text-primary transition-colors leading-snug">
                         {o.title}
                       </strong>
                     </Link>

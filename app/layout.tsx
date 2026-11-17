@@ -1,30 +1,24 @@
 import type { Metadata, Viewport } from 'next'
-import { Bricolage_Grotesque, Instrument_Serif, Plus_Jakarta_Sans } from 'next/font/google'
+import { Libre_Baskerville, Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ClientShell } from '@/components/ClientShell'
 import 'leaflet/dist/leaflet.css'
 import './globals.css'
 
-/* Titres : grotesque expressive à axe optique */
-const fontDisplay = Bricolage_Grotesque({
+/* Titres : Libre Baskerville (Design System Charity Organization) */
+const fontHeading = Libre_Baskerville({
   subsets: ['latin'],
-  variable: '--font-display',
-  display: 'swap',
-})
-
-/* Accent éditorial (italique) pour les <em> des titres */
-const fontAccent = Instrument_Serif({
-  subsets: ['latin'],
-  weight: '400',
+  weight: ['400', '700'],
   style: ['normal', 'italic'],
-  variable: '--font-accent',
+  variable: '--font-heading',
   display: 'swap',
 })
 
-/* Texte courant & interface */
-const fontSans = Plus_Jakarta_Sans({
+/* Texte courant & interface : Inter */
+const fontBody = Inter({
   subsets: ['latin'],
-  variable: '--font-sans',
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-body',
   display: 'swap',
 })
 
@@ -56,9 +50,9 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${fontDisplay.variable} ${fontAccent.variable} ${fontSans.variable}`}
+      className={`${fontHeading.variable} ${fontBody.variable} scroll-smooth`}
     >
-      <body>
+      <body className="font-body antialiased">
         <ClientShell>{children}</ClientShell>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

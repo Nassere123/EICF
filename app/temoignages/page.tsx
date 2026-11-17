@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Quote, ArrowRight, TrendingUp, Sparkles, MapPin } from 'lucide-react'
+import { ArrowRight, Quote, Sparkles } from 'lucide-react'
 import { stories, beforeAfter, projects } from '@/lib/data'
 
 export default function TemoignagesPage() {
@@ -12,10 +12,16 @@ export default function TemoignagesPage() {
             <span>/</span>
             <span>Bénéficiaires & Témoignages</span>
           </div>
+
+          <span className="inline-block text-secondary font-bold tracking-wider uppercase text-xs sm:text-sm mb-3">
+            Impact Humain & Récits de Vie
+          </span>
+
           <h1 className="display">
             Histoires de changement &<br />
             <em>voix des communautés.</em>
           </h1>
+
           <p className="lead">
             Derrière chaque chiffre, il y a des femmes, des jeunes et des
             familles qui construisent leur autonomie. Découvrez leurs parcours.
@@ -24,51 +30,76 @@ export default function TemoignagesPage() {
       </section>
 
       {/* 1. Histoires de changement & Portraits */}
-      <section className="section bg-paper">
-        <div className="container">
-          <div className="section-head center">
-            <h2 className="display">
-              Des vies transformées,<br />
-              <em>par et pour les communautés.</em>
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-secondary font-bold tracking-wider uppercase text-xs sm:text-sm">
+              Portraits de Terrain
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-textDark mt-2">
+              Des vies transformées,{' '}
+              <span className="italic text-primary">par et pour les communautés.</span>
             </h2>
           </div>
 
-          <div style={{ display: 'grid', gap: '34px' }}>
-            {stories.map((s) => {
+          <div className="space-y-10">
+            {stories.map((s, idx) => {
               const p = projects.find((x) => x.slug === s.project)
+              const isEven = idx % 2 === 1
+
               return (
-                <article key={s.slug} className="story">
-                  <div className="story-img">
-                    <img src={s.image} alt={s.name} />
+                <article
+                  key={s.slug}
+                  data-reveal
+                  className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-black/5 grid grid-cols-1 lg:grid-cols-12"
+                >
+                  <div
+                    className={`lg:col-span-5 relative min-h-[320px] lg:min-h-[420px] overflow-hidden ${
+                      isEven ? 'lg:order-2' : ''
+                    }`}
+                  >
+                    <img
+                      src={s.image}
+                      alt={s.name}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
 
-                  <div className="story-copy">
-                    <span className="badge badge-gold" style={{ alignSelf: 'flex-start' }}>
-                      Histoire de changement · Projet {p ? p.name : ''}
-                    </span>
+                  <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center">
+                    <div className="mb-4">
+                      <span className="inline-block bg-secondary/25 text-textDark px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider">
+                        Histoire de changement {p ? `· Projet ${p.name}` : ''}
+                      </span>
+                    </div>
 
-                    <blockquote>« {s.quote} »</blockquote>
+                    <blockquote className="text-2xl sm:text-3xl font-heading font-bold text-primary leading-snug mb-5">
+                      « {s.quote} »
+                    </blockquote>
 
-                    <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'var(--muted)' }}>
+                    <p className="text-muted text-base leading-relaxed mb-6">
                       {s.story}
                     </p>
 
-                    <div className="who">
-                      <strong>{s.name}</strong>
-                      <span>{s.role}</span>
-                    </div>
+                    <div className="pt-5 border-t border-black/5 flex flex-wrap items-center justify-between gap-4">
+                      <div>
+                        <strong className="block text-base font-heading font-bold text-textDark">
+                          {s.name}
+                        </strong>
+                        <span className="text-xs sm:text-sm text-muted font-medium">
+                          {s.role}
+                        </span>
+                      </div>
 
-                    {p && (
-                      <div style={{ marginTop: '10px' }}>
+                      {p && (
                         <Link
                           href={`/projets-actualites/${p.slug}`}
-                          className="text-link"
+                          className="px-5 py-2.5 rounded-full bg-primary/10 hover:bg-primary text-primary hover:text-white font-bold text-xs sm:text-sm transition-colors inline-flex items-center gap-2"
                         >
-                          <span>Découvrir le projet {p.name} ({p.fullName})</span>
+                          <span>Projet {p.name}</span>
                           <ArrowRight size={14} />
                         </Link>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 </article>
               )
@@ -78,19 +109,28 @@ export default function TemoignagesPage() {
       </section>
 
       {/* 2. Comparatifs « Avant / Après » (CDC §5) */}
-      <section className="section bg-white">
-        <div className="container">
-          <div className="section-head center">
-            <h2 className="display">
-              Avant & Après :<br />
-              <em>les indicateurs de transformation.</em>
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-secondary font-bold tracking-wider uppercase text-xs sm:text-sm">
+              Mesure d’Impact
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-textDark mt-2">
+              Avant & Après :{' '}
+              <span className="italic text-primary">les indicateurs de transformation.</span>
             </h2>
           </div>
 
-          <div className="grid-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
             {beforeAfter.map((ba, idx) => (
-              <div key={idx} className="ba-card">
-                <h3>{ba.label}</h3>
+              <div
+                key={idx}
+                data-reveal
+                className="ba-card bg-background rounded-3xl p-7 sm:p-8 border border-black/5 shadow-xs hover:shadow-md transition-all"
+              >
+                <h3 className="text-lg font-heading font-bold text-textDark mb-5">
+                  {ba.label}
+                </h3>
 
                 <div className="ba">
                   <div className="before">

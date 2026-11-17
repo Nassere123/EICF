@@ -1,36 +1,53 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Send,
   CheckCircle2,
   Paperclip,
-  ArrowRight,
-  Handshake,
-  MessageSquare,
-  HelpCircle,
-  Briefcase,
 } from 'lucide-react'
-import { domains, org } from '@/lib/data'
+import { domains } from '@/lib/data'
+
+export type ContactInitialType =
+  | 'contact'
+  | 'partenariat'
+  | 'information'
+  | 'candidature'
+  | 'rse'
+  | 'benevole'
 
 interface ContactFormProps {
-  initialType?: 'contact' | 'partenariat' | 'information' | 'candidature'
+  initialType?: ContactInitialType
 }
 
 export function ContactForm({ initialType = 'contact' }: ContactFormProps) {
-  const [activeTab, setActiveTab] = useState<string>(initialType)
+  const resolveTab = (t: string) => {
+    if (t === 'partenariat' || t === 'rse') return 'partenariat'
+    if (t === 'candidature' || t === 'benevole') return 'candidature'
+    if (t === 'information') return 'information'
+    return 'contact'
+  }
+
+  const [activeTab, setActiveTab] = useState<string>(() => resolveTab(initialType))
   const [submitted, setSubmitted] = useState(false)
   const [formData, setFormData] = useState({
     nom: '',
     email: '',
     telephone: '',
     organisation: '',
-    typeOrg: 'Bailleur / PTF',
+    typeOrg: initialType === 'rse' ? 'Entreprise privée (RSE)' : 'Bailleur technique et financier',
     domaineCible: domains[0].title,
     sujet: '',
     message: '',
     fichier: null as string | null,
   })
+
+  useEffect(() => {
+    setActiveTab(resolveTab(initialType))
+    if (initialType === 'rse') {
+      setFormData((prev) => ({ ...prev, typeOrg: 'Entreprise privée (RSE)' }))
+    }
+  }, [initialType])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -44,7 +61,7 @@ export function ContactForm({ initialType = 'contact' }: ContactFormProps) {
       email: '',
       telephone: '',
       organisation: '',
-      typeOrg: 'Bailleur / PTF',
+      typeOrg: 'Bailleur technique et financier',
       domaineCible: domains[0].title,
       sujet: '',
       message: '',
@@ -58,14 +75,20 @@ export function ContactForm({ initialType = 'contact' }: ContactFormProps) {
         <div className="ok">
           <CheckCircle2 size={36} />
         </div>
-        <span className="badge badge-gold" style={{ marginBottom: '10px' }}>
+        <span className="inline-block bg-secondary/25 text-textDark px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3">
           Message bien reçu
         </span>
-        <h3>Merci pour votre prise de contact !</h3>
-        <p style={{ color: 'var(--muted)', maxWidth: '440px', margin: '0 auto 24px' }}>
+        <h3 className="text-2xl sm:text-3xl font-heading font-bold text-textDark mb-3">
+          Merci pour votre prise de contact !
+        </h3>
+        <p className="text-muted text-sm sm:text-base max-w-md mx-auto mb-6 leading-relaxed">
           Votre message a été transmis à l’équipe compétente d’EICF. Nous reviendrons vers vous dans un délai de 48 heures ouvrées.
         </p>
-        <button type="button" className="btn btn-green btn-sm" onClick={handleReset}>
+        <button
+          type="button"
+          className="px-7 py-3 bg-primary hover:bg-primaryDark text-white font-bold rounded-full text-sm transition-colors"
+          onClick={handleReset}
+        >
           Envoyer un autre message
         </button>
       </div>
@@ -102,7 +125,7 @@ export function ContactForm({ initialType = 'contact' }: ContactFormProps) {
           className={activeTab === 'candidature' ? 'is-active' : ''}
           onClick={() => setActiveTab('candidature')}
         >
-          Candidature spontanée
+          Candidature / Bénévolat
         </button>
       </div>
 
@@ -234,7 +257,7 @@ export function ContactForm({ initialType = 'contact' }: ContactFormProps) {
         <div className="field full">
           <label htmlFor="message">
             {activeTab === 'candidature'
-              ? 'Lettre de motivation ou message d’accompagnement *'
+              ? 'Lettre de motivation ou proposition d’engagement *'
               : activeTab === 'partenariat'
               ? 'Présentation de votre projet ou opportunité de collaboration *'
               : 'Votre message *'}
@@ -253,12 +276,15 @@ export function ContactForm({ initialType = 'contact' }: ContactFormProps) {
           />
         </div>
 
-        <div className="full" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px', marginTop: '10px' }}>
-          <p style={{ fontSize: '12px', color: 'var(--muted)' }}>
+        <div className="full flex flex-wrap justify-between items-center gap-4 pt-3">
+          <p className="text-xs text-muted">
             Les informations recueillies sont protégées conformément à nos engagements de confidentialité.
           </p>
 
-          <button type="submit" className="btn btn-green">
+          <button
+            type="submit"
+            className="px-8 py-3.5 bg-primary hover:bg-primaryDark text-white font-bold rounded-full transition-all shadow-md inline-flex items-center gap-2 text-sm"
+          >
             <span>
               {activeTab === 'candidature'
                 ? 'Envoyer ma candidature'
