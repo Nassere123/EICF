@@ -1,10 +1,9 @@
 'use client'
 
 /**
- * Motion toolkit EICF — équivalents natifs (sans jQuery) des plugins
- * utilisés dans The-50-Front-end-Project : waypoints/animate.css (reveal),
- * counterup/countTo (compteurs), typed.js (mots rotatifs), rellax (parallaxe)
- * et hoverbox (cartes « spotlight »).
+ * Motion toolkit EICF — animations natives (sans jQuery) :
+ * reveal au défilement, compteurs CountUp (0 -> cible au scroll),
+ * mots rotatifs, parallaxe légère et barre de progression de lecture.
  */
 
 import { useEffect, useRef, useState } from 'react'
@@ -18,6 +17,7 @@ const REVEAL_SELECTOR = [
   '[data-reveal]:not([data-reveal="off"])',
   'main .section-head',
   'main .card',
+  'main .card-mia',
   'main .project-card',
   'main .project-feature',
   'main .domain-card',
@@ -51,32 +51,19 @@ export function useRevealOnScroll() {
     if (typeof window === 'undefined') return
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    const els = Array.from(document.querySelectorAll<HTMLElement>(REVEAL_SELECTOR)).filter(
-      (el) => !el.closest('[data-reveal="off"]') && !el.classList.contains('is-revealed')
-    )
+    const getTargets = () =>
+      Array.from(document.querySelectorAll<HTMLElement>(REVEAL_SELECTOR)).filter(
+        (el) =>
+          !el.closest('[data-reveal="off"]') &&
+          !el.closest('.carousel-track') &&
+          !el.closest('.hero-slider') &&
+          !el.classList.contains('is-revealed')
+      )
 
     if (reduce || !('IntersectionObserver' in window)) {
-      els.forEach((el) => el.classList.add('is-revealed'))
+      getTargets().forEach((el) => el.classList.add('is-revealed'))
       return
     }
-
-    const vh = window.innerHeight
-
-    // Les éléments déjà visibles dans l'écran s'affichent instantanément sans délai de chargement
-    els.forEach((el) => {
-      const rect = el.getBoundingClientRect()
-      if (rect.top < vh * 0.95) {
-        el.classList.add('is-revealed')
-      } else {
-        const parent = el.parentElement
-        if (parent) {
-          const siblings = Array.from(parent.children).filter((c) => els.includes(c as HTMLElement))
-          const i = siblings.indexOf(el)
-          el.style.setProperty('--reveal-delay', `${Math.min(i, 4) * 40}ms`)
-        }
-        el.classList.add('reveal-init')
-      }
-    })
 
     const io = new IntersectionObserver(
       (entries) => {
@@ -85,37 +72,66 @@ export function useRevealOnScroll() {
             const el = entry.target as HTMLElement
             el.classList.add('is-revealed')
             io.unobserve(el)
-            window.setTimeout(() => el.classList.remove('reveal-init'), 500)
+            window.setTimeout(() => el.classList.remove('reveal-init'), 550)
           }
         })
       },
-      { rootMargin: '0px 0px -4% 0px', threshold: 0.05 }
+      { rootMargin: '0px 0px 40px 0px', threshold: 0.01 }
     )
 
-    els.forEach((el) => io.observe(el))
-    return () => io.disconnect()
-  }, [pathname])
-}
-
-/* ------------------------------------------------------------------ */
-/* Spotlight : lumière qui suit la souris sur les cartes                */
-/* ------------------------------------------------------------------ */
-
-export function useSpotlight() {
-  useEffect(() => {
-    if (!window.matchMedia('(pointer: fine)').matches) return
-    const onMove = (e: PointerEvent) => {
-      const target = (e.target as HTMLElement)?.closest<HTMLElement>(
-        '.card, .project-card, .domain-card, .opp, .contact-card, .funding-card, .kpi-card'
-      )
-      if (!target) return
-      const r = target.getBoundingClientRect()
-      target.style.setProperty('--mx', `${e.clientX - r.left}px`)
-      target.style.setProperty('--my', `${e.clientY - r.top}px`)
+    const scan = () => {
+      const vh = window.innerHeight
+      const atBottom = window.scrollY + vh >= document.documentElement.scrollHeight - 24
+      const els = getTargets()
+      els.forEach((el) => {
+        const rect = el.getBoundingClientRect()
+        if (atBottom || rect.top < vh) {
+          el.classList.add('is-revealed')
+          io.unobserve(el)
+        } else if (!el.classList.contains('reveal-init')) {
+          const parent = el.parentElement
+          if (parent) {
+            const siblings = Array.from(parent.children).filter((c) => els.includes(c as HTMLElement))
+            const i = siblings.indexOf(el)
+            el.style.setProperty('--reveal-delay', `${Math.min(i, 4) * 40}ms`)
+          }
+          el.classList.add('reveal-init')
+          io.observe(el)
+        }
+      })
     }
-    window.addEventListener('pointermove', onMove, { passive: true })
-    return () => window.removeEventListener('pointermove', onMove)
-  }, [])
+
+    scan()
+
+    let scrollRaf = 0
+    const onScroll = () => {
+      if (scrollRaf) return
+      scrollRaf = requestAnimationFrame(() => {
+        if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 24) {
+          scan()
+        }
+        scrollRaf = 0
+      })
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+
+    const mainEl = document.querySelector('main')
+    const mo = mainEl
+      ? new MutationObserver(() => {
+          scan()
+        })
+      : null
+    if (mainEl && mo) {
+      mo.observe(mainEl, { childList: true, subtree: true })
+    }
+
+    return () => {
+      io.disconnect()
+      mo?.disconnect()
+      window.removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(scrollRaf)
+    }
+  }, [pathname])
 }
 
 /* ------------------------------------------------------------------ */
@@ -170,14 +186,14 @@ export function ScrollProgress() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Compteur animé                                                       */
+/* Compteur animé (démarre à 0 et s'incrémente au scroll)               */
 /* ------------------------------------------------------------------ */
 
 const fmt = (n: number) => n.toLocaleString('fr-FR').replace(/\u202f|\u00a0/g, ' ')
 
 export function CountUp({
   value,
-  duration = 1800,
+  duration = 1600,
   prefix = '',
   suffix = '',
   className,
@@ -193,28 +209,51 @@ export function CountUp({
 
   useEffect(() => {
     const el = ref.current
-    if (!el) return
+    if (!el || value <= 0) {
+      setDisplay(value)
+      return
+    }
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setDisplay(value)
       return
     }
+
+    setDisplay(0)
     let raf = 0
+    let hasAnimated = false
+
+    const startAnimation = () => {
+      if (hasAnimated) return
+      hasAnimated = true
+      const start = performance.now()
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / duration)
+        const eased = 1 - Math.pow(1 - t, 4)
+        setDisplay(Math.round(value * eased))
+        if (t < 1) {
+          raf = requestAnimationFrame(tick)
+        } else {
+          setDisplay(value)
+        }
+      }
+      raf = requestAnimationFrame(tick)
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      startAnimation()
+      return () => cancelAnimationFrame(raf)
+    }
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return
         io.disconnect()
-        const start = performance.now()
-        const tick = (now: number) => {
-          const t = Math.min(1, (now - start) / duration)
-          const eased = 1 - Math.pow(1 - t, 4)
-          setDisplay(Math.round(value * eased))
-          if (t < 1) raf = requestAnimationFrame(tick)
-        }
-        raf = requestAnimationFrame(tick)
+        startAnimation()
       },
-      { threshold: 0.4 }
+      { threshold: 0.2 }
     )
     io.observe(el)
+
     return () => {
       io.disconnect()
       cancelAnimationFrame(raf)
@@ -222,7 +261,7 @@ export function CountUp({
   }, [value, duration])
 
   return (
-    <span ref={ref} className={className}>
+    <span ref={ref} className={className} style={{ display: 'inline-block' }}>
       {prefix}
       {fmt(display)}
       {suffix}
@@ -243,7 +282,6 @@ export function RotatingWords({ words, interval = 2600 }: { words: string[]; int
 
   return (
     <span className="rotator" aria-live="polite">
-      {/* Mot le plus long pour réserver la largeur */}
       <span className="rotator-sizer" aria-hidden="true">
         {words.reduce((a, b) => (b.length > a.length ? b : a), '')}
       </span>
@@ -280,7 +318,6 @@ export function LineReveal({ lines, delay = 0 }: { lines: React.ReactNode[]; del
 
 export function MotionEffects() {
   useRevealOnScroll()
-  useSpotlight()
   useParallax()
   return <ScrollProgress />
 }

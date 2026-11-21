@@ -1,16 +1,14 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import {
-  Send,
-  CheckCircle2,
-  Paperclip,
-} from 'lucide-react'
+import Link from 'next/link'
+import { Send, CheckCircle2, Paperclip, Lock } from 'lucide-react'
 import { domains } from '@/lib/data'
 
 export type ContactInitialType =
   | 'contact'
   | 'partenariat'
+  | 'projet'
   | 'information'
   | 'candidature'
   | 'rse'
@@ -23,13 +21,15 @@ interface ContactFormProps {
 export function ContactForm({ initialType = 'contact' }: ContactFormProps) {
   const resolveTab = (t: string) => {
     if (t === 'partenariat' || t === 'rse') return 'partenariat'
-    if (t === 'candidature' || t === 'benevole') return 'candidature'
-    if (t === 'information') return 'information'
+    if (t === 'projet') return 'projet'
+    if (t === 'benevole') return 'benevole'
+    if (t === 'candidature') return 'candidature'
     return 'contact'
   }
 
   const [activeTab, setActiveTab] = useState<string>(() => resolveTab(initialType))
   const [submitted, setSubmitted] = useState(false)
+  const [consentGiven, setConsentGiven] = useState(true)
   const [formData, setFormData] = useState({
     nom: '',
     email: '',
@@ -73,23 +73,18 @@ export function ContactForm({ initialType = 'contact' }: ContactFormProps) {
     return (
       <div className="form-card form-success">
         <div className="ok">
-          <CheckCircle2 size={36} />
+          <CheckCircle2 size={34} />
         </div>
-        <span className="inline-block bg-secondary/25 text-textDark px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3">
-          Message bien reçu
-        </span>
-        <h3 className="text-2xl sm:text-3xl font-heading font-bold text-textDark mb-3">
-          Merci pour votre prise de contact !
+        <span className="badge badge-gold mb-3">Transmission enregistrée</span>
+        <h3 className="text-2xl sm:text-3xl font-heading font-bold text-[#0b1813] mb-3">
+          Merci pour votre message à l’ONG EICF !
         </h3>
-        <p className="text-muted text-sm sm:text-base max-w-md mx-auto mb-6 leading-relaxed">
-          Votre message a été transmis à l’équipe compétente d’EICF. Nous reviendrons vers vous dans un délai de 48 heures ouvrées.
+        <p className="text-[#4c5a53] text-sm sm:text-base max-w-md mx-auto mb-6 leading-relaxed">
+          Votre dossier a été transmis au département compétent de la Direction Exécutive d’EICF.
+          Vous recevrez une réponse sous 48 heures ouvrées.
         </p>
-        <button
-          type="button"
-          className="px-7 py-3 bg-primary hover:bg-primaryDark text-white font-bold rounded-full text-sm transition-colors"
-          onClick={handleReset}
-        >
-          Envoyer un autre message
+        <button type="button" className="btn btn-green" onClick={handleReset}>
+          Envoyer une nouvelle demande
         </button>
       </div>
     )
@@ -97,41 +92,47 @@ export function ContactForm({ initialType = 'contact' }: ContactFormProps) {
 
   return (
     <div className="form-card">
-      {/* 4 onglets conformément au CDC §8 */}
       <div className="form-tabs">
-        <button
-          type="button"
-          className={activeTab === 'contact' ? 'is-active' : ''}
-          onClick={() => setActiveTab('contact')}
-        >
-          Message général
-        </button>
         <button
           type="button"
           className={activeTab === 'partenariat' ? 'is-active' : ''}
           onClick={() => setActiveTab('partenariat')}
         >
-          Demande de partenariat
+          Devenir partenaire
         </button>
         <button
           type="button"
-          className={activeTab === 'information' ? 'is-active' : ''}
-          onClick={() => setActiveTab('information')}
+          className={activeTab === 'projet' ? 'is-active' : ''}
+          onClick={() => setActiveTab('projet')}
         >
-          Demande d’information
+          Soumettre un projet
+        </button>
+        <button
+          type="button"
+          className={activeTab === 'benevole' ? 'is-active' : ''}
+          onClick={() => setActiveTab('benevole')}
+        >
+          Devenir volontaire
         </button>
         <button
           type="button"
           className={activeTab === 'candidature' ? 'is-active' : ''}
           onClick={() => setActiveTab('candidature')}
         >
-          Candidature / Bénévolat
+          Recrutement
+        </button>
+        <button
+          type="button"
+          className={activeTab === 'contact' ? 'is-active' : ''}
+          onClick={() => setActiveTab('contact')}
+        >
+          Contact
         </button>
       </div>
 
       <form onSubmit={handleSubmit} className="form-grid">
         <div className="field">
-          <label htmlFor="nom">Nom complet *</label>
+          <label htmlFor="nom">Nom et prénoms *</label>
           <input
             id="nom"
             type="text"
@@ -165,44 +166,43 @@ export function ContactForm({ initialType = 'contact' }: ContactFormProps) {
           />
         </div>
 
-        {activeTab === 'partenariat' && (
+        {(activeTab === 'partenariat' || activeTab === 'projet') && (
           <>
             <div className="field">
-              <label htmlFor="organisation">Organisation / Entreprise *</label>
+              <label htmlFor="organisation">Institution / Organisation / Entreprise *</label>
               <input
                 id="organisation"
                 type="text"
                 required
                 value={formData.organisation}
                 onChange={(e) => setFormData({ ...formData, organisation: e.target.value })}
-                placeholder="Nom de votre structure"
+                placeholder="Nom de votre institution"
               />
             </div>
 
             <div className="field">
-              <label htmlFor="typeOrg">Type de partenaire</label>
+              <label htmlFor="typeOrg">Catégorie d’organisation</label>
               <select
                 id="typeOrg"
                 value={formData.typeOrg}
                 onChange={(e) => setFormData({ ...formData, typeOrg: e.target.value })}
               >
                 <option>Bailleur technique et financier</option>
-                <option>Organisme international / ONU</option>
-                <option>Entreprise privée (RSE)</option>
-                <option>Fondation / Mécénat</option>
-                <option>ONG / Association partenaire</option>
-                <option>Collectivité territoriale</option>
+                <option>Agence des Nations Unies / Coopération</option>
+                <option>Ministère / Collectivité territoriale</option>
+                <option>Entreprise privée (RSE / Mécénat)</option>
+                <option>ONG / Consortium d’exécution</option>
               </select>
             </div>
 
             <div className="field">
-              <label htmlFor="domaineCible">Domaine d’intervention ciblé</label>
+              <label htmlFor="domaineCible">Secteur d’intervention concerné</label>
               <select
                 id="domaineCible"
                 value={formData.domaineCible}
                 onChange={(e) => setFormData({ ...formData, domaineCible: e.target.value })}
               >
-                <option>Multi-secteurs / Global</option>
+                <option>Multi-secteurs / Programme global</option>
                 {domains.map((d) => (
                   <option key={d.slug}>{d.title}</option>
                 ))}
@@ -211,45 +211,44 @@ export function ContactForm({ initialType = 'contact' }: ContactFormProps) {
           </>
         )}
 
-        {activeTab === 'candidature' && (
+        {(activeTab === 'candidature' || activeTab === 'benevole') && (
           <>
             <div className="field">
-              <label htmlFor="expertise">Domaine d’expertise principal *</label>
+              <label htmlFor="expertise">Département / Domaine d’expertise *</label>
               <select
                 id="expertise"
                 value={formData.domaineCible}
                 onChange={(e) => setFormData({ ...formData, domaineCible: e.target.value })}
               >
-                <option>Gestion de projet / Programmes</option>
-                <option>Suivi-évaluation & Gestion des connaissances</option>
-                <option>Eau, hygiène et assainissement (WASH)</option>
-                <option>Éducation & protection de l’enfance</option>
-                <option>Santé communautaire & nutrition</option>
-                <option>Administration, finances & logistique</option>
-                <option>Communication & plaidoyer</option>
+                <option>Département des Opérations et des programmes</option>
+                <option>Département suivi-évaluation (S&amp;E)</option>
+                <option>Département comptable et financier</option>
+                <option>Département Administration, RH &amp; Passation des marchés</option>
+                <option>Département communication et partenariats</option>
+                <option>Animation terrain / Base régionale (Katiola, Bouna, Korhogo, Bondoukou)</option>
               </select>
             </div>
 
-            <div className="field">
-              <label>Curriculum Vitae (PDF / Word) *</label>
+            <div className="field full">
+              <label>Curriculum Vitae &amp; Lettre de motivation (PDF / Word) *</label>
               <div className="file">
                 <Paperclip size={18} style={{ color: 'var(--green-3)' }} />
-                <span>Cliquez pour joindre votre CV (max 5 Mo)</span>
+                <span>Joindre votre dossier de candidature (max 5 Mo)</span>
               </div>
             </div>
           </>
         )}
 
-        {activeTab === 'information' && (
-          <div className="field full">
-            <label htmlFor="sujet">Objet de votre demande d’information *</label>
+        {activeTab === 'contact' && (
+          <div className="field">
+            <label htmlFor="sujet">Objet de votre message *</label>
             <input
               id="sujet"
               type="text"
               required
               value={formData.sujet}
               onChange={(e) => setFormData({ ...formData, sujet: e.target.value })}
-              placeholder="Ex : Demande de rapport annuel, modalités d’intervention dans le Hambol..."
+              placeholder="Ex : Demande de dossier de qualification, rapport annuel..."
             />
           </div>
         )}
@@ -257,9 +256,13 @@ export function ContactForm({ initialType = 'contact' }: ContactFormProps) {
         <div className="field full">
           <label htmlFor="message">
             {activeTab === 'candidature'
-              ? 'Lettre de motivation ou proposition d’engagement *'
+              ? 'Motivations et disponibilités *'
+              : activeTab === 'benevole'
+              ? 'Compétences proposées et disponibilités pour le volontariat *'
+              : activeTab === 'projet'
+              ? 'Présentation synthétique du projet à soumettre ou co-construire *'
               : activeTab === 'partenariat'
-              ? 'Présentation de votre projet ou opportunité de collaboration *'
+              ? 'Objet du partenariat ou de la mission d’évaluation (Due diligence) *'
               : 'Votre message *'}
           </label>
           <textarea
@@ -268,28 +271,44 @@ export function ContactForm({ initialType = 'contact' }: ContactFormProps) {
             required
             value={formData.message}
             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-            placeholder={
-              activeTab === 'partenariat'
-                ? 'Précisez les objectifs, la zone géographique ciblée et le calendrier prévisionnel...'
-                : 'Parlez-nous de votre demande...'
-            }
+            placeholder="Précisez votre demande, les régions ou domaines ciblés..."
           />
         </div>
 
-        <div className="full flex flex-wrap justify-between items-center gap-4 pt-3">
-          <p className="text-xs text-muted">
-            Les informations recueillies sont protégées conformément à nos engagements de confidentialité.
-          </p>
+        <div className="full p-4 bg-[#f4f7f5] border border-[#d4d4d4]">
+          <label className="flex items-start gap-2.5 text-xs text-[#1c2a24] cursor-pointer">
+            <input
+              type="checkbox"
+              required
+              checked={consentGiven}
+              onChange={(e) => setConsentGiven(e.target.checked)}
+              className="mt-1"
+            />
+            <span>
+              J’accepte que mes données personnelles soient collectées et traitées par la Direction Exécutive de l’ONG EICF aux seules fins d’instruire ma demande, conformément à la <strong>Loi n° 2013-450 relative à la protection des données à caractère personnel en Côte d’Ivoire (ARTCI)</strong>. Consultez notre{' '}
+              <Link href="/mentions-legales#confidentialite" className="text-[#06352a] font-bold underline">
+                Politique de confidentialité
+              </Link>.
+            </span>
+          </label>
+        </div>
 
-          <button
-            type="submit"
-            className="px-8 py-3.5 bg-primary hover:bg-primaryDark text-white font-bold rounded-full transition-all shadow-md inline-flex items-center gap-2 text-sm"
-          >
+        <div className="full flex flex-wrap justify-between items-center gap-4 pt-2">
+          <span className="inline-flex items-center gap-1.5 text-xs text-[#4c5a53] font-semibold">
+            <Lock size={13} className="text-[#06352a]" />
+            Formulaire sécurisé · Confidentialité garantie
+          </span>
+
+          <button type="submit" className="btn btn-green">
             <span>
               {activeTab === 'candidature'
-                ? 'Envoyer ma candidature'
+                ? 'Transmettre ma candidature'
+                : activeTab === 'benevole'
+                ? 'Proposer mon volontariat'
+                : activeTab === 'projet'
+                ? 'Soumettre le projet'
                 : activeTab === 'partenariat'
-                ? 'Soumettre la demande de partenariat'
+                ? 'Envoyer la proposition'
                 : 'Envoyer le message'}
             </span>
             <Send size={15} />

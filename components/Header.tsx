@@ -97,8 +97,8 @@ export function Header({ onOpenSearch }: HeaderProps) {
               <Search size={17} />
             </button>
 
-            <Link href="/appels-a-partenariat" className="btn btn-gold btn-sm header-cta-desktop">
-              <span>Devenir partenaire</span>
+            <Link href="/contact" className="btn btn-gold btn-sm header-cta-desktop">
+              <span>Nous contacter</span>
               <ArrowUpRight size={15} />
             </Link>
 
@@ -146,8 +146,8 @@ export function Header({ onOpenSearch }: HeaderProps) {
             )
           )}
 
-          <Link href="/appels-a-partenariat" className="btn btn-gold" onClick={() => setMobileOpen(false)}>
-            Devenir partenaire <ArrowUpRight size={16} />
+          <Link href="/contact" className="btn btn-gold" onClick={() => setMobileOpen(false)}>
+            Nous contacter <ArrowUpRight size={16} />
           </Link>
 
           <div className="mobile-contact">

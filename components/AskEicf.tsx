@@ -42,6 +42,15 @@ export function AskEicf() {
     }
   }, [messages, isTyping, open])
 
+  useEffect(() => {
+    if (!open) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [open])
+
   const handleSend = (textToSend?: string) => {
     const q = (textToSend ?? input).trim()
     if (!q) return

@@ -10,6 +10,7 @@ import {
   MessageCircle,
   ArrowRight,
   Building2,
+  ShieldCheck,
 } from 'lucide-react'
 import { org } from '@/lib/data'
 import { ContactForm, type ContactInitialType } from '@/components/ContactForm'
@@ -25,17 +26,16 @@ function ContactFormSection() {
 export default function ContactPage() {
   return (
     <>
-      {/* HERO SECTION */}
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb">
             <Link href="/">Accueil</Link>
             <span>/</span>
-            <span>Contact & Nous rejoindre</span>
+            <span>Contact &amp; Nous rejoindre</span>
           </div>
 
-          <span className="inline-block text-secondary font-bold tracking-wider uppercase text-xs sm:text-sm mb-3">
-            Écoute, Partenariat & Recrutement
+          <span className="badge badge-gold mb-4">
+            Partenariat, Soumission de Projet, Volontariat, Recrutement &amp; Contact
           </span>
 
           <h1 className="display">
@@ -44,50 +44,36 @@ export default function ContactPage() {
           </h1>
 
           <p className="lead">
-            Une question institutionnelle, une idée de partenariat, une demande
-            d’information ou une candidature spontanée ? Notre équipe vous répond.
+            Devenir partenaire, soumettre un projet, devenir volontaire, postuler à un
+            recrutement ou contacter la Direction Exécutive : notre équipe vous répond sous 48 heures ouvrées.
           </p>
         </div>
       </section>
 
-      {/* SECTION PRINCIPALE : FORMULAIRE + COORDONNÉES & CARTE */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            {/* Formulaire multi-onglets (Contact, Partenariat, Info, Candidature) */}
+      <section className="section section-green">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             <div className="lg:col-span-7">
-              <div className="mb-6">
-                <span className="text-secondary font-bold tracking-wider uppercase text-xs">
-                  Formulaire Direct
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-textDark mt-1">
-                  Envoyez-nous un message
+              <div className="mb-5">
+                <span className="badge badge-gold mb-2">Guichet Unique EICF</span>
+                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-white">
+                  Transmettre une demande à la Direction Exécutive
                 </h2>
               </div>
 
-              <Suspense
-                fallback={
-                  <div className="form-card text-center py-12 text-muted">
-                    Chargement du formulaire...
-                  </div>
-                }
-              >
+              <Suspense fallback={<ContactForm initialType="contact" />}>
                 <ContactFormSection />
               </Suspense>
             </div>
 
-            {/* Coordonnées, WhatsApp professionnel & Localisation */}
-            <aside className="lg:col-span-5 space-y-6 lg:sticky lg:top-28">
+            <aside className="lg:col-span-5 space-y-5 lg:sticky lg:top-28">
               <div>
-                <span className="text-secondary font-bold tracking-wider uppercase text-xs">
-                  Canaux Officiels
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-textDark mt-1 mb-6">
+                <span className="badge badge-gold mb-2">Canaux Officiels</span>
+                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-white mb-5">
                   Nos coordonnées
                 </h2>
 
                 <div className="contact-cards">
-                  {/* WhatsApp professionnel (CDC §8) */}
                   <a
                     href={`https://wa.me/${org.whatsapp}?text=Bonjour%20EICF,%20je%20souhaite%20des%20informations`}
                     target="_blank"
@@ -99,73 +85,95 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <small>WhatsApp professionnel</small>
-                      <strong className="block text-textDark">Discuter en direct</strong>
-                      <span className="text-xs text-muted block mt-0.5">
-                        Réponse rapide aux demandes urgentes
+                      <strong className="block">Discuter en direct</strong>
+                      <span className="text-xs text-[#4c5a53] block mt-0.5">
+                        Ligne directe Direction &amp; Partenariats
                       </span>
                     </div>
                   </a>
 
-                  {/* Téléphone fixe / mobile */}
-                  <a href={`tel:${org.phone}`} className="contact-card">
+                  <div className="contact-card">
                     <div className="icon-tile">
                       <Phone size={22} />
                     </div>
                     <div>
-                      <small>Standard téléphonique</small>
-                      <strong className="block text-textDark">{org.phone}</strong>
-                      <span className="text-xs text-muted block mt-0.5">
-                        Du lundi au vendredi · 8h - 17h GMT
-                      </span>
+                      <small>Standards téléphoniques (Lun – Ven · 8h – 17h GMT)</small>
+                      <div className="grid gap-0.5 mt-1">
+                        {org.phones.map((num) => (
+                          <a
+                            key={num}
+                            href={`tel:${num.replace(/\s+/g, '')}`}
+                            className="text-sm font-bold text-[#0b1813] hover:text-[#06352a]"
+                          >
+                            {num}
+                          </a>
+                        ))}
+                      </div>
                     </div>
-                  </a>
+                  </div>
 
-                  {/* Email institutionnel */}
-                  <a href={`mailto:${org.email}`} className="contact-card">
+                  <div className="contact-card">
                     <div className="icon-tile">
                       <Mail size={22} />
                     </div>
                     <div>
-                      <small>Courrier électronique</small>
-                      <strong className="block text-textDark">{org.email}</strong>
-                      <span className="text-xs text-muted block mt-0.5">
-                        Direction Exécutive & Partenariats
-                      </span>
+                      <small>Courriers électroniques</small>
+                      <div className="grid gap-0.5 mt-1">
+                        <a
+                          href={`mailto:${org.email}`}
+                          className="text-sm font-bold text-[#0b1813] hover:text-[#06352a]"
+                        >
+                          {org.email}
+                        </a>
+                        <a
+                          href={`mailto:${org.secondaryEmail}`}
+                          className="text-sm font-bold text-[#0b1813] hover:text-[#06352a]"
+                        >
+                          {org.secondaryEmail}
+                        </a>
+                      </div>
                     </div>
-                  </a>
+                  </div>
 
-                  {/* Siège social */}
                   <div className="contact-card">
                     <div className="icon-tile">
                       <MapPin size={22} />
                     </div>
                     <div>
-                      <small>Siège social national</small>
-                      <strong className="block text-textDark">{org.address}</strong>
-                      <span className="text-xs text-muted block mt-0.5">
-                        Abidjan, Côte d’Ivoire (+ 4 bases régionales : Katiola, Bouna, Korhogo, Bondoukou)
+                      <small>Siège social national (Depuis le 1er fév. 2008)</small>
+                      <strong className="block">
+                        {org.address} · {org.postalAddress}
+                      </strong>
+                      <span className="text-xs text-[#4c5a53] block mt-0.5">
+                        + 4 bases opérationnelles : Katiola, Bouna, Korhogo, Bondoukou
                       </span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Carte Leaflet & OpenStreetMap (siège national à Abidjan) */}
-              <div className="bg-white p-5 rounded-3xl border border-black/5 shadow-sm">
+              <div className="card" style={{ padding: '18px' }}>
                 <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="text-xs font-extrabold uppercase tracking-wider text-primary inline-flex items-center gap-1.5">
-                    <Building2 size={14} className="text-secondary" />
-                    Localisation OpenStreetMap (Siège)
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-[#06352a] inline-flex items-center gap-1.5">
+                    <Building2 size={14} />
+                    Siège social — Cocody Angré, Abidjan
                   </span>
-                  <Link
-                    href="/cartographie"
-                    className="text-xs font-bold text-primary hover:underline inline-flex items-center gap-1"
-                  >
-                    <span>Carte des projets</span>
+                  <Link href="/cartographie" className="text-link">
+                    <span>Carte des régions</span>
                     <ArrowRight size={12} />
                   </Link>
                 </div>
                 <ContactMap />
+              </div>
+
+              <div className="card flex items-start gap-2.5 text-xs text-[#4c5a53]" style={{ padding: '16px' }}>
+                <ShieldCheck size={16} className="text-[#06352a] flex-shrink-0 mt-0.5" />
+                <span>
+                  Vos données sont protégées conformément à la Loi n° 2013-450 / ARTCI. Consultez nos{' '}
+                  <Link href="/mentions-legales" className="text-[#06352a] font-bold underline">
+                    Mentions légales &amp; Confidentialité
+                  </Link>.
+                </span>
               </div>
             </aside>
           </div>

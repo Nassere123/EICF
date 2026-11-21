@@ -11,7 +11,7 @@ import {
   Globe,
   Check,
 } from 'lucide-react'
-import { org, domains } from '@/lib/data'
+import { org } from '@/lib/data'
 
 export function Footer() {
   const [email, setEmail] = useState('')
@@ -37,13 +37,13 @@ export function Footer() {
               <img src={org.logo} alt="Logo EICF" />
               <span className="brand-text">
                 <strong>{org.name}</strong>
-                <small>Depuis 2008 · Côte d’Ivoire</small>
+                <small>Fondée le 1er février 2008 · Côte d’Ivoire</small>
               </span>
             </Link>
             <p>
-              <strong>{org.fullName} (EICF)</strong> est une organisation non
-              gouvernementale ivoirienne dédiée au développement communautaire,
-              à l’autonomisation et à la paix.
+              <strong>{org.fullName} (EICF)</strong> — 18 ans d’engagement et de
+              solidarité pour l’éducation, la nutrition, l’eau-assainissement,
+              l’autonomisation des femmes et des jeunes et la cohésion sociale.
             </p>
 
             <div className="socials">
@@ -77,73 +77,70 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Colonne 2 : Navigation institutionnelle */}
+          {/* Colonne 2 : L'ONG & Nos actions */}
           <div>
             <h4 className="footer-title">Navigation</h4>
             <div className="footer-links">
               <Link href="/">Accueil</Link>
-              <Link href="/a-propos">À propos d’EICF</Link>
-              <Link href="/a-propos#gouvernance">Gouvernance & organigramme</Link>
-              <Link href="/cartographie">Cartographie des interventions</Link>
-              <Link href="/impact">EICF Impact — nos résultats</Link>
-              <Link href="/partenaires">Nos partenaires</Link>
-              <Link href="/appels-a-partenariat">Appels à partenariat</Link>
-              <Link href="/contact">Contact & nous rejoindre</Link>
+              <Link href="/a-propos">L’ONG &amp; Gouvernance</Link>
+              <Link href="/capacites-institutionnelles">Capacités institutionnelles</Link>
+              <Link href="/projets-actualites">Projets &amp; Références</Link>
+              <Link href="/domaines-intervention">11 Domaines d’intervention</Link>
+              <Link href="/cartographie">Cartographie &amp; Impact</Link>
             </div>
           </div>
 
-          {/* Colonne 3 : Domaines clés */}
+          {/* Colonne 3 : Ressources & Partenaires */}
           <div>
-            <h4 className="footer-title">Domaines clés</h4>
+            <h4 className="footer-title">Ressources &amp; Alliances</h4>
             <div className="footer-links">
-              {domains.slice(0, 6).map((dom) => (
-                <Link
-                  key={dom.slug}
-                  href={`/domaines-intervention/${dom.slug}`}
-                >
-                  {dom.title}
-                </Link>
-              ))}
-              <Link
-                href="/domaines-intervention"
-                style={{ color: 'var(--green)', fontWeight: 700 }}
-              >
-                Voir les 11 domaines &rarr;
-              </Link>
+              <Link href="/actualites">Actualités de terrain</Link>
+              <Link href="/temoignages">Témoignages documentés</Link>
+              <Link href="/mediatheque">Centre documentaire</Link>
+              <Link href="/partenaires">Bailleurs &amp; Partenaires</Link>
+              <Link href="/appels-a-partenariat">Appels à partenariat</Link>
+              <Link href="/contact">Nous contacter</Link>
             </div>
           </div>
 
-          {/* Colonne 4 : Coordonnées & Newsletter */}
+          {/* Colonne 4 : Coordonnées complètes brochure & Newsletter */}
           <div>
-            <h4 className="footer-title">Nous contacter</h4>
+            <h4 className="footer-title">Coordonnées officielles</h4>
             <div className="footer-contact">
               <div>
                 <MapPin size={16} />
-                <span>{org.address}</span>
+                <span>
+                  {org.address} · {org.postalAddress}
+                </span>
               </div>
               <div>
                 <Phone size={16} />
-                <a href={`tel:${org.phone}`}>{org.phone}</a>
+                <div style={{ display: 'grid', gap: '2px', fontSize: '13px' }}>
+                  {org.phones.map((num) => (
+                    <a key={num} href={`tel:${num.replace(/\s+/g, '')}`}>
+                      {num}
+                    </a>
+                  ))}
+                </div>
               </div>
               <div>
                 <Mail size={16} />
-                <a href={`mailto:${org.email}`}>{org.email}</a>
+                <div style={{ display: 'grid', gap: '2px' }}>
+                  <a href={`mailto:${org.email}`}>{org.email}</a>
+                  <a href={`mailto:${org.secondaryEmail}`}>{org.secondaryEmail}</a>
+                </div>
               </div>
             </div>
 
-            <h4 className="footer-title" style={{ marginTop: '26px' }}>
+            <h4 className="footer-title" style={{ marginTop: '24px' }}>
               Lettre d’information
             </h4>
-            <p style={{ fontSize: '12.5px', color: 'var(--muted)' }}>
-              Recevez trimestriellement nos résultats et actualités de terrain.
-            </p>
 
             {subscribed ? (
               <div
                 style={{
-                  marginTop: '14px',
+                  marginTop: '12px',
                   padding: '10px 14px',
-                  borderRadius: '999px',
                   background: 'var(--green-3)',
                   color: '#fff',
                   fontSize: '13px',
@@ -153,7 +150,7 @@ export function Footer() {
                 }}
               >
                 <Check size={16} />
-                <span>Merci pour votre inscription !</span>
+                <span>Inscription confirmée !</span>
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="newsletter">
@@ -175,13 +172,12 @@ export function Footer() {
         {/* Bas de page */}
         <div className="footer-bottom">
           <p>
-            &copy; {new Date().getFullYear()} {org.fullName} (EICF). Tous droits
-            réservés.
+            &copy; {new Date().getFullYear()} {org.fullName} (EICF) — Fondée le 1er février 2008. Tous droits réservés.
           </p>
-          <div style={{ display: 'flex', gap: '20px' }}>
-            <Link href="/a-propos#engagements">Transparence & Redevabilité</Link>
-            <Link href="/mediatheque">Rapports annuels</Link>
-            <Link href="/contact">Mentions légales</Link>
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+            <Link href="/capacites-institutionnelles">Capacités institutionnelles</Link>
+            <Link href="/mediatheque">Centre documentaire</Link>
+            <Link href="/mentions-legales">Mentions légales &amp; Confidentialité</Link>
           </div>
         </div>
       </div>

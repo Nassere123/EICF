@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Header } from './Header'
 import { Footer } from './Footer'
-import { AskEicf } from './AskEicf'
+import { FloatingActions } from './FloatingActions'
 import { SmartSearch } from './SmartSearch'
 import { MotionEffects } from './Motion'
 
@@ -16,7 +16,7 @@ export function ClientShell({ children }: { children: React.ReactNode }) {
       <Header onOpenSearch={() => setSearchOpen(true)} />
       <main id="main-content">{children}</main>
       <Footer />
-      <AskEicf />
+      <FloatingActions />
       <SmartSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   )

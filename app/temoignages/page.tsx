@@ -1,5 +1,11 @@
 import Link from 'next/link'
-import { ArrowRight, Quote, Sparkles } from 'lucide-react'
+import {
+  ArrowRight,
+  MapPin,
+  Calendar,
+  CheckCircle2,
+  ShieldCheck,
+} from 'lucide-react'
 import { stories, beforeAfter, projects } from '@/lib/data'
 
 export default function TemoignagesPage() {
@@ -10,92 +16,97 @@ export default function TemoignagesPage() {
           <div className="breadcrumb">
             <Link href="/">Accueil</Link>
             <span>/</span>
-            <span>Bénéficiaires & Témoignages</span>
+            <span>Témoignages documentés</span>
           </div>
 
-          <span className="inline-block text-secondary font-bold tracking-wider uppercase text-xs sm:text-sm mb-3">
-            Impact Humain & Récits de Vie
+          <span className="badge badge-gold mb-4">
+            Impact Humain Vérifié &amp; Éthique de Sauvegarde
           </span>
 
           <h1 className="display">
-            Histoires de changement &<br />
-            <em>voix des communautés.</em>
+            Histoires de changement &amp;<br />
+            <em>témoignages documentés de terrain.</em>
           </h1>
 
           <p className="lead">
-            Derrière chaque chiffre, il y a des femmes, des jeunes et des
-            familles qui construisent leur autonomie. Découvrez leurs parcours.
+            Chaque témoignage publié précise le projet concerné, la localité, la
+            période de recueil et le changement concret observé, dans le strict
+            respect du consentement éclairé et de l’anonymisation des mineurs.
           </p>
         </div>
       </section>
 
-      {/* 1. Histoires de changement & Portraits */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-secondary font-bold tracking-wider uppercase text-xs sm:text-sm">
-              Portraits de Terrain
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-textDark mt-2">
-              Des vies transformées,{' '}
-              <span className="italic text-primary">par et pour les communautés.</span>
-            </h2>
+      <section className="section section-green">
+        <div className="container">
+          <div className="card mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="flex items-start gap-4">
+              <div className="icon-tile" style={{ marginBottom: 0 }}>
+                <ShieldCheck size={24} />
+              </div>
+              <div>
+                <h2 className="text-lg sm:text-xl font-heading font-bold text-[#0b1813]">
+                  Protocole éthique, consentement et protection des mineurs
+                </h2>
+                <p className="text-xs sm:text-sm text-[#4c5a53] mt-1 leading-relaxed">
+                  Conformément à notre Politique de Sauvegarde de l’Enfant et à notre Politique PSEA, tous les témoignages sont documentés avec consentement autorisé et anonymisation systématique lorsque la protection des mineurs l’exige.
+                </p>
+              </div>
+            </div>
+            <Link href="/mediatheque" className="btn btn-green btn-sm flex-shrink-0">
+              Politique Sauvegarde &amp; PSEA
+            </Link>
           </div>
 
-          <div className="space-y-10">
-            {stories.map((s, idx) => {
+          <div className="space-y-8">
+            {stories.map((s) => {
               const p = projects.find((x) => x.slug === s.project)
-              const isEven = idx % 2 === 1
 
               return (
-                <article
-                  key={s.slug}
-                  data-reveal
-                  className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-black/5 grid grid-cols-1 lg:grid-cols-12"
-                >
-                  <div
-                    className={`lg:col-span-5 relative min-h-[320px] lg:min-h-[420px] overflow-hidden ${
-                      isEven ? 'lg:order-2' : ''
-                    }`}
-                  >
-                    <img
-                      src={s.image}
-                      alt={s.name}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                    />
+                <article key={s.slug} className="story">
+                  <div className="story-img">
+                    <img src={s.image} alt={s.name} />
                   </div>
 
-                  <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center">
-                    <div className="mb-4">
-                      <span className="inline-block bg-secondary/25 text-textDark px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider">
-                        Histoire de changement {p ? `· Projet ${p.name}` : ''}
+                  <div className="story-copy">
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <span className="badge badge-gold">
+                        {p ? `Projet : ${p.name}` : 'Histoire de changement'}
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-xs font-bold text-[#06352a]">
+                        <MapPin size={13} /> {s.localite}
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#4c5a53]">
+                        <Calendar size={13} /> {s.date}
                       </span>
                     </div>
 
-                    <blockquote className="text-2xl sm:text-3xl font-heading font-bold text-primary leading-snug mb-5">
-                      « {s.quote} »
-                    </blockquote>
+                    <blockquote>« {s.quote} »</blockquote>
 
-                    <p className="text-muted text-base leading-relaxed mb-6">
-                      {s.story}
-                    </p>
+                    <p className="text-sm sm:text-base text-[#4c5a53] leading-relaxed">{s.story}</p>
 
-                    <div className="pt-5 border-t border-black/5 flex flex-wrap items-center justify-between gap-4">
+                    <div className="p-4 bg-[#f4f7f5] border-l-4 border-[#06352a] text-xs sm:text-sm">
+                      <strong className="text-[#06352a] flex items-center gap-1.5 mb-1">
+                        <CheckCircle2 size={15} /> Changement concret observé :
+                      </strong>
+                      <span className="text-[#1c2a24]">{s.observedChange}</span>
+                    </div>
+
+                    <div className="pt-4 border-t border-[#d4d4d4] flex flex-wrap items-center justify-between gap-4">
                       <div>
-                        <strong className="block text-base font-heading font-bold text-textDark">
+                        <strong className="block text-base font-heading font-bold text-[#0b1813]">
                           {s.name}
                         </strong>
-                        <span className="text-xs sm:text-sm text-muted font-medium">
+                        <span className="text-xs sm:text-sm text-[#4c5a53] font-medium block">
                           {s.role}
                         </span>
+                        <small className="text-[11px] text-[#06352a] italic block mt-1">
+                          {s.consentNote}
+                        </small>
                       </div>
 
                       {p && (
-                        <Link
-                          href={`/projets-actualites/${p.slug}`}
-                          className="px-5 py-2.5 rounded-full bg-primary/10 hover:bg-primary text-primary hover:text-white font-bold text-xs sm:text-sm transition-colors inline-flex items-center gap-2"
-                        >
-                          <span>Projet {p.name}</span>
+                        <Link href={`/projets-actualites/${p.slug}`} className="btn btn-ghost btn-sm">
+                          <span>Fiche {p.name}</span>
                           <ArrowRight size={14} />
                         </Link>
                       )}
@@ -108,40 +119,27 @@ export default function TemoignagesPage() {
         </div>
       </section>
 
-      {/* 2. Comparatifs « Avant / Après » (CDC §5) */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-secondary font-bold tracking-wider uppercase text-xs sm:text-sm">
-              Mesure d’Impact
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-textDark mt-2">
-              Avant & Après :{' '}
-              <span className="italic text-primary">les indicateurs de transformation.</span>
+      <section className="section section-white">
+        <div className="container">
+          <div className="section-head center">
+            <span className="badge badge-gold">Mesure d’Impact</span>
+            <h2 className="h2 mt-3" style={{ color: 'var(--ink)' }}>
+              Avant &amp; Après : <em>les indicateurs de transformation.</em>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {beforeAfter.map((ba, idx) => (
-              <div
-                key={idx}
-                data-reveal
-                className="ba-card bg-background rounded-3xl p-7 sm:p-8 border border-black/5 shadow-xs hover:shadow-md transition-all"
-              >
-                <h3 className="text-lg font-heading font-bold text-textDark mb-5">
-                  {ba.label}
-                </h3>
-
+              <div key={idx} className="ba-card">
+                <h3>{ba.label}</h3>
                 <div className="ba">
                   <div className="before">
-                    <small>Avant intervention</small>
+                    <small>Situation initiale</small>
                     <strong>{ba.before}</strong>
                   </div>
-
                   <ArrowRight size={20} />
-
                   <div className="after">
-                    <small>Résultat actuel</small>
+                    <small>Résultat observé</small>
                     <strong>{ba.after}</strong>
                   </div>
                 </div>
