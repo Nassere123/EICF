@@ -12,17 +12,19 @@ import {
   ArrowRight,
   Check,
   Bot,
-  ShieldCheck,
-  Lock,
 } from 'lucide-react'
-import { documents, docTypes, media } from '@/lib/data'
+import {
+  documents,
+  docTypes,
+  media,
+} from '@/lib/data'
 import { answer, normalize } from '@/lib/ask-engine'
 
 const aiSampleQueries = [
-  'Banque mondiale',
-  'SWEDD',
-  'PASEA Katiola',
-  'PEJEDEC',
+  'Trouve-moi les projets d’EICF financés par la Banque mondiale',
+  'Quels sont les résultats du projet SWEDD ?',
+  'Rapports annuels',
+  'PASEA latrines Katiola',
 ]
 
 export default function MediathequePage() {
@@ -46,205 +48,248 @@ export default function MediathequePage() {
 
   const aiInsight = search.trim().length > 3 ? answer(search) : null
 
-  const handleDownload = (title: string, accessLevel: string) => {
-    if (accessLevel.includes('Due diligence')) {
-      setDownloadSuccess(`${title} (Dossier due diligence préparé)`)
-    } else {
-      setDownloadSuccess(title)
-    }
-    setTimeout(() => setDownloadSuccess(null), 3500)
+  const handleDownload = (slug: string, title: string) => {
+    setDownloadSuccess(title)
+    setTimeout(() => setDownloadSuccess(null), 3000)
   }
 
   return (
     <>
+      {/* HERO SECTION */}
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb">
             <Link href="/">Accueil</Link>
             <span>/</span>
-            <span>Centre documentaire &amp; Médiathèque</span>
+            <span>Médiathèque & Centre de ressources</span>
           </div>
 
-          <span className="badge badge-gold mb-4">
-            Centre Documentaire Institutionnel &amp; Due Diligence Bailleurs
+          <span className="inline-block text-secondary font-bold tracking-wider uppercase text-xs sm:text-sm mb-3">
+            Centre de Ressources & Capitalisation
           </span>
 
           <h1 className="display">
-            Centre documentaire &amp;<br />
-            <em>ressources institutionnelles d’EICF.</em>
+            Les connaissances utiles,<br />
+            <em>à portée de main.</em>
           </h1>
 
           <p className="lead">
-            Statuts et règlement intérieur (2008), organigramme officiel, manuels
-            de procédures administratives, financières et de passation des marchés,
-            politiques PSEA/MGP, rapports annuels, audits et photothèque terrain.
+            Rapports annuels, évaluations finales, manuels de formation, études
+            de capitalisation et photothèque de terrain : un espace ouvert aux
+            bailleurs, chercheurs et partenaires.
           </p>
 
           <div className="flex flex-wrap gap-3 mt-8">
             <button
               type="button"
-              className={`btn ${activeTab === 'documents' ? 'btn-gold' : 'btn-outline'}`}
+              className={`px-7 py-3.5 rounded-full font-bold text-sm sm:text-base transition-all inline-flex items-center gap-2 ${
+                activeTab === 'documents'
+                  ? 'bg-secondary text-textDark shadow-lg'
+                  : 'bg-white/10 hover:bg-white/20 border border-white/30 text-white'
+              }`}
               onClick={() => setActiveTab('documents')}
             >
               <FileText size={16} />
-              <span>Centre documentaire ({documents.length})</span>
+              <span>Documents & Rapports ({documents.length})</span>
             </button>
             <button
               type="button"
-              className={`btn ${activeTab === 'multimedia' ? 'btn-gold' : 'btn-outline'}`}
+              className={`px-7 py-3.5 rounded-full font-bold text-sm sm:text-base transition-all inline-flex items-center gap-2 ${
+                activeTab === 'multimedia'
+                  ? 'bg-secondary text-textDark shadow-lg'
+                  : 'bg-white/10 hover:bg-white/20 border border-white/30 text-white'
+              }`}
               onClick={() => setActiveTab('multimedia')}
             >
               <ImageIcon size={16} />
-              <span>Multimédia &amp; Photothèque</span>
+              <span>Multimédia & Photothèque</span>
             </button>
           </div>
         </div>
       </section>
 
+      {/* Notification de téléchargement simulé */}
       {downloadSuccess && (
-        <div className="fixed top-24 right-6 z-50 px-5 py-3.5 bg-[#06352a] border border-[#f2b31a] text-white flex items-center gap-3 text-sm">
-          <Check size={18} className="text-[#f2b31a] flex-shrink-0" />
+        <div className="fixed top-24 right-6 z-50 px-5 py-3.5 rounded-2xl bg-primary text-white shadow-2xl flex items-center gap-3 text-sm animate-in fade-in slide-in-from-top-3">
+          <Check size={18} className="text-secondary flex-shrink-0" />
           <span>
-            Document prêt : <strong>{downloadSuccess}</strong>
+            Téléchargement préparé : <strong>{downloadSuccess}</strong>
           </span>
         </div>
       )}
 
+      {/* 1. ONGLET DOCUMENTS */}
       {activeTab === 'documents' && (
-        <section className="section section-green">
-          <div className="container">
-            {/* Barre de recherche & filtre select (sans surcharge de chips) */}
-            <div className="filter-bar">
-              <div className="search-inline">
-                <Search size={18} />
+        <section className="py-20 bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Moteur de recherche documentaire intelligent (CDC §5) */}
+            <div className="max-w-3xl mx-auto mb-12">
+              <div className="search-field">
+                <Search size={18} className="lead-icon" />
                 <input
                   type="text"
-                  placeholder="Rechercher un manuel, statut, politique PSEA/MGP, audit..."
+                  placeholder="Posez une question ou cherchez un rapport (ex. projets financés par la Banque mondiale, SWEDD...)"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() => setSearch('')}
+                    className="px-3 py-1 text-xs font-bold text-muted hover:text-primary"
+                  >
+                    Effacer
+                  </button>
+                )}
               </div>
 
-              <select
-                aria-label="Filtrer par catégorie documentaire"
-                value={selectedType}
-                onChange={(e) => setSelectedType(e.target.value)}
-                className="select-pill"
-              >
-                <option value="all">Tous les documents ({documents.length})</option>
+              <div className="search-hints justify-center">
+                <span className="inline-flex items-center gap-1.5">
+                  <Sparkles size={13} className="text-secondary" />
+                  Exemples IA :
+                </span>
+                {aiSampleQueries.map((q) => (
+                  <button key={q} type="button" onClick={() => setSearch(q)}>
+                    {q}
+                  </button>
+                ))}
+              </div>
+
+              {/* Réponse synthétique IA issue des documents institutionnels validés */}
+              {aiInsight && (
+                <div className="mt-6 p-6 rounded-2xl bg-white border-l-4 border-secondary shadow-md text-left">
+                  <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-primary mb-2">
+                    <Bot size={16} className="text-secondary" />
+                    <span>Réponse documentaire IA (Sources validées EICF)</span>
+                  </div>
+                  <p className="text-textDark text-sm sm:text-base font-medium leading-relaxed">
+                    {aiInsight.text}
+                  </p>
+                  {aiInsight.bullets && aiInsight.bullets.length > 0 && (
+                    <ul className="mt-3 space-y-1.5 text-xs sm:text-sm text-text">
+                      {aiInsight.bullets.map((b, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-secondary mt-2 flex-shrink-0" />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {aiInsight.sources.length > 0 && (
+                    <div className="mt-4 pt-3 border-t border-black/5 flex flex-wrap items-center gap-2">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-muted">
+                        Fiches & sources :
+                      </span>
+                      {aiInsight.sources.map((s, i) => (
+                        <Link
+                          key={i}
+                          href={s.href}
+                          className="px-3 py-1 rounded-full bg-primary/10 hover:bg-primary hover:text-white text-primary text-xs font-bold transition-colors inline-flex items-center gap-1"
+                        >
+                          <span>{s.label}</span>
+                          <ArrowRight size={11} />
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* 9 types de documents du CDC §5 */}
+            <div className="flex justify-center mb-12">
+              <div className="chips">
+                <button
+                  type="button"
+                  className={`chip ${selectedType === 'all' ? 'is-active' : ''}`}
+                  onClick={() => setSelectedType('all')}
+                >
+                  <span>Tous les types ({documents.length})</span>
+                </button>
+
                 {docTypes.map((t) => {
                   const count = documents.filter((d) => d.type === t).length
                   return (
-                    <option key={t} value={t}>
-                      {t} ({count})
-                    </option>
+                    <button
+                      key={t}
+                      type="button"
+                      className={`chip ${selectedType === t ? 'is-active' : ''}`}
+                      onClick={() => setSelectedType(t)}
+                    >
+                      <span>{t}</span>
+                      {count > 0 && <span className="count">{count}</span>}
+                    </button>
                   )
                 })}
-              </select>
-            </div>
-
-            <div className="search-hints justify-center mb-8" style={{ color: 'rgba(255,255,255,0.85)' }}>
-              <span className="inline-flex items-center gap-1.5">
-                <Sparkles size={13} className="text-[#f2b31a]" />
-                Recherches rapides :
-              </span>
-              {aiSampleQueries.map((q) => (
-                <button key={q} type="button" onClick={() => setSearch(q)}>
-                  {q}
-                </button>
-              ))}
-            </div>
-
-            {aiInsight && (
-              <div className="card mb-8" style={{ borderLeft: '4px solid var(--gold)' }}>
-                <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-[#06352a] mb-2">
-                  <Bot size={16} />
-                  <span>Réponse documentaire (Sources validées EICF)</span>
-                </div>
-                <p className="text-[#0b1813] text-sm sm:text-base font-medium leading-relaxed">
-                  {aiInsight.text}
-                </p>
-                {aiInsight.bullets && aiInsight.bullets.length > 0 && (
-                  <ul className="mt-3 space-y-1.5 text-xs sm:text-sm text-[#1c2a24]">
-                    {aiInsight.bullets.map((b, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 bg-[#f2b31a] mt-2 flex-shrink-0" />
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                {aiInsight.sources.length > 0 && (
-                  <div className="mt-4 pt-3 border-t border-[#d4d4d4] flex flex-wrap items-center gap-2">
-                    {aiInsight.sources.map((s, i) => (
-                      <Link key={i} href={s.href} className="badge hover:bg-[#06352a] hover:text-white">
-                        <span>{s.label}</span>
-                        <ArrowRight size={11} />
-                      </Link>
-                    ))}
-                  </div>
-                )}
               </div>
-            )}
+            </div>
 
+            {/* Liste des documents */}
             <div className="space-y-4">
-              {filteredDocs.map((doc) => {
-                const isDueDiligence = doc.accessLevel.includes('Due diligence')
-                return (
-                  <div key={doc.slug} className="doc-row">
-                    <div className="ficon">
-                      <FileText size={20} />
-                    </div>
-
-                    <div>
-                      <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                        <span className="badge badge-gold">{doc.type}</span>
-                        <span className="badge">
-                          {isDueDiligence ? <Lock size={11} /> : <ShieldCheck size={11} />}
-                          {doc.accessLevel}
-                        </span>
-                      </div>
-                      <h3>{doc.title}</h3>
-                      <p>{doc.summary}</p>
-                    </div>
-
-                    <div className="meta">
-                      <span className="block text-xs text-[#0b1813] font-extrabold">
-                        Édition {doc.year}
-                      </span>
-                      <span className="block text-xs font-bold mt-0.5">{doc.size}</span>
-                    </div>
-
-                    <button
-                      type="button"
-                      className="dl-btn"
-                      onClick={() => handleDownload(doc.title, doc.accessLevel)}
-                    >
-                      <Download size={14} />
-                      <span>{isDueDiligence ? 'Obtenir (Bailleur)' : 'Télécharger'}</span>
-                    </button>
+              {filteredDocs.map((doc) => (
+                <div
+                  key={doc.slug}
+                  data-reveal
+                  className="doc-row bg-white rounded-2xl p-5 sm:p-6 border border-black/5 shadow-xs hover:shadow-md transition-all"
+                >
+                  <div className="ficon">
+                    <FileText size={20} />
                   </div>
-                )
-              })}
+
+                  <div>
+                    <h3 className="text-base sm:text-lg font-heading font-bold text-textDark">
+                      {doc.title}
+                    </h3>
+                    <p className="text-muted text-xs sm:text-sm mt-1">
+                      {doc.summary}
+                    </p>
+                  </div>
+
+                  <div className="meta">
+                    <span className="inline-block bg-secondary/25 text-textDark px-3 py-0.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider">
+                      {doc.type}
+                    </span>
+                    <span className="block text-xs text-muted font-bold mt-1.5">
+                      {doc.year} · {doc.size}
+                    </span>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="dl-btn"
+                    onClick={() => handleDownload(doc.slug, doc.title)}
+                  >
+                    <Download size={14} />
+                    <span>Télécharger</span>
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
         </section>
       )}
 
+      {/* 2. ONGLET MULTIMÉDIA */}
       {activeTab === 'multimedia' && (
-        <section className="section section-white" id="multimedia">
-          <div className="container space-y-16">
+        <section className="py-20 bg-white" id="multimedia">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+            {/* Vidéos de terrain */}
             <div>
-              <span className="badge badge-gold mb-2">Reportages &amp; Documentaires</span>
-              <h2 className="h2 mb-6" style={{ color: 'var(--ink)' }}>
-                Nos interventions en images animées
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="mb-8">
+                <span className="text-secondary font-bold tracking-wider uppercase text-xs">
+                  Reportages & Documentaires
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-textDark mt-1">
+                  Nos interventions en images animées
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
                 {media.videos.map((vid, idx) => (
-                  <div key={idx} className="video-card">
+                  <div key={idx} className="video-card shadow-md">
                     <img src={vid.thumb} alt={vid.title} />
                     <div className="play">
-                      <Play size={24} style={{ marginLeft: '3px' }} />
+                      <Play size={24} style={{ marginLeft: '4px' }} />
                     </div>
                     <div className="info">
                       <span>Durée : {vid.duration}</span>
@@ -255,16 +300,22 @@ export default function MediathequePage() {
               </div>
             </div>
 
+            {/* Infographies institutionnelles */}
             <div>
-              <span className="badge badge-gold mb-2">Synthèses Visuelles</span>
-              <h2 className="h2 mb-6" style={{ color: 'var(--ink)' }}>
-                Infographies &amp; fiches visuelles
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <div className="mb-8">
+                <span className="text-secondary font-bold tracking-wider uppercase text-xs">
+                  Synthèses Visuelles
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-textDark mt-1">
+                  Infographies & fiches visuelles
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {media.infographies.map((info, idx) => (
-                  <div key={idx} className="infographic">
+                  <div key={idx} className="infographic shadow-sm">
                     <div>
-                      <span className="text-[11px] uppercase tracking-widest opacity-85 font-extrabold">
+                      <span className="text-[11px] uppercase tracking-widest opacity-80 font-extrabold">
                         Infographie #{idx + 1}
                       </span>
                       <h3 className="mt-2">{info.title}</h3>
@@ -275,11 +326,17 @@ export default function MediathequePage() {
               </div>
             </div>
 
+            {/* Photothèque de terrain */}
             <div>
-              <span className="badge badge-gold mb-2">Photothèque Officielle</span>
-              <h2 className="h2 mb-6" style={{ color: 'var(--ink)' }}>
-                Photographies authentiques des activités de terrain
-              </h2>
+              <div className="mb-8">
+                <span className="text-secondary font-bold tracking-wider uppercase text-xs">
+                  Photothèque Officielle
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-heading font-bold text-textDark mt-1">
+                  Instantanés du quotidien des communautés
+                </h2>
+              </div>
+
               <div className="gallery">
                 {media.photos.map((ph, idx) => (
                   <figure key={idx}>

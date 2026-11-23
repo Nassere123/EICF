@@ -34,7 +34,8 @@ export default async function DomaineDetailPage({
   const completedProjects = domProjects.filter((p) => p.status === 'acheve')
   const conceptionProjects = domProjects.filter((p) => p.status === 'conception')
   const domDocs = documents.filter(
-    (d) => d.domain === domain.slug || domProjects.some((p) => p.slug === d.project)
+    (d) =>
+      d.domain === domain.slug || domProjects.some((p) => p.slug === d.project)
   )
   const domPhotos = media.photos.filter((ph) =>
     domProjects.some((p) => p.slug === ph.project)
@@ -42,6 +43,7 @@ export default async function DomaineDetailPage({
 
   return (
     <>
+      {/* Hero Domaine */}
       <section className="page-hero has-image">
         <div className="page-hero-img">
           <img src={domain.image} alt={domain.title} />
@@ -55,7 +57,10 @@ export default async function DomaineDetailPage({
             <span>{domain.title}</span>
           </div>
 
-          <span className="badge badge-gold mb-4">Domaine Stratégique {domain.num} / 11</span>
+          <span className="inline-block text-secondary font-bold tracking-wider uppercase text-xs sm:text-sm mb-3">
+            Domaine Stratégique {domain.num} / 11
+          </span>
+
           <h1 className="display">{domain.title}</h1>
           <p className="lead">{domain.short}</p>
 
@@ -64,7 +69,7 @@ export default async function DomaineDetailPage({
             <ArrowRight size={13} />
             <span>Approche EICF</span>
             <ArrowRight size={13} />
-            <span>Projets associés</span>
+            <span>Projets en cours</span>
             <ArrowRight size={13} />
             <span>Résultats</span>
             <ArrowRight size={13} />
@@ -73,22 +78,33 @@ export default async function DomaineDetailPage({
         </div>
       </section>
 
-      <section className="section section-green">
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            <div className="lg:col-span-8 space-y-6">
-              <div className="card">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="badge badge-gold">01</span>
-                  <h2 className="text-2xl font-heading font-bold text-[#0b1813]">Objectif général</h2>
+      {/* Contenu structuré : Objectif -> Approche -> Projets -> Résultats -> Photos -> Publications */}
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-8 space-y-8">
+              {/* 1. Objectif */}
+              <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                    01
+                  </span>
+                  <h2 className="text-2xl font-heading font-bold text-textDark">
+                    Objectif général
+                  </h2>
                 </div>
-                <p className="text-base leading-relaxed text-[#1c2a24]">{domain.objective}</p>
+                <p className="text-base sm:text-lg text-text leading-relaxed">
+                  {domain.objective}
+                </p>
               </div>
 
-              <div className="card">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="badge badge-gold">02</span>
-                  <h2 className="text-2xl font-heading font-bold text-[#0b1813]">
+              {/* 2. Approche EICF */}
+              <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                    02
+                  </span>
+                  <h2 className="text-2xl font-heading font-bold text-textDark">
                     Approche méthodologique EICF
                   </h2>
                 </div>
@@ -102,28 +118,45 @@ export default async function DomaineDetailPage({
                 </ul>
               </div>
 
-              <div className="card">
-                <div className="flex items-center gap-3 mb-5">
-                  <span className="badge badge-gold">03</span>
-                  <h2 className="text-2xl font-heading font-bold text-[#0b1813]">
+              {/* 3. Projets en cours & Projets réalisés */}
+              <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                    03
+                  </span>
+                  <h2 className="text-2xl font-heading font-bold text-textDark">
                     Projets associés ({domProjects.length})
                   </h2>
                 </div>
 
                 {activeProjects.length > 0 && (
-                  <div className="mb-5">
-                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#06352a] mb-3">
-                      Projets en cours
+                  <div className="mb-6">
+                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-secondary mb-3">
+                      Projets en cours de réalisation
                     </h3>
                     <div className="space-y-3">
                       {activeProjects.map((p) => (
-                        <div key={p.slug} className="p-4 border border-[#d4d4d4] bg-white flex flex-wrap justify-between items-center gap-4">
+                        <div
+                          key={p.slug}
+                          className="p-5 rounded-2xl bg-background border border-black/5 flex flex-wrap justify-between items-center gap-4"
+                        >
                           <div>
-                            <span className="badge badge-gold mb-1">En cours</span>
-                            <strong className="block text-lg font-heading text-[#0b1813]">{p.name}</strong>
-                            <p className="text-xs text-[#4c5a53]">{p.fullName} · {p.zone}</p>
+                            <div className="flex items-center gap-2.5">
+                              <span className="badge badge-live">
+                                <span className="dot" /> En cours
+                              </span>
+                              <strong className="text-lg font-heading font-bold text-textDark">
+                                {p.name}
+                              </strong>
+                            </div>
+                            <p className="text-xs sm:text-sm text-muted mt-1">
+                              {p.fullName} · {p.zone}
+                            </p>
                           </div>
-                          <Link href={`/projets-actualites/${p.slug}`} className="btn btn-green btn-sm">
+                          <Link
+                            href={`/projets-actualites/${p.slug}`}
+                            className="px-5 py-2.5 rounded-full bg-primary hover:bg-primaryDark text-white font-bold text-xs transition-colors inline-flex items-center gap-1.5"
+                          >
                             <span>Voir le projet</span>
                             <ArrowRight size={13} />
                           </Link>
@@ -134,20 +167,32 @@ export default async function DomaineDetailPage({
                 )}
 
                 {completedProjects.length > 0 && (
-                  <div className="mb-5">
-                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#4c5a53] mb-3">
-                      Projets achevés &amp; capitalisés
+                  <div className="mb-6">
+                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-muted mb-3">
+                      Projets achevés & capitalisés
                     </h3>
                     <div className="space-y-3">
                       {completedProjects.map((p) => (
-                        <div key={p.slug} className="p-4 border border-[#d4d4d4] bg-white flex flex-wrap justify-between items-center gap-4">
+                        <div
+                          key={p.slug}
+                          className="p-5 rounded-2xl bg-background border border-black/5 flex flex-wrap justify-between items-center gap-4"
+                        >
                           <div>
-                            <span className="badge mb-1">Achevé</span>
-                            <strong className="block text-lg font-heading text-[#0b1813]">{p.name}</strong>
-                            <p className="text-xs text-[#4c5a53]">{p.fullName} · {p.zone}</p>
+                            <div className="flex items-center gap-2.5">
+                              <span className="badge">Achevé</span>
+                              <strong className="text-lg font-heading font-bold text-textDark">
+                                {p.name}
+                              </strong>
+                            </div>
+                            <p className="text-xs sm:text-sm text-muted mt-1">
+                              {p.fullName} · {p.zone}
+                            </p>
                           </div>
-                          <Link href={`/projets-actualites/${p.slug}`} className="btn btn-ghost btn-sm">
-                            <span>Bilan &amp; Leçons</span>
+                          <Link
+                            href={`/projets-actualites/${p.slug}`}
+                            className="px-5 py-2.5 rounded-full bg-white border border-black/15 hover:border-primary text-primary font-bold text-xs transition-colors inline-flex items-center gap-1.5"
+                          >
+                            <span>Bilan & Leçons</span>
                             <ArrowRight size={13} />
                           </Link>
                         </div>
@@ -158,21 +203,32 @@ export default async function DomaineDetailPage({
 
                 {conceptionProjects.length > 0 && (
                   <div>
-                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#06352a] mb-3">
-                      Projets en conception
+                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-secondary mb-3">
+                      Projets en conception (recherche de partenaires)
                     </h3>
                     <div className="space-y-3">
                       {conceptionProjects.map((p) => (
-                        <div key={p.slug} className="p-4 border border-[#f2b31a] bg-[#fffbeb] flex flex-wrap justify-between items-center gap-4">
+                        <div
+                          key={p.slug}
+                          className="p-5 rounded-2xl bg-accent/60 border border-secondary/30 flex flex-wrap justify-between items-center gap-4"
+                        >
                           <div>
-                            <span className="badge badge-gold mb-1">En conception</span>
-                            <strong className="block text-lg font-heading text-[#0b1813]">
+                            <span className="badge badge-gold">En conception</span>
+                            <strong className="text-lg font-heading font-bold text-textDark block mt-1.5">
                               {p.name} — {p.fullName}
                             </strong>
-                            <p className="text-xs text-[#1c2a24]">{p.besoinFinancement}</p>
+                            <p className="text-xs sm:text-sm text-text mt-1">
+                              Besoin de financement :{' '}
+                              <strong className="text-primary">
+                                {p.besoinFinancement}
+                              </strong>
+                            </p>
                           </div>
-                          <Link href="/appels-a-partenariat" className="btn btn-gold btn-sm">
-                            <span>Soutenir</span>
+                          <Link
+                            href="/appels-a-partenariat"
+                            className="px-5 py-2.5 rounded-full bg-secondary hover:bg-secondaryHover text-textDark font-bold text-xs transition-colors inline-flex items-center gap-1.5"
+                          >
+                            <span>Soutenir ce projet</span>
                             <ArrowRight size={13} />
                           </Link>
                         </div>
@@ -182,30 +238,41 @@ export default async function DomaineDetailPage({
                 )}
               </div>
 
-              <div className="card">
-                <div className="flex items-center gap-3 mb-5">
-                  <span className="badge badge-gold">04</span>
-                  <h2 className="text-2xl font-heading font-bold text-[#0b1813]">
-                    Résultats &amp; Impact mesuré
+              {/* 4. Résultats chiffrés */}
+              <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                    04
+                  </span>
+                  <h2 className="text-2xl font-heading font-bold text-textDark">
+                    Résultats & Impact mesuré
                   </h2>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   {domain.results.map((res, i) => (
-                    <div key={i} className="p-5 border border-[#d4d4d4] bg-[#f4f7f5]">
-                      <strong className="text-3xl font-heading font-bold text-[#06352a] block">
+                    <div
+                      key={i}
+                      className="p-6 rounded-2xl bg-background border border-black/5"
+                    >
+                      <strong className="text-3xl sm:text-4xl font-heading font-bold text-primary block">
                         {res.value}
                       </strong>
-                      <p className="text-sm font-semibold text-[#0b1813] mt-1">{res.label}</p>
+                      <p className="text-sm font-semibold text-textDark mt-2">
+                        {res.label}
+                      </p>
                     </div>
                   ))}
                 </div>
               </div>
 
+              {/* 5. Photos de terrain */}
               {domPhotos.length > 0 && (
-                <div className="card">
-                  <div className="flex items-center gap-3 mb-5">
-                    <span className="badge badge-gold">05</span>
-                    <h2 className="text-2xl font-heading font-bold text-[#0b1813]">
+                <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                      05
+                    </span>
+                    <h2 className="text-2xl font-heading font-bold text-textDark">
                       Photographies de terrain
                     </h2>
                   </div>
@@ -217,17 +284,20 @@ export default async function DomaineDetailPage({
                 </div>
               )}
 
-              <div className="card">
-                <div className="flex items-center gap-3 mb-5">
-                  <span className="badge badge-gold">06</span>
-                  <h2 className="text-2xl font-heading font-bold text-[#0b1813]">
-                    Publications &amp; Documentation associée
+              {/* 6. Publications & Rapports téléchargeables */}
+              <div className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-xs">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="w-9 h-9 rounded-full bg-primary text-secondary font-heading font-bold text-xs flex items-center justify-center">
+                    06
+                  </span>
+                  <h2 className="text-2xl font-heading font-bold text-textDark">
+                    Publications & Documentation associée
                   </h2>
                 </div>
                 {domDocs.length > 0 ? (
                   <div className="space-y-3">
                     {domDocs.map((doc) => (
-                      <div key={doc.slug} className="doc-row">
+                      <div key={doc.slug} className="doc-row bg-background">
                         <div className="ficon">
                           <FileText size={18} />
                         </div>
@@ -246,23 +316,27 @@ export default async function DomaineDetailPage({
                     ))}
                   </div>
                 ) : (
-                  <p className="text-sm" style={{ color: 'var(--muted)' }}>
-                    Rapports disponibles dans le centre documentaire.
+                  <p className="text-muted text-sm">
+                    Rapports trimestriels disponibles dans la médiathèque générale.
                   </p>
                 )}
               </div>
 
               <div>
-                <Link href="/domaines-intervention" className="btn btn-gold">
+                <Link
+                  href="/domaines-intervention"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
+                >
                   <ArrowLeft size={15} />
-                  <span>Retour aux 11 domaines</span>
+                  <span>Retour aux 11 domaines d’intervention</span>
                 </Link>
               </div>
             </div>
 
+            {/* Barre latérale récapitulative */}
             <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-28">
-              <div className="fact-card">
-                <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#06352a] mb-4">
+              <div className="bg-white rounded-3xl p-7 border border-black/5 shadow-sm">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-secondary mb-4">
                   Fiche domaine EICF
                 </h4>
                 <dl className="facts">
@@ -276,27 +350,34 @@ export default async function DomaineDetailPage({
                   </div>
                   <div>
                     <dt>Statut opérationnel</dt>
-                    <dd className="text-[#06352a]">Actif</dd>
+                    <dd className="text-primary">Actif</dd>
                   </div>
                 </dl>
-                <div className="mt-5">
-                  <Link href="/contact?type=partenariat" className="btn btn-gold w-full">
+
+                <div className="mt-6">
+                  <Link
+                    href="/contact?type=partenariat"
+                    className="w-full py-3.5 px-5 rounded-full bg-secondary hover:bg-secondaryHover text-textDark font-bold text-sm transition-all shadow-md inline-flex items-center justify-center gap-2"
+                  >
                     <span>Co-financer une action</span>
                     <ArrowRight size={14} />
                   </Link>
                 </div>
               </div>
 
-              <div className="card" style={{ background: '#06352a', color: '#ffffff', borderColor: '#f2b31a' }}>
-                <Sparkles size={22} className="text-[#f2b31a] mb-3" />
+              <div className="bg-primary text-white rounded-3xl p-7 shadow-md">
+                <Sparkles size={22} className="text-secondary mb-3" />
                 <h4 className="font-heading font-bold text-lg text-white mb-2">
                   Poser une question sur ce domaine
                 </h4>
-                <p className="text-xs sm:text-sm text-white/85 mb-4">
-                  Contactez notre responsable sectoriel pour connaître nos interventions dans vos localités.
+                <p className="text-xs sm:text-sm text-white/80 mb-5 leading-relaxed">
+                  Interrogez ASK EICF ou contactez notre responsable sectoriel pour connaître les interventions dans vos localités d’intérêt.
                 </p>
-                <Link href="/contact" className="btn btn-outline w-full btn-sm">
-                  Contacter l’équipe EICF
+                <Link
+                  href="/contact"
+                  className="w-full py-3 px-4 rounded-full bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm transition-colors inline-flex items-center justify-center"
+                >
+                  Contacter le responsable de secteur
                 </Link>
               </div>
             </aside>

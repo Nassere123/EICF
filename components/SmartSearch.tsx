@@ -42,13 +42,13 @@ export function SmartSearch({ open, onClose }: SmartSearchProps) {
   const getIcon = (type: SearchHit['type']) => {
     switch (type) {
       case 'Projet':
-        return <Briefcase size={15} />
+        return <Briefcase size={16} />
       case 'Document':
-        return <FileText size={15} />
+        return <FileText size={16} />
       case 'Actualité':
-        return <Newspaper size={15} />
+        return <Newspaper size={16} />
       case 'Domaine':
-        return <Layers size={15} />
+        return <Layers size={16} />
     }
   }
 
@@ -60,8 +60,8 @@ export function SmartSearch({ open, onClose }: SmartSearchProps) {
         position: 'fixed',
         inset: 0,
         zIndex: 90,
-        backgroundColor: 'rgba(4, 35, 27, 0.72)',
-        backdropFilter: 'blur(6px)',
+        backgroundColor: 'rgba(7, 35, 27, 0.65)',
+        backdropFilter: 'blur(8px)',
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'center',
@@ -73,23 +73,25 @@ export function SmartSearch({ open, onClose }: SmartSearchProps) {
         style={{
           width: 'min(680px, 100%)',
           backgroundColor: '#fff',
-          borderRadius: '0px',
+          borderRadius: '20px',
           boxShadow: 'var(--shadow-lg)',
           overflow: 'hidden',
-          border: '2px solid var(--green)',
+          animation: 'pop-in 0.25s var(--ease)',
+          border: '1px solid var(--line)',
         }}
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Barre de recherche */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
-            padding: '14px 18px',
-            borderBottom: '1px solid var(--border-card)',
+            padding: '16px 20px',
+            borderBottom: '1px solid var(--line)',
           }}
         >
-          <Search size={20} style={{ color: 'var(--green)' }} />
+          <Search size={20} style={{ color: 'var(--green-3)' }} />
           <input
             type="text"
             autoFocus
@@ -108,8 +110,12 @@ export function SmartSearch({ open, onClose }: SmartSearchProps) {
             <button
               type="button"
               onClick={() => setQuery('')}
-              aria-label="Effacer la recherche"
-              style={{ color: 'var(--muted)' }}
+              style={{
+                background: 'transparent',
+                border: 0,
+                color: 'var(--muted)',
+                cursor: 'pointer',
+              }}
             >
               <X size={18} />
             </button>
@@ -119,9 +125,9 @@ export function SmartSearch({ open, onClose }: SmartSearchProps) {
             onClick={onClose}
             style={{
               padding: '6px 12px',
-              borderRadius: '0px',
-              border: '1px solid var(--border-card)',
-              background: '#f4f7f5',
+              borderRadius: '999px',
+              border: '1px solid var(--line)',
+              background: 'var(--paper)',
               fontSize: '11px',
               fontWeight: 800,
               letterSpacing: '0.06em',
@@ -131,13 +137,14 @@ export function SmartSearch({ open, onClose }: SmartSearchProps) {
           </button>
         </div>
 
+        {/* Suggestions rapides si pas de requête */}
         {!query && (
-          <div style={{ padding: '22px' }}>
+          <div style={{ padding: '24px' }}>
             <p
               style={{
                 fontSize: '11.5px',
                 fontWeight: 800,
-                letterSpacing: '0.1em',
+                letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 color: 'var(--muted)',
                 marginBottom: '12px',
@@ -156,10 +163,10 @@ export function SmartSearch({ open, onClose }: SmartSearchProps) {
                   type="button"
                   onClick={() => setQuery(s)}
                   style={{
-                    padding: '7px 14px',
-                    borderRadius: '0px',
-                    border: '1px solid var(--border-card)',
-                    background: '#ffffff',
+                    padding: '8px 14px',
+                    borderRadius: '999px',
+                    border: '1px solid var(--line)',
+                    background: 'var(--paper)',
                     fontSize: '13px',
                     fontWeight: 600,
                     color: 'var(--green)',
@@ -173,20 +180,33 @@ export function SmartSearch({ open, onClose }: SmartSearchProps) {
           </div>
         )}
 
+        {/* Résultats */}
         {query && (
           <div
             style={{
               maxHeight: '440px',
               overflowY: 'auto',
-              padding: '16px 18px',
+              padding: '16px 20px',
               display: 'grid',
               gap: '8px',
             }}
           >
             {results.length > 0 ? (
               results.map((hit, i) => (
-                <Link key={i} href={hit.href} onClick={onClose} className="search-hit">
-                  <span className="badge">
+                <Link
+                  key={i}
+                  href={hit.href}
+                  onClick={onClose}
+                  className="search-hit"
+                >
+                  <span
+                    className="badge"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                    }}
+                  >
                     {getIcon(hit.type)}
                     <span>{hit.type}</span>
                   </span>
@@ -194,7 +214,7 @@ export function SmartSearch({ open, onClose }: SmartSearchProps) {
                     <h4>{hit.title}</h4>
                     <p>{hit.excerpt}</p>
                   </div>
-                  <ArrowRight size={16} style={{ color: 'var(--green)' }} />
+                  <ArrowRight size={16} style={{ color: 'var(--green-3)' }} />
                 </Link>
               ))
             ) : (
@@ -208,11 +228,12 @@ export function SmartSearch({ open, onClose }: SmartSearchProps) {
           </div>
         )}
 
+        {/* Pied de la modale */}
         <div
           style={{
-            padding: '12px 18px',
-            backgroundColor: '#f4f7f5',
-            borderTop: '1px solid var(--border-card)',
+            padding: '12px 20px',
+            backgroundColor: 'var(--paper)',
+            borderTop: '1px solid var(--line)',
             fontSize: '12px',
             color: 'var(--muted)',
             display: 'flex',
@@ -220,8 +241,10 @@ export function SmartSearch({ open, onClose }: SmartSearchProps) {
             alignItems: 'center',
           }}
         >
-          <span>Indexé : projets, rapports, domaines &amp; actualités</span>
-          <span style={{ color: 'var(--green)', fontWeight: 700 }}>Plateforme EICF</span>
+          <span>Indexé : 10 projets, 15 rapports, 11 domaines & 8 actualités</span>
+          <span style={{ color: 'var(--green-3)', fontWeight: 700 }}>
+            Plateforme EICF 2026
+          </span>
         </div>
       </div>
     </div>

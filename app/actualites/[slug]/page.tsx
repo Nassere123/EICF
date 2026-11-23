@@ -39,48 +39,56 @@ export default async function ActualiteDetailPage({
 
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <span className="badge badge-gold">{article.category}</span>
-            <span className="text-xs sm:text-sm text-white/85 font-semibold inline-flex items-center gap-1.5">
+            <span className="text-xs sm:text-sm text-white/80 font-semibold inline-flex items-center gap-1.5">
               <Calendar size={14} />
               {formatDate(article.date)}
             </span>
           </div>
 
           <h1 className="display max-w-4xl">{article.title}</h1>
-          <p className="lead max-w-3xl text-[#f8cc4d]">{article.excerpt}</p>
+          <p className="lead max-w-3xl text-secondary">{article.excerpt}</p>
         </div>
       </section>
 
-      <section className="section section-green">
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-8">
-              <div className="card" style={{ padding: 'clamp(24px, 4vw, 44px)' }}>
-                <div className="space-y-5 text-base sm:text-lg text-[#1c2a24] leading-relaxed">
+              <div className="bg-white rounded-3xl p-8 sm:p-12 border border-black/5 shadow-sm">
+                <div className="space-y-6 text-base sm:text-lg text-text leading-relaxed">
                   {article.body.map((para, i) => (
                     <p key={i}>{para}</p>
                   ))}
                 </div>
 
                 {relatedProject && (
-                  <div className="mt-8 p-6 bg-[#f4f7f5] border-l-4 border-[#06352a] border border-[#d4d4d4] flex flex-wrap justify-between items-center gap-4">
+                  <div className="mt-10 p-6 sm:p-7 rounded-2xl bg-background border-l-4 border-primary flex flex-wrap justify-between items-center gap-4">
                     <div>
-                      <span className="badge badge-gold mb-2">Projet associé</span>
-                      <h3 className="text-xl font-heading font-bold text-[#0b1813]">
+                      <span className="inline-block bg-secondary/25 text-textDark px-3 py-0.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider mb-1.5">
+                        Projet associé
+                      </span>
+                      <h3 className="text-xl font-heading font-bold text-textDark">
                         {relatedProject.name} — {relatedProject.fullName}
                       </h3>
-                      <p className="text-xs sm:text-sm text-[#4c5a53] mt-1">
+                      <p className="text-xs sm:text-sm text-muted mt-1">
                         {relatedProject.zone} · {relatedProject.budget}
                       </p>
                     </div>
-                    <Link href={`/projets-actualites/${relatedProject.slug}`} className="btn btn-green btn-sm">
+                    <Link
+                      href={`/projets-actualites/${relatedProject.slug}`}
+                      className="px-6 py-3 rounded-full bg-primary hover:bg-primaryDark text-white font-bold text-xs sm:text-sm transition-colors inline-flex items-center gap-2"
+                    >
                       <span>Fiche projet</span>
                       <ArrowRight size={14} />
                     </Link>
                   </div>
                 )}
 
-                <div className="mt-8 pt-6 border-t border-[#d4d4d4]">
-                  <Link href="/actualites" className="btn btn-ghost btn-sm">
+                <div className="mt-10 pt-6 border-t border-black/5">
+                  <Link
+                    href="/actualites"
+                    className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
+                  >
                     <ArrowLeft size={15} />
                     <span>Retour aux actualités</span>
                   </Link>
@@ -89,8 +97,8 @@ export default async function ActualiteDetailPage({
             </div>
 
             <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-28">
-              <div className="fact-card">
-                <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#06352a] mb-4">
+              <div className="bg-white rounded-3xl p-7 border border-black/5 shadow-sm">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-secondary mb-4">
                   Informations de publication
                 </h4>
                 <dl className="facts">
@@ -109,8 +117,8 @@ export default async function ActualiteDetailPage({
                 </dl>
               </div>
 
-              <div className="fact-card">
-                <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#06352a] mb-4">
+              <div className="bg-white rounded-3xl p-7 border border-black/5 shadow-sm">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-secondary mb-4">
                   À lire également
                 </h4>
                 <div className="space-y-3">
@@ -118,10 +126,12 @@ export default async function ActualiteDetailPage({
                     <Link
                       key={o.slug}
                       href={`/actualites/${o.slug}`}
-                      className="block p-4 border border-[#d4d4d4] bg-[#ffffff] hover:border-[#06352a] transition-colors"
+                      className="block p-4 rounded-2xl bg-background hover:bg-primary/5 border border-black/5 transition-colors group"
                     >
-                      <span className="badge badge-gold mb-1.5">{o.category}</span>
-                      <strong className="block text-sm font-heading font-bold text-[#0b1813]">
+                      <span className="inline-block bg-secondary/25 text-textDark px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider mb-1.5">
+                        {o.category}
+                      </span>
+                      <strong className="block text-sm font-heading font-bold text-textDark group-hover:text-primary transition-colors leading-snug">
                         {o.title}
                       </strong>
                     </Link>

@@ -13,8 +13,8 @@ export default function ImpactPage() {
             <span>EICF Impact — Nos résultats</span>
           </div>
 
-          <span className="badge badge-gold mb-4">
-            Tableau de Bord &amp; Redevabilité (KPI)
+          <span className="inline-block text-secondary font-bold tracking-wider uppercase text-xs sm:text-sm mb-3">
+            Tableau de Bord & Redevabilité (KPI)
           </span>
 
           <h1 className="display">
@@ -28,22 +28,28 @@ export default function ImpactPage() {
             assainissement, autonomisation, protection et santé communautaire.
           </p>
 
-          <div className="flex flex-wrap gap-3 mt-8">
-            <Link href="/temoignages" className="btn btn-gold">
+          <div className="flex flex-wrap gap-4 mt-8">
+            <Link
+              href="/temoignages"
+              className="px-7 py-3.5 bg-secondary hover:bg-secondaryHover text-textDark font-bold rounded-full transition-all shadow-lg inline-flex items-center gap-2 text-sm sm:text-base"
+            >
               <Users size={16} />
-              <span>Histoires de changement</span>
+              <span>Découvrir les histoires de changement</span>
               <ArrowRight size={15} />
             </Link>
-            <Link href="/mediatheque" className="btn btn-outline">
+            <Link
+              href="/mediatheque"
+              className="px-7 py-3.5 bg-white/10 hover:bg-white/20 backdrop-blur border border-white/30 text-white font-semibold rounded-full transition-all inline-flex items-center gap-2 text-sm sm:text-base"
+            >
               <Download size={16} />
-              <span>Rapports &amp; bilans annuels</span>
+              <span>Rapports & bilans annuels</span>
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="section section-green">
-        <div className="container">
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ImpactDashboard showHero={false} />
         </div>
       </section>
