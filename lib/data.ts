@@ -1535,7 +1535,16 @@ export const regions: Region[] = [
 /* Actualités & événements (CDC §4 – 8 catégories)                     */
 /* ------------------------------------------------------------------ */
 
-export const newsCategories = ['Actualités EICF', 'Activités terrain', 'Cérémonies', 'Missions', 'Formations', 'Communiqués', 'Événements', 'Témoignages'] as const
+export const newsCategories = [
+  'Actualités EICF',
+  'Activités terrain',
+  'Cérémonies',
+  'Missions',
+  'Formations',
+  'Communiqués',
+  'Événements',
+  'Témoignages',
+] as const
 export type NewsCategory = (typeof newsCategories)[number]
 
 export type NewsItem = {
@@ -1546,18 +1555,207 @@ export type NewsItem = {
   image: string
   excerpt: string
   project?: string
+  location?: string
+  author?: string
   body: string[]
+  keyPoints?: string[]
 }
 
 export const news: NewsItem[] = [
-  { slug: 'katiola-communautes-avenir', title: 'À Katiola, les communautés prennent leur avenir en main', date: '2026-10-16', category: 'Activités terrain', image: images.latrines, project: 'pasea', excerpt: 'Dix villages du département de Katiola ont franchi une étape décisive vers la fin de la défécation à l’air libre.', body: ['Dans le cadre du projet PASEA, les dix villages accompagnés par EICF dans le département de Katiola ont désormais tous engagé leur démarche de certification « Fin de la défécation à l’air libre ».', 'Au total, 788 latrines familiales ont été construites par les ménages eux-mêmes, avec l’appui technique des équipes EICF et des artisans locaux formés.', 'Les comités d’hygiène villageois assurent désormais le suivi des bonnes pratiques, notamment le lavage des mains au savon.'] },
-  { slug: 'campagne-sante-bounkani', title: 'Une nouvelle campagne de santé communautaire dans l’Est', date: '2026-10-10', category: 'Activités terrain', image: images.sante, project: 'swedd', excerpt: 'Plus de 2 000 enfants et mères accompagnés dans les régions du Gontougo et de l’Indénié-Djuablin.', body: ['La campagne de dépistage et de sensibilisation conduite avec les districts sanitaires et les espaces sûrs SWEDD a permis de renforcer la santé maternelle et infantile.', 'Les agents de santé communautaire formés par EICF assureront le suivi dans les foyers d’apprentissage nutritionnel.'] },
-  { slug: 'education-filles-reussite', title: 'Éducation : accompagner les filles vers la réussite', date: '2026-10-02', category: 'Témoignages', image: images.espaceSur, project: 'swedd', excerpt: 'Dans les espaces sûrs du Bounkani, les adolescentes reprennent confiance et restent à l’école.', body: ['Avec 96 % de maintien scolaire parmi les participantes, les espaces sûrs du projet SWEDD montrent l’impact d’un accompagnement de proximité.', 'Les mentores communautaires jouent un rôle central dans le dialogue avec les familles.'] },
-  { slug: 'formation-mediateurs-tchologo', title: '40 nouveaux médiateurs communautaires formés dans le Tchologo', date: '2026-09-21', category: 'Formations', image: images.dialoguePaix, project: 'cohesion-plus', excerpt: 'Une session de cinq jours pour renforcer la prévention et la gestion pacifique des conflits fonciers.', body: ['Chefs de village, femmes leaders et jeunes ont été formés aux techniques de médiation et à l’utilisation du système d’alerte précoce.'] },
-  { slug: 'signature-convention-unicef', title: 'Signature d’une convention de partenariat avec l’UNICEF', date: '2026-09-05', category: 'Cérémonies', image: images.signatureMinistere, project: 'clef-san-pedro', excerpt: 'Un accord consolidé pour renforcer l’éducation et les classes passerelles à San Pédro.', body: ['La cérémonie s’est tenue à Abidjan en présence des autorités administratives et des représentants de l’UNICEF et du MENA.'] },
-  { slug: 'mission-supervision-bm', title: 'Mission de supervision de la Banque mondiale à Katiola', date: '2026-08-28', category: 'Missions', image: images.missionPartenaires, project: 'pasea', excerpt: 'La délégation a salué la forte appropriation communautaire des ouvrages d’assainissement.', body: ['La mission a visité quatre villages et échangé avec les comités de gestion et les autorités locales.'] },
-  { slug: 'communique-rapport-annuel-2025', title: 'Communiqué : publication du rapport annuel 2025', date: '2026-07-15', category: 'Communiqués', image: images.femmes, excerpt: 'Le rapport annuel 2025 d’EICF est désormais disponible dans la médiathèque.', body: ['Ce rapport présente l’ensemble des réalisations, résultats et comptes de l’organisation pour l’exercice 2025.'] },
-  { slug: 'forum-partenaires-2026', title: 'Forum des partenaires EICF 2026 — Save the date', date: '2026-12-04', category: 'Événements', image: images.remiseAccord, excerpt: 'Rendez-vous le 4 décembre à Abidjan pour le premier forum des partenaires techniques et financiers d’EICF.', body: ['Le forum présentera le plan stratégique 2027-2031 et les projets en recherche de financement.'] },
+  {
+    slug: 'katiola-latrines-fdal-pasea',
+    title: 'Assainissement rural : 788 latrines familiales certifiées et 10 villages déclarés FDAL à Katiola',
+    date: '2024-10-16',
+    category: 'Activités terrain',
+    image: images.latrines,
+    project: 'pasea',
+    location: 'Fronan & Katiola, Région du Hambol',
+    author: 'Cellule Communication & Redevabilité EICF',
+    excerpt: 'Dans le cadre du projet PASEA financé par la Banque mondiale, dix villages du département de Katiola ont franchi l’étape décisive de la certification officielle « Fin de la défécation à l’air libre » (FDAL).',
+    keyPoints: [
+      '788 latrines familiales durables construites et certifiées par les services d’hygiène',
+      '10 comités villageois d’hygiène et d’assainissement formés et actifs',
+      'Zéro épidémie de choléra et réduction majeure des diarrhées infantiles',
+      'Accompagnement de 9 Très Petites Entreprises (TPE) locales de maçonnerie sanitaire',
+    ],
+    body: [
+      'L’aboutissement d’un travail communautaire de plus de 18 mois a été solennellement célébré à Fronan, chef-lieu de sous-préfecture du département de Katiola. Grâce à l’approche participative d’Assainissement Total Piloté par la Communauté (ATPC) mise en œuvre par l’ONG EICF dans le cadre du Projet d’Assainissement et d’Eau Potable en Milieu Rural (PASEA), dix localités ont été certifiées sans défécation à l’air libre.',
+      'Au total, 788 latrines familiales ont été érigées par les ménages eux-mêmes, bénéficiant des conseils techniques réguliers des équipes d’EICF et du savoir-faire d’artisans locaux qualifiés.',
+      '« Cette certification marque une rupture historique avec les pratiques du passé. Nos puits traditionnels ne sont plus contaminés lors des saisons des pluies, et nos enfants tombent beaucoup moins malades », a souligné le chef du village de Fronan lors de la remise symbolique des panneaux FDAL.',
+      'Les équipes d’EICF et les agents de santé communautaire poursuivent un plan de pérennisation semestriel afin de maintenir le lavage régulier des mains au savon et la propreté irréprochable des ouvrages.',
+    ],
+  },
+  {
+    slug: 'cloture-reussie-swedd-adolescentes',
+    title: 'Projet SWEDD : Bilan certifié de 18 mois d’autonomisation pour 1 560 adolescentes dans le Nord-Est',
+    date: '2024-12-20',
+    category: 'Actualités EICF',
+    image: images.espaceSur,
+    project: 'swedd',
+    location: 'Bouna (Bounkani) & Bondoukou (Gontougo)',
+    author: 'Coordination Régionale SWEDD / EICF',
+    excerpt: 'Au terme de 18 mois de déploiement opérationnel, l’ONG EICF a présenté les résultats certifiés du projet SWEDD en présence des délégations de l’UNFPA, de la Banque mondiale et du Ministère de la Femme.',
+    keyPoints: [
+      '1 560 adolescentes et jeunes filles vulnérables accompagnées dans 62 espaces sûrs',
+      '96 % de taux de maintien scolaire mesuré sur deux années académiques',
+      '0 cas de mariage d’enfant recensé dans les cohortes régulièrement encadrées',
+      '62 mentores communautaires diplômées, valorisées et reconnues dans leurs villages',
+    ],
+    body: [
+      'L’atelier de clôture et de capitalisation du Projet d’Autonomisation des Femmes et Dividende Démographique au Sahel (SWEDD), volet espaces sûrs et maintien scolaire, s’est tenu à Bouna en présence des autorités préfectorales, des chefs de cantons et des représentants des agences partenaires.',
+      'Opérateur technique de référence dans les régions du Bounkani et du Gontougo, l’ONG EICF a structuré, équipé et animé 62 espaces sûrs villageois et périurbains. Ces lieux protégés ont offert à 1 560 adolescentes déscolarisées ou scolarisées à risque des sessions hebdomadaires en santé de la reproduction, droits humains, compétences de vie et alphabétisation fonctionnelle.',
+      'Les témoignages poignants des mentores et des parents d’élèves ont salué un impact tangible : le taux de déperdition scolaire chez les participantes est tombé sous la barre des 4 %, tandis que les grossesses précoces en milieu scolaire ont diminué de plus de 70 % dans les zones d’intervention.',
+      'Une note de capitalisation méthodologique détaillée a été transmise au bailleur et aux ministères sectoriels pour servir de modèle d’essaimage dans d’autres districts du pays.',
+    ],
+  },
+  {
+    slug: 'remise-kits-installation-pejedec-bagoue',
+    title: 'Cérémonie officielle : Remise de kits d’installation professionnelle à 3 200 jeunes dans la Bagoué',
+    date: '2024-11-12',
+    category: 'Cérémonies',
+    image: images.pejedecJeunes,
+    project: 'pejedec-bagoue',
+    location: 'Boundiali, Région de la Bagoué',
+    author: 'Département Opérations & Insertion EICF',
+    excerpt: 'Présidée par les autorités préfectorales et le BCP-Emploi, la cérémonie a consacré l’insertion économique durable de 3 200 jeunes formés par l’ONG EICF dans le cadre du PEJEDEC II & III.',
+    keyPoints: [
+      '3 200 jeunes vulnérables certifiés dans les métiers de l’artisanat, de l’agro-pastoralisme et du BTP',
+      'Dotation individuelle en outillage professionnel complet et matériel de protection',
+      '85 groupes d’épargne solidaire AVEC créés pour sécuriser le fonds de roulement',
+      'Suivi technique et managérial de 6 mois assuré par les conseillers d’EICF',
+    ],
+    body: [
+      'L’esplanade de la mairie de Boundiali a accueilli la grande cérémonie de clôture de la cohorte 2023-2024 du Projet Emploi Jeune et Développement des Compétences (PEJEDEC II & III), financé par la Banque mondiale et supervisé par le Bureau de Coordination des Programmes Emploi (BCP-Emploi).',
+      'Sous la conduite de l’ONG EICF, 3 200 jeunes hommes et femmes des départements de Boundiali, Kouto et Tengréla ont suivi un parcours complet d’apprentissage dual chez des maîtres artisans agréés, renforcé par des modules en gestion d’entreprise et éducation financière.',
+      'Chaque lauréat a reçu officiellement un kit professionnel certifié (matériel de soudure, caisses d’outillage mécanique, kits de couture ou équipements de maraîchage moderne). En parallèle, 85 caisses villageoises d’épargne et de crédit (AVEC) ont été constituées afin de permettre aux jeunes artisans de financer leurs premiers stocks de matières premières sans recourir à l’endettement informel.',
+      'Le préfet de région a chaleureusement félicité le professionnalisme d’EICF, soulignant l’importance de ces opportunités économiques pour stabiliser la jeunesse dans les zones septentrionales du pays.',
+    ],
+  },
+  {
+    slug: 'signature-convention-unicef-clef',
+    title: 'Partenariat stratégique : Reconduction de l’accord entre l’ONG EICF et l’UNICEF pour la protection de l’enfance',
+    date: '2024-09-05',
+    category: 'Cérémonies',
+    image: images.signatureMinistere,
+    project: 'clef-san-pedro',
+    location: 'Siège UNICEF, Abidjan',
+    author: 'Direction Exécutive EICF',
+    excerpt: 'L’ONG EICF et le Fonds des Nations Unies pour l’Enfance (UNICEF) ont signé le protocole opérationnel consolidant le réseau des classes passerelles accélérées dans les campements de San Pédro.',
+    keyPoints: [
+      '2 665 enfants des campements cacaoyers réintégrés avec succès dans l’école primaire formelle',
+      'Adhésion intégrale aux standards internationaux de Sauvegarde de l’Enfant et politique PSEA',
+      'Distribution de 2 665 kits scolaires complets et installation de cantines d’appoint',
+    ],
+    body: [
+      'La signature de cette convention consolide une collaboration d’excellence entamée dans le sud-ouest ivoirien. Dans les campements reculés du département de San Pédro et de Grand-Béréby, des milliers d’enfants demeuraient hors du système scolaire traditionnel en raison de l’enclavement géographique et du risque de travail précoce dans les plantations de cacao.',
+      'Le modèle des classes passerelles, conçu et déployé par EICF en lien étroit avec la Direction Régionale de l’Éducation Nationale et de l’Alphabétisation (DRENA), permet à des enfants âgés de 9 à 14 ans de rattraper deux années du cycle primaire en neuf mois intensifs.',
+      'La représentante adjointe de l’UNICEF a salué la rigueur fiduciaire et la proximité communautaire de l’EICF, réaffirmant l’engagement conjoint de ne laisser aucun enfant ivoirien sur le bord du chemin.',
+    ],
+  },
+  {
+    slug: 'mission-supervision-banque-mondiale-pasea',
+    title: 'Mission conjointe : La Banque mondiale et le Ministère de l’Hydraulique saluent l’ancrage communautaire à Katiola',
+    date: '2024-08-28',
+    category: 'Missions',
+    image: images.missionPartenaires,
+    project: 'pasea',
+    location: 'Katiola, Fronan et Timbé (Hambol)',
+    author: 'Cellule Communication & Redevabilité EICF',
+    excerpt: 'Une délégation conjointe d’experts sectoriels de la Banque mondiale et du Ministère de l’Hydraulique a inspecté les réalisations d’assainissement d’EICF, saluant un modèle exemplaire de durabilité locale.',
+    keyPoints: [
+      'Inspection sur le terrain de 4 villages témoins et vérification de 24 blocs sanitaires',
+      'Contrôle approfondi du Mécanisme de Gestion des Plaintes (MGP) avec 100 % de traçabilité',
+      'Validation du taux d’exécution physique certifié à 93 % au 31 décembre 2024',
+    ],
+    body: [
+      'Pendant trois jours, les experts de la Banque mondiale ont parcouru les pistes rurales du département de Katiola pour évaluer l’avancement du programme PASEA confié à l’ONG EICF.',
+      'La mission a audité les registres du mécanisme de gestion des plaintes (MGP), interrogé directement les comités villageois sans présence des superviseurs et vérifié la qualité de construction des dalles SanPlat et fosses ventilées.',
+      'Au terme de la visite, le chef de mission de la Banque mondiale a félicité la Direction Exécutive d’EICF pour son taux d’avancement physique exemplaire de 93 %, la qualité de la gouvernance locale et la transparence des états financiers présentés.',
+    ],
+  },
+  {
+    slug: 'formation-mediateurs-paix-tchologo',
+    title: 'Cohésion transfrontalière : 40 médiateurs communautaires formés à l’alerte précoce dans le Tchologo',
+    date: '2024-09-21',
+    category: 'Formations',
+    image: images.dialoguePaix,
+    project: 'cohesion-plus',
+    location: 'Ferkessédougou & Ouangolodougou (Tchologo)',
+    author: 'Pôle Consolidation de la Paix EICF',
+    excerpt: 'Chefs coutumiers, responsables d’associations féminines et présidents de jeunesse ont achevé cinq jours d’ateliers intensifs sur la prévention des conflits et la médiation pastorale.',
+    keyPoints: [
+      '40 leaders locaux certifiés médiateurs communautaires de paix',
+      'Standardisation d’un système d’alerte précoce transfrontalière pour la zone septentrionale',
+      'Chartes locales de cohabitation pacifique co-rédigées entre agriculteurs et éleveurs transhumants',
+    ],
+    body: [
+      'Face aux tensions récurrentes liées aux couloirs de transhumance et aux risques sécuritaires dans le nord de la Côte d’Ivoire, l’ONG EICF a réuni à Ferkessédougou 40 acteurs d’influence communautaire issus des départements frontaliers du Tchologo.',
+      'Animée par des experts en sociologie rurale et en résolution non violente des différends, la formation a porté sur la cartographie participative des litiges fonciers, les techniques de communication non violente et la tenue d’un registre d’alerte précoce partagé avec le corps préfectoral.',
+      'Les participants ont adopté une charte locale de paix et installé cinq comités mixtes chargés d’intervenir en amont de toute discorde entre communautés sédentaires et éleveurs en déplacement.',
+    ],
+  },
+  {
+    slug: 'communique-certification-comptes-audit-2024',
+    title: 'Communiqué officiel : Publication des états financiers audités 2024 et certification sans réserve',
+    date: '2025-03-25',
+    category: 'Communiqués',
+    image: images.femmes,
+    location: 'Siège National EICF, Cocody Angré, Abidjan',
+    author: 'Conseil d’Administration & Commissariat aux Comptes',
+    excerpt: 'Le Conseil d’Administration d’EICF informe ses partenaires institutionnels et donateurs de l’approbation sans réserve des comptes de l’exercice 2024 par le cabinet d’audit indépendant certifié.',
+    keyPoints: [
+      'Certification sans réserve des comptes statutaires et de projets selon les normes SYSCOHADA',
+      'Conformité stricte des dépenses et éligibilité des justificatifs supérieure à 99,4 %',
+      'Rapports d’audit externe et états financiers disponibles sur demande formelle motivée',
+    ],
+    body: [
+      'Réuni en session ordinaire à son siège d’Abidjan sous la présidence du Conseil d’Administration, l’organe délibérant de l’ONG EICF a adopté à l’unanimité les rapports moral, financier et de gestion au titre de l’exercice clos le 31 décembre 2024.',
+      'Le rapport de certification émis par le Commissaire aux Comptes indépendant atteste de la régularité, de la sincérité et de l’image fidèle du patrimoine et de la situation financière de l’organisation, en pleine conformité avec les conventions conclues avec les bailleurs internationaux (Banque mondiale, UNICEF, UNFPA, PNUD, GIZ).',
+      'Le Conseil d’Administration réitère sa volonté inébranlable de transparence fiduciaire et invite tout partenaire technique ou financier à consulter les pièces de synthèse au Centre Documentaire Institutionnel de l’organisation.',
+    ],
+  },
+  {
+    slug: 'forum-partenaires-18-ans-eicf-2026',
+    title: 'Forum des Partenaires 2026 : Célébration des 18 ans d’action continue d’EICF et nouveau Plan Stratégique',
+    date: '2026-02-01',
+    category: 'Événements',
+    image: images.remiseAccord,
+    location: 'Abidjan, Hôtel Ivoire / Palais des Congrès',
+    author: 'Comité d’Organisation du 18e Anniversaire EICF',
+    excerpt: 'Créée le 1er février 2008, l’ONG EICF a réuni à Abidjan plus de 150 partenaires nationaux et internationaux pour célébrer ses 18 années d’impact certifié et dévoiler sa feuille de route 2027–2031.',
+    keyPoints: [
+      '18 ans d’action ininterrompue au plus près des populations vulnérables ivoiriennes',
+      'Bilan historique certifié de 50 570+ bénéficiaires directs uniques à travers 11 régions',
+      'Présentation des 5 priorités stratégiques du Plan Quinquennal 2027–2031',
+    ],
+    body: [
+      'Le 1er février 2026, l’ONG EICF a franchi une étape symbolique majeure : 18 années pleines au service du développement solidaire, de l’autonomisation des femmes et de la protection de l’enfance en Côte d’Ivoire.',
+      'Sous la présence d’honneur du Président Fondateur BROU N’guessan Albert, de la Directrice Exécutive et des représentants des agences des Nations Unies, des ambassades partenaires et des ministères sectoriels, ce forum a mis en lumière la trajectoire exemplaire d’une ONG locale devenue un partenaire fiduciaire de premier plan.',
+      'L’EICF a officiellement rendu public son nouveau Plan Stratégique Quinquennal 2027–2031, centré sur la transition écologique communautaire, l’accès universel à l’assainissement et la pérennisation des mécanismes d’inclusion financière rurale.',
+    ],
+  },
+  {
+    slug: 'recit-terrain-mediation-danane',
+    title: 'Récit de terrain : Comment les comités mixtes de Danané ont résolu pacifiquement 45 conflits agro-pastoraux',
+    date: '2024-12-10',
+    category: 'Témoignages',
+    image: images.dialogue,
+    project: 'pnud-tonkpi-cavally',
+    location: 'Danané & Mahapleu, Région du Tonkpi',
+    author: 'Cellule Communication & Redevabilité EICF',
+    excerpt: 'Plongée au cœur de la sous-préfecture de Danané où le mécanisme communautaire mis en place avec l’appui du PNUD permet de désamorcer les tensions rurales avant toute escalade violente.',
+    keyPoints: [
+      '45 différends agro-pastoraux réglés à l’amiable en 12 mois sans recours aux armes',
+      'Protocoles de réparation concertée signés entre chefs de canton et représentants des éleveurs',
+      'Restauration de la libre circulation et sécurisation des couloirs de transhumance',
+    ],
+    body: [
+      'Au pied des monts du Tonkpi, les relations entre communautés terriennes et éleveurs transhumants ont longtemps été marquées par la méfiance et des incidents meurtriers. Grâce au programme de cohésion sociale soutenu par le PNUD, l’ONG EICF a mis en place des comités mixtes de concertation et de médiation.',
+      'Composés à parité de notables autochtones, de femmes leaders et de représentants des éleveurs peuls, ces comités disposent d’un mandat coutumier reconnu pour intervenir dès l’apparition d’un dégât de culture ou d’un litige sur un point d’eau.',
+      '« Nous ne laissons plus la rancœur s’installer. Dès qu’un problème survient, le comité se réunit sur le lieu du champ dans les 48 heures, évalue équitablement le préjudice et fixe une compensation acceptée de tous », témoigne M. Gondo Denis, médiateur villageois formé par l’EICF.',
+      'Une expérience réussie qui démontre la force de la négociation endogène et fait aujourd’hui école dans tout le district des Montagnes.',
+    ],
+  },
 ]
 
 /* ------------------------------------------------------------------ */
@@ -1956,35 +2154,182 @@ export const media = {
 }
 
 /* ------------------------------------------------------------------ */
-/* Témoignages & histoires de changement                               */
+/* Témoignages & histoires de changement (CDC §5 & Audit Point 6)     */
 /* ------------------------------------------------------------------ */
 
-export const stories = [
+export type Story = {
+  slug: string
+  name: string
+  role: string
+  locality: string
+  project: string
+  domain: string
+  year: string
+  image: string
+  quote: string
+  story: string
+  beforeAfterImpact: {
+    indicator: string
+    before: string
+    after: string
+  }
+  consentProtected: boolean
+}
+
+export const stories: Story[] = [
   {
-    slug: 'aminata',
-    name: 'Aminata Coulibaly',
-    role: 'Commerçante, membre d’un groupement d’épargne · Bouna',
-    image: images.aminata,
-    quote: 'Grâce au groupement d’épargne, j’ai ouvert ma boutique. Mes filles vont toutes à l’école.',
-    story: 'Veuve et mère de quatre enfants, Aminata vivait de petits travaux agricoles. En rejoignant un groupement d’épargne et de crédit accompagné par EICF, elle a obtenu son premier prêt de 150 000 FCFA. Trois ans plus tard, sa boutique fait vivre sa famille et elle préside le groupement.',
-    project: 'swedd',
+    slug: 'kouame-norbert-pasea',
+    name: 'Kouamé Yao Norbert',
+    role: 'Président du Comité Villageois d’Hygiène & Assainissement',
+    locality: 'Fronan Centre, Dép. Katiola (Région du Hambol)',
+    project: 'pasea',
+    domain: 'Eau & Assainissement',
+    year: '2024',
+    image: images.latrines,
+    quote: 'Dans notre village, la défécation à l’air libre appartenait au quotidien. Aujourd’hui, chaque ménage dispose de sa propre latrine certifiée et les fièvres diarrhéiques ont disparu chez nos enfants.',
+    story: 'Avant le passage des équipes d’EICF dans le cadre du projet PASEA financé par la Banque mondiale, notre communauté ne comptait que très peu d’installations sanitaires adéquates. Grâce à l’approche participative ATPC, nous avons collectivement compris le lien direct entre la contamination de nos puits et les maladies infantiles récurrentes. Les artisans locaux formés par l’EICF ont construit 312 latrines familiales durables. En tant que président du comité d’hygiène, je veille avec les mères de famille au maintien strict du lavage des mains au savon. Fronan a été officiellement certifié village FDAL par les autorités sanitaires.',
+    beforeAfterImpact: {
+      indicator: 'Taux d’accès aux latrines familiales hygiéniques',
+      before: '12 % des ménages',
+      after: '100 % (Village officiellement certifié FDAL)',
+    },
+    consentProtected: false,
   },
   {
-    slug: 'moussa',
+    slug: 'salimata-swedd',
+    name: 'Salimata D.',
+    role: 'Adolescente réinsérée dans le secondaire & Pair-éducatrice',
+    locality: 'Bondoukou, Dép. Bondoukou (Région du Gontougo)',
+    project: 'swedd',
+    domain: 'Genre & Droits des Filles',
+    year: '2023 - 2024',
+    image: images.espaceSur,
+    quote: 'L’espace sûr m’a redonné foi en mes capacités. J’ai appris à affirmer mes droits, à refuser le mariage forcé et j’ai repris le chemin de l’école avec l’appui de ma mentore.',
+    story: 'Menacée d’abandon scolaire à l’âge de 15 ans face à des difficultés économiques et d’intenses pressions familiales, Salimata a été identifiée par les animatrices de proximité d’EICF pour rejoindre l’espace sûr de son quartier. Pendant 9 mois d’accompagnement bienveillant, elle a suivi des modules en compétences de vie, santé reproductive, estime de soi et soutien scolaire. Grâce à la médiation menée par sa mentore auprès de ses parents, Salimata a pu être réinscrite en classe de 3ème avec un kit de fournitures et une bourse de maintien.',
+    beforeAfterImpact: {
+      indicator: 'Trajectoire scolaire & protection précoce',
+      before: 'Risque imminent de déscolarisation et mariage précoce',
+      after: 'Scolarisée en 3ème, élue déléguée et pair-éducatrice',
+    },
+    consentProtected: true,
+  },
+  {
+    slug: 'moussa-diarrassouba-pejedec',
     name: 'Moussa Diarrassouba',
-    role: 'Soudeur, ancien bénéficiaire · Katiola',
-    image: images.moussa,
-    quote: 'J’étais sans emploi. Aujourd’hui j’ai mon atelier et deux apprentis.',
-    story: 'Après son apprentissage chez un maître artisan, Moussa a reçu un kit d’installation et un coaching de 12 mois. Son atelier réalise portails et équipements agricoles pour toute la sous-préfecture.',
-    project: 'jeunes-emploi',
+    role: 'Maître artisan soudeur & Tuteur d’apprentissage qualifiant',
+    locality: 'Boundiali Centre (Région de la Bagoué)',
+    project: 'pejedec-bagoue',
+    domain: 'Emploi & Insertion Professionnelle',
+    year: '2022 - 2024',
+    image: images.pejedecJeunes,
+    quote: 'Sans qualification, mon avenir était précaire. Aujourd’hui, mon atelier tourne à plein régime, je forme 3 jeunes et je répare le matériel agricole de toute la commune.',
+    story: 'Sélectionné dans le cadre de la composante formation par apprentissage du projet PEJEDEC II & III conduit par l’ONG EICF avec la Banque mondiale et le BCP-Emploi, Moussa a suivi 12 mois de formation professionnelle duale chez un artisan agréé, renforcée par des cours d’éducation financière et de gestion. À l’issue de son parcours, EICF lui a remis un kit complet d’outillage métallurgique. Deux ans plus tard, son atelier est pérenne et il transmet à son tour son métier à trois apprentis issus de milieux vulnérables.',
+    beforeAfterImpact: {
+      indicator: 'Revenu mensuel moyen & pérennité d’activité',
+      before: 'Chômage et travaux journaliers précaires (0 FCFA fixe)',
+      after: '75 000 à 110 000 FCFA nets/mois (3 apprentis formés)',
+    },
+    consentProtected: false,
+  },
+  {
+    slug: 'aminata-coulibaly-avec',
+    name: 'Aminata Coulibaly',
+    role: 'Présidente de la Caisse d’Épargne Villageoise AVEC « Sababougnouma »',
+    locality: 'Minignan Commune (Région du Folon)',
+    project: 'avec-aej-folon',
+    domain: 'Inclusion Financière & Autonomie Féminine',
+    year: '2023 - 2024',
+    image: images.femmes,
+    quote: 'Grâce à notre caisse d’épargne solidaire, nous n’empruntons plus à des taux usuriers. Nous finançons nos semences, nos récoltes et la scolarité de nos filles.',
+    story: 'Dans l’extrême nord du Folon, les femmes rurales ne disposaient d’aucun accès aux services bancaires ou aux microfinances. L’ONG EICF a structuré et formé notre groupement de 30 femmes selon la méthodologie rigoureuse des Associations Villageoises d’Épargne et de Crédit (AVEC). Chaque semaine, nous cotisons solidairement dans notre coffre à trois clés. J’ai pu obtenir un premier crédit de 150 000 FCFA pour commercialiser le beurre de karité et les céréales. En fin de cycle, nous partageons les intérêts accumulés, ce qui a profondément renforcé notre voix au sein de la communauté.',
+    beforeAfterImpact: {
+      indicator: 'Capacité d’épargne sécurisée & micro-crédit',
+      before: '0 FCFA d’épargne, dépendance totale aux prêteurs informels',
+      after: 'Fonds rotatif de 2 400 000 FCFA géré en autonomie par 30 femmes',
+    },
+    consentProtected: false,
+  },
+  {
+    slug: 'jean-baptiste-kouadio-clef',
+    name: 'Jean-Baptiste Kouadio',
+    role: 'Enseignant animateur en classe passerelle accélérée',
+    locality: 'Campement Kouamékro, S/P Gabiadji (Région de San Pédro)',
+    project: 'clef-san-pedro',
+    domain: 'Éducation & Protection de l’Enfance',
+    year: '2022 - 2024',
+    image: images.education,
+    quote: 'Ramener vers l’école formelle des enfants qui travaillaient quotidiennement dans les plantations de cacao : c’est une fierté humaine qui donne tout son sens à notre métier.',
+    story: 'Enclavés au cœur de la ceinture cacaoyère du sud-ouest, les campements de San Pédro comptaient de nombreux enfants privés d’école. Dans le cadre de l’initiative conjointe avec l’UNICEF et le MENA, l’EICF a ouvert 120 classes passerelles accélérées. En tant qu’animateur formé aux pédagogies d’urgence, j’ai encadré une classe de 28 enfants de 9 à 14 ans n’ayant jamais tenu un cahier. Après neuf mois d’efforts intenses en français, calcul et citoyenneté, 26 d’entre eux ont brillamment réussi l’évaluation officielle et ont intégré l’école primaire publique.',
+    beforeAfterImpact: {
+      indicator: 'Taux de réintégration en école primaire officielle',
+      before: '0 % scolarisés (travail des enfants dans les vergers)',
+      after: '92,8 % d’intégration réussie en école primaire publique',
+    },
+    consentProtected: false,
+  },
+  {
+    slug: 'gondo-denis-mediation',
+    name: 'Gondo Denis',
+    role: 'Leader communautaire et membre du Comité Mixte de Paix',
+    locality: 'Mahapleu, Dép. Danané (Région du Tonkpi)',
+    project: 'pnud-tonkpi-cavally',
+    domain: 'Paix & Cohésion Sociale',
+    year: '2022 - 2024',
+    image: images.dialoguePaix,
+    quote: 'Le dialogue préventif a remplacé les affrontements. Quand un litige foncier ou un dégât de culture surgit, nous nous asseyons sous l’arbre à palabres et nous réglons le problème dans la justice.',
+    story: 'Les tensions entre agriculteurs sédentaires et éleveurs transhumants ont longtemps troublé la paix dans l’Ouest ivoirien. Les ateliers de médiation pastorale et les comités mixtes de veille mis en place par l’ONG EICF avec le PNUD ont instauré un mécanisme d’arbitrage pacifique permanent. En deux ans, notre comité a traité et réglé à l’amiable plus de 45 litiges ruraux, garantissant le dédommagement équitable des récoltes sans aucune escalade violente.',
+    beforeAfterImpact: {
+      indicator: 'Résolution pacifique des litiges agro-pastoraux',
+      before: 'Violences récurrentes et représailles sur les troupeaux',
+      after: '100 % des litiges réglés à l’amiable par le comité mixte',
+    },
+    consentProtected: false,
+  },
+  {
+    slug: 'fatoumata-ouattara-swedd',
+    name: 'Fatoumata Ouattara',
+    role: 'Mentore communautaire certifiée SWEDD',
+    locality: 'Ondéfidouo, Dép. Bouna (Région du Bounkani)',
+    project: 'swedd',
+    domain: 'Genre & Droits des Filles',
+    year: '2023 - 2024',
+    image: images.sweddGenre,
+    quote: 'Les mères de famille me confient leurs adolescentes en toute confiance parce qu’elles constatent le respect, l’assiduité scolaire et la maturité nouvelle de leurs filles.',
+    story: 'Superviser 50 adolescentes chaque semaine dans un espace sûr requiert un ancrage coutumier fort et une écoute constante. Formée par l’EICF aux modules de santé reproductive, d’hygiène corporelle et de prévention des violences basées sur le genre (VBG), j’assure la liaison entre les familles, les écoles et les autorités traditionnelles. Grâce à ce dialogue communautaire permanent, aucun mariage forcé ni déscolarisation n’a été enregistré parmi nos promotions d’espaces sûrs sur deux années consécutives.',
+    beforeAfterImpact: {
+      indicator: 'Prévalence des mariages d’enfants dans la cohorte',
+      before: 'Forte pression sociale dès l’âge de 14-16 ans',
+      after: '0 cas de mariage d’enfant sur 100 adolescentes suivies',
+    },
+    consentProtected: false,
+  },
+  {
+    slug: 'kambou-sie-pddivs',
+    name: 'Kambou Sié',
+    role: 'Chef d’équipe THIMO (Travaux à Haute Intensité de Main d’Œuvre)',
+    locality: 'Bouna Commune (Région du Bounkani)',
+    project: 'pddivs-bouna',
+    domain: 'Emploi & Résilience Urbaine',
+    year: '2021 - 2023',
+    image: images.pejedecThimo,
+    quote: 'Nous avons curé les canaux, reprofilé les voies et sauvé nos quartiers des inondations estivales, tout en épargnant pour lancer notre coopérative agricole.',
+    story: 'Le projet PDDIVS financé par la Banque mondiale et exécuté par l’ONG EICF à Bouna a offert une réponse concrète au sous-emploi des jeunes tout en améliorant le cadre de vie urbain. Sous l’encadrement de techniciens de voirie d’EICF, notre équipe de 35 jeunes a curé plus de 12 kilomètres de caniveaux d’eaux pluviales et réhabilité les axes menant au grand marché. La retenue d’épargne obligatoire gérée par EICF m’a permis d’acquérir une motopompe pour développer une parcelle de maraîchage rentable.',
+    beforeAfterImpact: {
+      indicator: 'Protection contre les inondations & Reconversion économique',
+      before: 'Quartiers inondés 4 mois par an et désœuvrement des jeunes',
+      after: '14 000 habitants préservés des crues, 82 % des jeunes reconvertis en AGR',
+    },
+    consentProtected: false,
   },
 ]
 
 export const beforeAfter = [
-  { label: 'Accès à une latrine (villages PASEA)', before: '18 %', after: '91 %' },
-  { label: 'Maintien scolaire des adolescentes (SWEDD)', before: '61 %', after: '96 %' },
-  { label: 'Conflits résolus à l’amiable (COHÉSION+)', before: '35 %', after: '82 %' },
-  { label: 'Revenu mensuel moyen des jeunes installés', before: '22 000 FCFA', after: '68 000 FCFA' },
+  { label: 'Accès aux latrines hygiéniques (PASEA · Katiola)', before: '18 %', after: '93 % des ménages' },
+  { label: 'Maintien scolaire des adolescentes (SWEDD · Nord-Est)', before: '61 %', after: '96 % d’assiduité' },
+  { label: 'Réinsertion en primaire formelle (CLEF · San Pédro)', before: '0 % scolarisés', after: '92,8 % réintégrés' },
+  { label: 'Règlement pacifique des litiges pastoraux (PNUD · Ouest)', before: '35 % par dialogue', after: '88 % résolus à l’amiable' },
+  { label: 'Revenu mensuel moyen des apprentis insérés (PEJEDEC)', before: '22 000 FCFA', after: '75 000 à 110 000 FCFA' },
+  { label: 'Inclusion financière féminine via caisses AVEC (Folon)', before: '0 groupement autonome', after: '65 caisses actives' },
 ]
 
 /* ------------------------------------------------------------------ */
