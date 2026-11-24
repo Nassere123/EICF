@@ -839,9 +839,27 @@ export const projects: Project[] = [
 /* Cartographie : Région → Département → Sous-préfecture → Localité    */
 /* ------------------------------------------------------------------ */
 
-export type Localite = { name: string; projects: string[]; detail: string }
-export type SousPrefecture = { name: string; localites: Localite[] }
-export type Departement = { name: string; sousPrefectures: SousPrefecture[] }
+export type Localite = {
+  name: string
+  projects: string[]
+  detail: string
+  villages?: string[]
+  bailleurs?: string[]
+  realisations?: string
+  beneficiaires?: number
+  status?: 'en-cours' | 'acheve' | 'conception'
+}
+
+export type SousPrefecture = {
+  name: string
+  localites: Localite[]
+}
+
+export type Departement = {
+  name: string
+  sousPrefectures: SousPrefecture[]
+}
+
 export type Region = {
   id: string
   name: string
@@ -849,101 +867,666 @@ export type Region = {
   zone: 'Nord' | 'Nord-Est' | 'Centre' | 'Est' | 'Ouest' | 'Sud'
   lat: number
   lng: number
+  villagesCount?: number
   departements: Departement[]
 }
 
 export const regions: Region[] = [
   {
-    id: 'hambol', name: 'Hambol', chefLieu: 'Katiola', zone: 'Centre', lat: 8.14, lng: -5.1,
+    id: 'hambol',
+    name: 'Hambol',
+    chefLieu: 'Katiola',
+    zone: 'Centre',
+    lat: 8.14,
+    lng: -5.1,
+    villagesCount: 14,
     departements: [
       {
-        name: 'Katiola', sousPrefectures: [
-          { name: 'Fronan', localites: [{ name: 'Fronan', projects: ['pasea'], detail: '4 villages · 312 latrines' }] },
-          { name: 'Timbé', localites: [{ name: 'Timbé', projects: ['pasea'], detail: '3 villages · 254 latrines' }] },
+        name: 'Katiola',
+        sousPrefectures: [
           {
-            name: 'Katiola', localites: [
-              { name: 'Katiola (périphérie)', projects: ['pasea'], detail: '3 villages · 222 latrines' },
-              { name: 'Katiola (ville)', projects: ['jeunes-emploi'], detail: '310 jeunes formés' },
-            ]
+            name: 'Fronan',
+            localites: [
+              {
+                name: 'Fronan',
+                projects: ['pasea'],
+                detail: '4 villages · 312 latrines familiales · 4 TPE installées',
+                villages: ['Fronan Centre', 'Koffikro', 'Nandikaha', 'Katienekaha'],
+                bailleurs: ['Banque mondiale'],
+                realisations: '312 latrines certifiées, 4 TPE accompagnées, 3 320 bénéficiaires',
+                beneficiaires: 3320,
+                status: 'en-cours',
+              },
+            ],
           },
-        ]
+          {
+            name: 'Timbé',
+            localites: [
+              {
+                name: 'Timbé',
+                projects: ['pasea'],
+                detail: '3 villages · 254 latrines familiales · 3 TPE installées',
+                villages: ['Timbé Village', 'Ouereguékaha', 'Gbamélékaha'],
+                bailleurs: ['Banque mondiale'],
+                realisations: '254 latrines certifiées, 3 TPE accompagnées, 2 710 bénéficiaires',
+                beneficiaires: 2710,
+                status: 'en-cours',
+              },
+            ],
+          },
+          {
+            name: 'Katiola',
+            localites: [
+              {
+                name: 'Katiola (périphérie rurale)',
+                projects: ['pasea'],
+                detail: '3 villages · 222 latrines familiales · 2 TPE installées',
+                villages: ['Kationron', 'Nikolo', 'Darakaha'],
+                bailleurs: ['Banque mondiale'],
+                realisations: '222 latrines certifiées, 2 TPE accompagnées, 2 370 bénéficiaires',
+                beneficiaires: 2370,
+                status: 'en-cours',
+              },
+              {
+                name: 'Katiola (ville)',
+                projects: ['jeunes-emploi'],
+                detail: 'Insertion professionnelle et formation aux métiers de proximité',
+                villages: ['Quartier Résidentiel', 'Quartier Lafonkaha'],
+                bailleurs: ['Coopération technique'],
+                realisations: '310 jeunes formés et dotés de kits d’installation',
+                beneficiaires: 310,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
       },
-      { name: 'Dabakala', sousPrefectures: [{ name: 'Dabakala', localites: [{ name: 'Dabakala', projects: ['jeunes-emploi'], detail: '140 AGR installées' }] }] },
+      {
+        name: 'Dabakala',
+        sousPrefectures: [
+          {
+            name: 'Dabakala',
+            localites: [
+              {
+                name: 'Dabakala Centre & villages',
+                projects: ['jeunes-emploi'],
+                detail: '140 Activités Génératrices de Revenus (AGR) pour femmes et jeunes',
+                villages: ['Dabakala Commune', 'Boniérédougou'],
+                bailleurs: ['Partenaires nationaux'],
+                realisations: '140 micro-entreprises rurales financées et pérennisées',
+                beneficiaires: 140,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
-    id: 'bounkani', name: 'Bounkani', chefLieu: 'Bouna', zone: 'Nord-Est', lat: 9.27, lng: -3.0,
+    id: 'bounkani',
+    name: 'Bounkani',
+    chefLieu: 'Bouna',
+    zone: 'Nord-Est',
+    lat: 9.27,
+    lng: -3.0,
+    villagesCount: 22,
     departements: [
       {
-        name: 'Bouna', sousPrefectures: [
-          { name: 'Bouna', localites: [{ name: 'Bouna', projects: ['swedd', 'cohesion-plus'], detail: '32 espaces sûrs · 810 jeunes filles' }] },
-          { name: 'Ondéfidouo', localites: [{ name: 'Ondéfidouo', projects: ['swedd'], detail: '12 espaces sûrs · 300 jeunes filles' }] },
-        ]
+        name: 'Bouna',
+        sousPrefectures: [
+          {
+            name: 'Bouna',
+            localites: [
+              {
+                name: 'Bouna Ville & périphérie',
+                projects: ['pddivs-bouna', 'giz-bouna', 'swedd'],
+                detail: 'Développement urbain PDDIVS, médiation pastorale GIZ et 32 espaces sûrs SWEDD',
+                villages: ['Bouna Commune', 'Vonkoro', 'Saye', 'Bouko'],
+                bailleurs: ['Banque mondiale', 'GIZ', 'UNFPA'],
+                realisations: 'Infrastructures urbaines pour 14 000 hab., 4 200 acteurs formés à la paix, 810 adolescentes accompagnées',
+                beneficiaires: 19010,
+                status: 'acheve',
+              },
+              {
+                name: 'Ondéfidouo',
+                projects: ['swedd'],
+                detail: '12 espaces sûrs et comités d’encadrement communautaire des filles',
+                villages: ['Ondéfidouo', 'Gogo', 'Yalo'],
+                bailleurs: ['UNFPA', 'Banque mondiale'],
+                realisations: '12 espaces sûrs fonctionnels, 300 adolescentes formées en compétences de vie',
+                beneficiaires: 300,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
       },
-      { name: 'Doropo', sousPrefectures: [{ name: 'Doropo', localites: [{ name: 'Doropo', projects: ['classes-passerelles'], detail: '48 classes passerelles' }] }] },
-      { name: 'Téhini', sousPrefectures: [{ name: 'Téhini', localites: [{ name: 'Téhini', projects: ['classes-passerelles', 'cohesion-plus'], detail: '22 classes · 14 dialogues' }] }] },
+      {
+        name: 'Doropo',
+        sousPrefectures: [
+          {
+            name: 'Doropo',
+            localites: [
+              {
+                name: 'Doropo Centre & villages frontaliers',
+                projects: ['cohesion-plus'],
+                detail: 'Comités de paix, veille communautaire et cohésion transfrontalière',
+                villages: ['Doropo Centre', 'Kalamon', 'Niamoue'],
+                bailleurs: ['Partenaires multilatéraux'],
+                realisations: '18 comités de paix installés et formés à la résolution pacifique des litiges',
+                beneficiaires: 1200,
+                status: 'en-cours',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Téhini',
+        sousPrefectures: [
+          {
+            name: 'Téhini',
+            localites: [
+              {
+                name: 'Téhini',
+                projects: ['cohesion-plus'],
+                detail: '14 dialogues intercommunautaires et mécanisme d’alerte précoce',
+                villages: ['Téhini', 'Togolokaye', 'Gouméré'],
+                bailleurs: ['Partenaires multilatéraux'],
+                realisations: '14 dialogues communautaires tenus, 800 participants directs',
+                beneficiaires: 800,
+                status: 'en-cours',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
-    id: 'gontougo', name: 'Gontougo', chefLieu: 'Bondoukou', zone: 'Nord-Est', lat: 8.04, lng: -2.8,
-    departements: [
-      { name: 'Bondoukou', sousPrefectures: [{ name: 'Bondoukou', localites: [{ name: 'Bondoukou', projects: ['swedd'], detail: '30 espaces sûrs fonctionnels' }] }] },
-      { name: 'Tanda', sousPrefectures: [{ name: 'Tanda', localites: [{ name: 'Tanda', projects: ['swedd'], detail: '18 espaces sûrs et comités d’encadrement' }] }] },
-    ],
-  },
-  {
-    id: 'poro', name: 'Poro', chefLieu: 'Korhogo', zone: 'Nord', lat: 9.46, lng: -5.63,
+    id: 'bagoue',
+    name: 'Bagoué',
+    chefLieu: 'Boundiali',
+    zone: 'Nord',
+    lat: 9.52,
+    lng: -6.49,
+    villagesCount: 18,
     departements: [
       {
-        name: 'Korhogo', sousPrefectures: [
-          { name: 'Korhogo', localites: [{ name: 'Korhogo', projects: ['cohesion-plus', 'ecoles-vertes'], detail: '24 comités de paix et transition verte' }] },
-          { name: 'Napiéolédougou', localites: [{ name: 'Napiéolédougou', projects: ['karite-femmes'], detail: '8 coopératives ciblées' }] },
-        ]
+        name: 'Boundiali',
+        sousPrefectures: [
+          {
+            name: 'Boundiali',
+            localites: [
+              {
+                name: 'Boundiali & villages ruraux',
+                projects: ['pejedec-bagoue'],
+                detail: 'Projet PEJEDEC II & III — THIMO, caisses AVEC et insertion économique de 3 200 jeunes',
+                villages: ['Boundiali Commune', 'Ganaoni', 'Kasséré', 'Siempurgo'],
+                bailleurs: ['Banque mondiale', 'BCP-Emploi'],
+                realisations: '85 groupes d’épargne AVEC structurés, chantiers THIMO réalisés, 3 200 jeunes insérés',
+                beneficiaires: 3200,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
       },
-      { name: 'Sinématiali', sousPrefectures: [{ name: 'Sinématiali', localites: [{ name: 'Sinématiali', projects: ['cohesion-plus'], detail: '9 comités de médiation' }] }] },
+      {
+        name: 'Kouto',
+        sousPrefectures: [
+          {
+            name: 'Kouto',
+            localites: [
+              {
+                name: 'Kouto & Blessingue',
+                projects: ['pejedec-bagoue'],
+                detail: 'Chantiers communautaires et caisses villageoises pour jeunes femmes',
+                villages: ['Kouto Centre', 'Blessingue', 'Gbon'],
+                bailleurs: ['Banque mondiale', 'BCP-Emploi'],
+                realisations: '34 caisses villageoises AVEC actives, travaux d’utilité publique achevés',
+                beneficiaires: 1150,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Tengréla',
+        sousPrefectures: [
+          {
+            name: 'Tengréla',
+            localites: [
+              {
+                name: 'Tengréla',
+                projects: ['pejedec-bagoue'],
+                detail: 'Activités à haute intensité de main-d’œuvre et autonomisation des jeunes vulnérables',
+                villages: ['Tengréla Ville', 'Kanakono', 'Débété'],
+                bailleurs: ['Banque mondiale', 'BCP-Emploi'],
+                realisations: '500 jeunes mobilisés sur des micro-projets de réhabilitation locale',
+                beneficiaires: 500,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
-    id: 'tchologo', name: 'Tchologo', chefLieu: 'Ferkessédougou', zone: 'Nord', lat: 9.59, lng: -5.19,
+    id: 'agneby-tiassa',
+    name: 'Agnéby-Tiassa',
+    chefLieu: 'Agboville',
+    zone: 'Sud',
+    lat: 5.93,
+    lng: -4.22,
+    villagesCount: 16,
     departements: [
-      { name: 'Ferkessédougou', sousPrefectures: [{ name: 'Ferkessédougou', localites: [{ name: 'Ferkessédougou', projects: ['cohesion-plus', 'karite-femmes'], detail: '7 comités · 22 dialogues' }] }] },
-      { name: 'Ouangolodougou', sousPrefectures: [{ name: 'Ouangolodougou', localites: [{ name: 'Ouangolodougou', projects: ['cohesion-plus'], detail: 'Système d’alerte précoce' }] }] },
+      {
+        name: 'Agboville',
+        sousPrefectures: [
+          {
+            name: 'Agboville',
+            localites: [
+              {
+                name: 'Agboville & axe Rubino',
+                projects: ['pejedec-agneby'],
+                detail: 'Projet PEJEDEC II & III — Formation par apprentissage et insertion de 2 850 jeunes',
+                villages: ['Agboville Commune', 'Rubino', 'Grand-Yapo', 'Loviguié'],
+                bailleurs: ['Banque mondiale', 'AEJ'],
+                realisations: 'Placement en apprentissage certifié, kits d’installation professionnelle remis',
+                beneficiaires: 2850,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Tiassalé',
+        sousPrefectures: [
+          {
+            name: 'Tiassalé',
+            localites: [
+              {
+                name: 'Tiassalé & N’Douci',
+                projects: ['pejedec-agneby'],
+                detail: 'Accompagnement des maîtres artisans et suivi des apprentis',
+                villages: ['Tiassalé Centre', 'N’Douci', 'Morokro'],
+                bailleurs: ['Banque mondiale', 'AEJ'],
+                realisations: '120 maîtres artisans agréés, 620 jeunes certifiés et insérés dans l’artisanat',
+                beneficiaires: 620,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
-    id: 'gbeke', name: 'Gbêkê', chefLieu: 'Bouaké', zone: 'Centre', lat: 7.69, lng: -5.03,
+    id: 'san-pedro',
+    name: 'San Pédro',
+    chefLieu: 'San Pédro',
+    zone: 'Sud',
+    lat: 4.75,
+    lng: -6.64,
+    villagesCount: 15,
     departements: [
-      { name: 'Bouaké', sousPrefectures: [{ name: 'Bouaké', localites: [{ name: 'Bouaké', projects: ['jeunes-emploi', 'ecoles-vertes'], detail: '470 jeunes formés' }] }] },
+      {
+        name: 'San Pédro',
+        sousPrefectures: [
+          {
+            name: 'San Pédro',
+            localites: [
+              {
+                name: 'Campements cacaoyers et zones enclavées',
+                projects: ['clef-san-pedro'],
+                detail: 'Projet CLEF / Classes passerelles — Réinsertion scolaire formelle de 2 665 enfants',
+                villages: ['Gabiadji', 'Doba', 'Kouamékro', 'Petit-Pedro'],
+                bailleurs: ['UNICEF'],
+                realisations: '120 classes passerelles accélérées, 2 665 enfants réintégrés dans l’école primaire formelle',
+                beneficiaires: 2665,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Grand-Béréby',
+        sousPrefectures: [
+          {
+            name: 'Grand-Béréby',
+            localites: [
+              {
+                name: 'Grand-Béréby',
+                projects: ['clef-san-pedro'],
+                detail: 'Sensibilisation contre le travail des enfants et kits de rentrée scolaire',
+                villages: ['Grand-Béréby Centre', 'Mani-Kablaké'],
+                bailleurs: ['UNICEF'],
+                realisations: 'Comités villageois de protection scolaire installés, 450 kits distribués',
+                beneficiaires: 450,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
-    id: 'abidjan', name: 'District d’Abidjan', chefLieu: 'Abidjan', zone: 'Sud', lat: 5.36, lng: -4.01,
+    id: 'folon',
+    name: 'Folon',
+    chefLieu: 'Minignan',
+    zone: 'Nord',
+    lat: 9.99,
+    lng: -7.61,
+    villagesCount: 12,
     departements: [
-      { name: 'Abidjan', sousPrefectures: [{ name: 'Abobo', localites: [{ name: 'Abobo', projects: ['urgence-inondations'], detail: 'Zones à risque cartographiées' }] }] },
+      {
+        name: 'Minignan',
+        sousPrefectures: [
+          {
+            name: 'Minignan',
+            localites: [
+              {
+                name: 'Minignan & Kaniasso',
+                projects: ['avec-aej-folon'],
+                detail: 'Projet AVEC-AEJ — Structuration de 65 caisses d’épargne et de crédit communautaires',
+                villages: ['Minignan Commune', 'Kaniasso', 'Goulia', 'Tienko'],
+                bailleurs: ['AEJ', 'Ministère Promotion Jeunesse'],
+                realisations: '65 groupes AVEC opérationnels, inclusion financière de proximité de 1 950 personnes',
+                beneficiaires: 1950,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
-    id: 'indenie-djuablin', name: 'Indénié-Djuablin', chefLieu: 'Abengourou', zone: 'Est', lat: 6.73, lng: -3.49,
+    id: 'tonkpi',
+    name: 'Tonkpi',
+    chefLieu: 'Man',
+    zone: 'Ouest',
+    lat: 7.41,
+    lng: -7.55,
+    villagesCount: 16,
     departements: [
-      { name: 'Abengourou', sousPrefectures: [{ name: 'Abengourou', localites: [{ name: 'Abengourou', projects: ['swedd'], detail: 'Sensibilisation et espaces sûrs' }] }] },
+      {
+        name: 'Man',
+        sousPrefectures: [
+          {
+            name: 'Man',
+            localites: [
+              {
+                name: 'Man & villages périurbains',
+                projects: ['pnud-tonkpi-cavally', 'cohesion-plus'],
+                detail: 'Programmes PNUD — Consolidation de la paix, dialogue communautaire et AGR pour femmes',
+                villages: ['Man Commune', 'Podbeugoupleu', 'Zadepleu', 'Biakale'],
+                bailleurs: ['PNUD'],
+                realisations: '18 comités mixtes de veille et de médiation, 8 500 bénéficiaires directs accompagnés',
+                beneficiaires: 8500,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Danané',
+        sousPrefectures: [
+          {
+            name: 'Danané',
+            localites: [
+              {
+                name: 'Danané',
+                projects: ['cohesion-plus'],
+                detail: 'Plateforme de concertation transfrontalière et médiation foncière',
+                villages: ['Danané Ville', 'Mahapleu', 'Daleu'],
+                bailleurs: ['Partenaires multilatéraux'],
+                realisations: '12 dialogues intercommunautaires, réconciliation de groupements agro-pastoraux',
+                beneficiaires: 1400,
+                status: 'en-cours',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
-    id: 'bere', name: 'Béré', chefLieu: 'Mankono', zone: 'Centre', lat: 8.06, lng: -6.19,
+    id: 'gontougo',
+    name: 'Gontougo',
+    chefLieu: 'Bondoukou',
+    zone: 'Nord-Est',
+    lat: 8.04,
+    lng: -2.8,
+    villagesCount: 14,
     departements: [
-      { name: 'Mankono', sousPrefectures: [{ name: 'Mankono', localites: [{ name: 'Mankono', projects: ['classes-passerelles'], detail: '30 classes passerelles' }] }] },
+      {
+        name: 'Bondoukou',
+        sousPrefectures: [
+          {
+            name: 'Bondoukou',
+            localites: [
+              {
+                name: 'Bondoukou & axe frontalier',
+                projects: ['swedd'],
+                detail: 'Projet SWEDD — 30 espaces sûrs pour le maintien scolaire et l’autonomisation des filles',
+                villages: ['Bondoukou Commune', 'Gouméré', 'Sorobango', 'Tagadi'],
+                bailleurs: ['Banque mondiale', 'UNFPA'],
+                realisations: '30 espaces sûrs certifiés, 98 % de taux de maintien scolaire chez les adolescentes',
+                beneficiaires: 750,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Tanda',
+        sousPrefectures: [
+          {
+            name: 'Tanda',
+            localites: [
+              {
+                name: 'Tanda',
+                projects: ['swedd'],
+                detail: '18 espaces sûrs et comités villageois de lutte contre les mariages précoces',
+                villages: ['Tanda Commune', 'Amanvi', 'Diamba'],
+                bailleurs: ['Banque mondiale', 'UNFPA'],
+                realisations: '18 espaces sûrs actifs, 450 adolescentes encadrées par des mentores communautaires',
+                beneficiaires: 450,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
-    id: 'worodougou', name: 'Worodougou', chefLieu: 'Séguéla', zone: 'Ouest', lat: 7.96, lng: -6.67,
+    id: 'poro',
+    name: 'Poro',
+    chefLieu: 'Korhogo',
+    zone: 'Nord',
+    lat: 9.46,
+    lng: -5.63,
+    villagesCount: 15,
     departements: [
-      { name: 'Séguéla', sousPrefectures: [{ name: 'Séguéla', localites: [{ name: 'Séguéla', projects: ['classes-passerelles'], detail: '20 classes passerelles' }] }] },
+      {
+        name: 'Korhogo',
+        sousPrefectures: [
+          {
+            name: 'Korhogo',
+            localites: [
+              {
+                name: 'Korhogo & périphérie',
+                projects: ['cohesion-plus', 'ecoles-vertes'],
+                detail: 'Comités de paix COHÉSION+ et projet en conception Écoles Vertes',
+                villages: ['Korhogo Ville', 'Koni', 'Karakoro'],
+                bailleurs: ['Partenaires techniques'],
+                realisations: '24 comités de paix actifs, pépinières scolaires expérimentales',
+                beneficiaires: 1800,
+                status: 'en-cours',
+              },
+            ],
+          },
+          {
+            name: 'Napiéolédougou',
+            localites: [
+              {
+                name: 'Napiéolédougou',
+                projects: ['karite-femmes'],
+                detail: 'Projet en conception : Structuration de 8 coopératives de femmes productrices de beurre de karité',
+                villages: ['Napié', 'Komborodougou'],
+                bailleurs: ['Appels à partenariat'],
+                realisations: 'Étude de faisabilité et identification des groupements féminins',
+                beneficiaires: 400,
+                status: 'conception',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Sinématiali',
+        sousPrefectures: [
+          {
+            name: 'Sinématiali',
+            localites: [
+              {
+                name: 'Sinématiali',
+                projects: ['cohesion-plus'],
+                detail: '9 comités de médiation pastorale et concertation rurale',
+                villages: ['Sinématiali Centre', 'Bahouakaha'],
+                bailleurs: ['Partenaires multilatéraux'],
+                realisations: '9 comités de médiation formés et équipés',
+                beneficiaires: 650,
+                status: 'en-cours',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
-    id: 'tonkpi', name: 'Tonkpi', chefLieu: 'Man', zone: 'Ouest', lat: 7.41, lng: -7.55,
+    id: 'tchologo',
+    name: 'Tchologo',
+    chefLieu: 'Ferkessédougou',
+    zone: 'Nord',
+    lat: 9.59,
+    lng: -5.19,
+    villagesCount: 14,
     departements: [
-      { name: 'Man', sousPrefectures: [{ name: 'Man', localites: [{ name: 'Man', projects: ['cohesion-plus', 'urgence-inondations'], detail: '18 dialogues intercommunautaires' }] }] },
+      {
+        name: 'Ferkessédougou',
+        sousPrefectures: [
+          {
+            name: 'Ferkessédougou',
+            localites: [
+              {
+                name: 'Ferkessédougou',
+                projects: ['cohesion-plus'],
+                detail: 'Prévention de l’extrémisme violent et dialogues communautaires « Non à l’extrémisme, Oui à la paix »',
+                villages: ['Ferké Commune', 'Togoniéré', 'Koumbala'],
+                bailleurs: ['Partenaires multilatéraux'],
+                realisations: '22 ateliers et dialogues tenus, 1 500 jeunes et femmes formés',
+                beneficiaires: 1500,
+                status: 'en-cours',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Ouangolodougou',
+        sousPrefectures: [
+          {
+            name: 'Ouangolodougou',
+            localites: [
+              {
+                name: 'Ouangolodougou (zone frontalière)',
+                projects: ['cohesion-plus'],
+                detail: 'Système d’alerte précoce et veille citoyenne transfrontalière',
+                villages: ['Ouangolodougou Centre', 'Niellé', 'Diawala'],
+                bailleurs: ['Partenaires multilatéraux'],
+                realisations: 'Réseau d’observateurs communautaires opérationnel',
+                beneficiaires: 950,
+                status: 'en-cours',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'gbeke',
+    name: 'Gbêkê',
+    chefLieu: 'Bouaké',
+    zone: 'Centre',
+    lat: 7.69,
+    lng: -5.03,
+    villagesCount: 10,
+    departements: [
+      {
+        name: 'Bouaké',
+        sousPrefectures: [
+          {
+            name: 'Bouaké',
+            localites: [
+              {
+                name: 'Bouaké & Sakassou',
+                projects: ['jeunes-emploi', 'ecoles-vertes'],
+                detail: 'Formation professionnelle de 470 jeunes et expérimentation d’éco-écoles',
+                villages: ['Bouaké Commune', 'Djébonoua', 'Sakassou'],
+                bailleurs: ['Partenaires techniques'],
+                realisations: '470 jeunes formés et insérés, 6 comités écologiques scolaires',
+                beneficiaires: 470,
+                status: 'acheve',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'abidjan',
+    name: 'District d’Abidjan',
+    chefLieu: 'Abidjan',
+    zone: 'Sud',
+    lat: 5.36,
+    lng: -4.01,
+    villagesCount: 6,
+    departements: [
+      {
+        name: 'Abidjan',
+        sousPrefectures: [
+          {
+            name: 'Abobo',
+            localites: [
+              {
+                name: 'Abobo & Yopougon',
+                projects: ['urgence-inondations'],
+                detail: 'Siège national EICF et projet de résilience d’urgence face aux inondations urbaines',
+                villages: ['Abobo Clouetcha', 'Yopougon Gesco'],
+                bailleurs: ['Appels à partenariat'],
+                realisations: 'Cartographie des zones inondables et formation de comités d’alerte',
+                beneficiaires: 1200,
+                status: 'conception',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
 ]
