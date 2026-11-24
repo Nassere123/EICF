@@ -321,12 +321,23 @@ export default async function ProjetDetailPage({
                     <dd>{project.duree}</dd>
                   </div>
 
-                  <div>
-                    <dt>Budget global</dt>
-                    <dd className="text-primary text-base">
-                      {project.budget}
-                    </dd>
-                  </div>
+                  {project.budget && (
+                    <div>
+                      <dt>Budget global</dt>
+                      <dd className="text-primary text-base">
+                        {project.budget}
+                      </dd>
+                    </div>
+                  )}
+
+                  {project.dateReference && (
+                    <div>
+                      <dt>Référence d’exécution</dt>
+                      <dd className="text-xs font-semibold text-textDark">
+                        {project.dateReference}
+                      </dd>
+                    </div>
+                  )}
 
                   <div>
                     <dt>Bénéficiaires</dt>

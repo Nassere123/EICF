@@ -45,7 +45,7 @@ export default function HomePage() {
   const [showFullPresidentMessage, setShowFullPresidentMessage] = useState(false)
   const [showAllDomains, setShowAllDomains] = useState(false)
 
-  const featuredProjects = projects.filter((p) => p.status === 'en-cours').slice(0, 3)
+  const featuredProjects = projects.filter((p) => p.slug === 'pasea' || p.slug === 'swedd' || p.status === 'en-cours').slice(0, 3)
   const recentNews = news.slice(0, 3)
   const displayedDomains = showAllDomains ? domains : domains.slice(0, 6)
 
@@ -388,7 +388,7 @@ export default function HomePage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-textDark mt-2 mb-4">
               Là où nous faisons <span className="italic text-primary">la différence</span>
             </h2>
-            <p className="text-lg text-muted max-w-2xl mx-auto">
+            <p className="text-center text-lg text-muted max-w-2xl mx-auto">
               Des interventions concrètes sur le terrain, co-construites avec les communautés, l’État et nos partenaires techniques.
             </p>
           </div>

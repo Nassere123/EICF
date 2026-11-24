@@ -182,10 +182,10 @@ export default function ProjetsIndexPage() {
                     </div>
                     <div>
                       <dt className="text-[11px] uppercase tracking-wider font-bold text-muted">
-                        Budget
+                        {p.budget ? 'Budget' : 'Exécution physique'}
                       </dt>
                       <dd className="text-sm font-extrabold text-textDark mt-0.5">
-                        {p.budget}
+                        {p.budget || (p.tauxRealisation ? `${p.tauxRealisation} %` : 'Certifiée')}
                       </dd>
                     </div>
                   </dl>

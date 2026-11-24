@@ -71,7 +71,8 @@ export default async function ActualiteDetailPage({
                         {relatedProject.name} — {relatedProject.fullName}
                       </h3>
                       <p className="text-xs sm:text-sm text-muted mt-1">
-                        {relatedProject.zone} · {relatedProject.budget}
+                        {relatedProject.zone}
+                        {relatedProject.budget ? ` · ${relatedProject.budget}` : ''}
                       </p>
                     </div>
                     <Link
