@@ -10,6 +10,9 @@ import {
   CheckCircle2,
   Compass,
   HeartHandshake,
+  Briefcase,
+  Scale,
+  Building,
 } from 'lucide-react'
 import { org, governance, history, values, images, founder } from '@/lib/data'
 import { SixtySeconds } from '@/components/SixtySeconds'
@@ -350,104 +353,210 @@ export default function AProposPage() {
               Transparence & Redevabilité
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-textDark mt-2 mb-4">
-              Des instances claires,{' '}
-              <span className="italic text-primary">une direction responsable.</span>
+              Gouvernance Institutionnelle &{' '}
+              <span className="italic text-primary">Organisation Fonctionnelle</span>
             </h2>
             <p className="text-muted text-base sm:text-lg leading-relaxed">
-              Conformément à nos statuts, EICF s’appuie sur une stricte séparation entre le Conseil d’Administration (orientation et contrôle) et la Direction Exécutive (mise en œuvre opérationnelle).
+              Conformément à nos statuts et aux exigences des partenaires internationaux, l’ONG EICF applique une stricte séparation entre les instances d’orientation et de supervision (Conseil d’Administration), les organes indépendants de contrôle, et la gestion opérationnelle quotidienne (Direction Exécutive).
             </p>
           </div>
 
-          <div className="mb-14">
-            <h3 className="text-2xl font-heading font-bold text-textDark mb-6 flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full bg-secondary" />
-              Conseil d’Administration
-            </h3>
-            <div className="people">
-              {governance.board.map((m) => (
-                <div key={m.name} className="person">
-                  <div className="avatar">
-                    {m.name
-                      .split(' ')
-                      .map((n) => n[0])
-                      .slice(0, 2)
-                      .join('')}
-                  </div>
-                  <strong>{m.name}</strong>
-                  <span>{m.role}</span>
+          {/* 1. RÔLE DU PRÉSIDENT FONDATEUR */}
+          <div className="mb-14 p-8 rounded-3xl bg-background border border-black/5 shadow-xs">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+              <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-primary shrink-0 shadow-md">
+                <img src={founder.photo} alt={governance.founder.name} className="w-full h-full object-cover" />
+              </div>
+              <div className="flex-1">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/20 text-textDark text-xs font-bold uppercase mb-2">
+                  <span>Rôle Institutionnel & Moral</span>
                 </div>
-              ))}
+                <h3 className="text-2xl font-heading font-bold text-textDark">
+                  {governance.founder.name} — <span className="text-primary font-sans font-semibold text-lg">{governance.founder.role}</span>
+                </h3>
+                <p className="text-muted text-sm sm:text-base mt-2 leading-relaxed">
+                  {governance.founder.roleDesc}
+                </p>
+              </div>
+              <Link
+                href="/a-propos/mot-du-president"
+                className="px-5 py-2.5 rounded-full bg-white border border-black/10 hover:border-primary text-textDark hover:text-primary text-xs font-bold transition-all shrink-0 shadow-xs"
+              >
+                Lire le mot du Fondateur →
+              </Link>
             </div>
           </div>
 
+          {/* 2. CONSEIL D'ADMINISTRATION & ORGANES DE CONTRÔLE */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+            <div className="lg:col-span-7">
+              <h3 className="text-2xl font-heading font-bold text-textDark mb-6 flex items-center gap-3">
+                <span className="w-3.5 h-3.5 rounded-full bg-secondary" />
+                <span>Conseil d’Administration (Orientation & Supervision)</span>
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {governance.board.map((m) => (
+                  <div key={m.name} className="p-5 rounded-2xl bg-white border border-black/10 shadow-xs">
+                    <div className="font-heading font-bold text-textDark text-base">{m.name}</div>
+                    <div className="text-xs font-bold text-primary mt-0.5">{m.role}</div>
+                    <p className="text-xs text-muted mt-2 leading-relaxed">{m.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="lg:col-span-5">
+              <h3 className="text-2xl font-heading font-bold text-textDark mb-6 flex items-center gap-3">
+                <span className="w-3.5 h-3.5 rounded-full bg-primary" />
+                <span>Organes de Contrôle & Conformité</span>
+              </h3>
+              <div className="space-y-4">
+                {governance.controlBodies.map((cb) => (
+                  <div key={cb.title} className="p-5 rounded-2xl bg-background border border-black/5 border-l-4 border-l-primary shadow-xs">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="font-heading font-bold text-textDark text-base">{cb.title}</div>
+                      <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-primary/10 text-primary">{cb.type}</span>
+                    </div>
+                    <p className="text-xs text-muted mt-2 leading-relaxed">{cb.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* 3. DIRECTION EXÉCUTIVE */}
           <div className="mb-16">
-            <h3 className="text-2xl font-heading font-bold text-textDark mb-6 flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full bg-primary" />
-              Direction Exécutive
-            </h3>
-            <div className="people">
+            <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
+              <h3 className="text-2xl font-heading font-bold text-textDark flex items-center gap-3">
+                <span className="w-3.5 h-3.5 rounded-full bg-primary" />
+                <span>Direction Exécutive (Gestion Opérationnelle Quotidienne)</span>
+              </h3>
+              <span className="text-xs font-bold px-3 py-1 bg-primary/10 text-primary rounded-full">
+                6 Cadres de Direction
+              </span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {governance.direction.map((m) => (
-                <div key={m.name} className="person">
-                  <div className="avatar">
-                    {m.name
-                      .split(' ')
-                      .map((n) => n[0])
-                      .slice(0, 2)
-                      .join('')}
+                <div key={m.name} className="p-6 rounded-2xl bg-white border border-black/10 hover:shadow-md transition-all">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 text-primary font-heading font-bold text-lg flex items-center justify-center mb-4">
+                    {m.name.split(' ').map((n) => n[0]).slice(0, 2).join('')}
                   </div>
-                  <strong>{m.name}</strong>
-                  <span>{m.role}</span>
+                  <div className="font-heading font-bold text-textDark text-base">{m.name}</div>
+                  <div className="text-xs font-bold text-primary mt-1">{m.role}</div>
+                  <p className="text-xs text-muted mt-2 leading-relaxed">{m.desc}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Organigramme institutionnel */}
+          {/* 4. LES 5 DÉPARTEMENTS ET LEURS RESPONSABILITÉS */}
+          <div className="mb-16">
+            <div className="text-center max-w-2xl mx-auto mb-10">
+              <span className="text-secondary font-bold tracking-wider uppercase text-xs">
+                Missions & Fonctions Opérationnelles
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-heading font-bold text-textDark mt-1">
+                Responsabilités des 5 Départements d’EICF
+              </h3>
+              <p className="text-xs sm:text-sm text-muted mt-2">
+                Chaque département est doté de procédures écrites, de manuels administratifs et financiers et d'objectifs de performance audités.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {governance.departments.map((dept, idx) => (
+                <div
+                  key={dept.title}
+                  className={`p-6 rounded-2xl border transition-all flex flex-col justify-between ${
+                    idx === 0 ? 'bg-primary text-white border-primary md:col-span-2 lg:col-span-1' : 'bg-background text-text border-black/5 shadow-xs'
+                  }`}
+                >
+                  <div>
+                    <div className={`text-xs font-bold uppercase tracking-wider mb-2 ${idx === 0 ? 'text-secondary' : 'text-primary'}`}>
+                      Département {idx + 1}
+                    </div>
+                    <h4 className={`text-lg font-heading font-bold mb-1 ${idx === 0 ? 'text-white' : 'text-textDark'}`}>
+                      {dept.title}
+                    </h4>
+                    <div className={`text-xs mb-4 ${idx === 0 ? 'text-white/80' : 'text-muted'}`}>
+                      Sous la responsabilité de : <strong>{dept.lead}</strong>
+                    </div>
+                    <ul className="space-y-2 text-xs leading-relaxed">
+                      {dept.responsibilities.map((resp, rIdx) => (
+                        <li key={rIdx} className="flex items-start gap-2">
+                          <span className={`shrink-0 mt-0.5 font-bold ${idx === 0 ? 'text-secondary' : 'text-primary'}`}>✓</span>
+                          <span className={idx === 0 ? 'text-white/90' : 'text-text'}>{resp}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 5. ORGANIGRAMME HIÉRARCHIQUE & FONCTIONNEL */}
           <div className="bg-background rounded-3xl p-8 sm:p-12 border border-black/5 shadow-xs">
-            <h3 className="text-2xl font-heading font-bold text-textDark text-center mb-8">
-              Organigramme fonctionnel d’EICF
-            </h3>
+            <div className="text-center max-w-2xl mx-auto mb-8">
+              <span className="text-secondary font-bold tracking-wider uppercase text-xs">Architecture Organisationnelle</span>
+              <h3 className="text-2xl font-heading font-bold text-textDark mt-1">
+                Organigramme fonctionnel et statutaire d’EICF
+              </h3>
+              <p className="text-xs text-muted mt-1">
+                Liaisons hiérarchiques, contrôles externes et projection opérationnelle sur les 4 bases régionales.
+              </p>
+            </div>
 
             <div className="org-chart">
+              {/* Assemblée Générale */}
               <div className="org-level">
-                <div className="org-node">Assemblée Générale</div>
-                <div className="org-link" />
-              </div>
-
-              <div className="org-level">
-                <div className="org-node" style={{ background: 'var(--green-2)' }}>
-                  Conseil d’Administration
-                </div>
-                <div className="text-xs text-muted font-bold">
-                  Contrôlé par un Commissaire aux Comptes assermenté
+                <div className="org-node" style={{ background: '#194930' }}>
+                  1. Assemblée Générale (Organe Souverain)
                 </div>
                 <div className="org-link" />
               </div>
 
+              {/* CA + Commissariat aux comptes */}
+              <div className="org-level">
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                  <div className="org-node" style={{ background: 'var(--green-2)' }}>
+                    2. Conseil d’Administration (Supervision & Stratégie)
+                  </div>
+                  <div className="px-4 py-2 rounded-xl bg-white border border-dashed border-secondary text-xs text-textDark font-semibold shadow-xs">
+                    ⚖️ Commissariat aux Comptes & Audit Externe
+                  </div>
+                </div>
+                <div className="org-link" />
+              </div>
+
+              {/* Direction Exécutive */}
               <div className="org-level">
                 <div className="org-node" style={{ background: 'var(--green-3)' }}>
-                  Direction Exécutive
+                  3. Direction Exécutive (Pilotage & Management Général)
                 </div>
                 <div className="org-link" />
               </div>
 
+              {/* Les 5 Départements */}
               <div className="org-level">
+                <div className="text-xs text-muted font-bold mb-2">4. Les 5 Départements Fonctionnels :</div>
                 <div className="org-children">
-                  {governance.orgChart[3].children.map((c) => (
-                    <span key={c}>Département {c}</span>
+                  {governance.departments.map((d) => (
+                    <span key={d.title} className="text-xs">
+                      {d.title.replace('Département des ', '').replace('Département ', '')}
+                    </span>
                   ))}
                 </div>
                 <div className="org-link" />
               </div>
 
+              {/* Bases Régionales */}
               <div className="org-level">
+                <div className="text-xs text-muted font-bold mb-2">5. Antennes Régionales & Équipes Terrain :</div>
                 <div className="org-children">
                   {governance.orgChart[4].children.map((c) => (
-                    <span
-                      key={c}
-                      style={{ background: 'var(--gold-soft)', color: '#7a5a06' }}
-                    >
-                      Base opérationnelle : {c}
+                    <span key={c} style={{ background: 'var(--gold-soft)', color: '#7a5a06' }} className="text-xs">
+                      Base : {c}
                     </span>
                   ))}
                 </div>

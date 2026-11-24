@@ -831,24 +831,104 @@ export const beforeAfter = [
 /* ------------------------------------------------------------------ */
 
 export const governance = {
+  founder: {
+    name: 'BROU N’guessan Albert',
+    role: 'Président Fondateur de l’ONG EICF',
+    roleDesc: 'Garant institutionnel de la vision, des statuts et des valeurs fondamentales de l’organisation depuis sa création en 2008. Assure la représentation morale et les orientations stratégiques de haut niveau sans interférer dans la gestion exécutive quotidienne.',
+  },
   board: [
-    { name: 'Dr Koffi Yao', role: 'Président du Conseil d’Administration' },
-    { name: 'Mme Mariam Touré', role: 'Vice-présidente' },
-    { name: 'M. Seydou Ouattara', role: 'Trésorier général' },
-    { name: 'Mme Adjoua N’Guessan', role: 'Secrétaire générale' },
+    { name: 'Dr Koffi Yao', role: 'Président du Conseil d’Administration', desc: 'Orientation stratégique, supervision politique et validation des orientations budgétaires.' },
+    { name: 'Mme Mariam Touré', role: 'Vice-présidente', desc: 'Appui au pilotage stratégique et relations avec la société civile et les institutions.' },
+    { name: 'M. Seydou Ouattara', role: 'Trésorier Général', desc: 'Supervision financière, validation des comptes statutaires et régularité comptable.' },
+    { name: 'Mme Adjoua N’Guessan', role: 'Secrétaire Générale', desc: 'Gestion de la vie statutaire, procès-verbaux des assemblées et conformité réglementaire.' },
+  ],
+  controlBodies: [
+    {
+      title: 'Commissariat aux Comptes',
+      type: 'Audit externe certifié',
+      desc: 'Certification indépendante annuelle des états financiers et rapports financiers soumis aux bailleurs internationaux et ministères de tutelle.',
+    },
+    {
+      title: 'Comité d’Audit Interne & Redevabilité',
+      type: 'Contrôle interne permanent',
+      desc: 'Vérification de la stricte conformité des procédures de passation des marchés, gestion fiduciaire et traitement diligent du Mécanisme de Gestion des Plaintes (MGP).',
+    },
   ],
   direction: [
-    { name: 'Mme Fatou Konaté', role: 'Directrice exécutive' },
-    { name: 'M. Jean-Marc Kouassi', role: 'Directeur des programmes' },
-    { name: 'Mme Bintou Sanogo', role: 'Responsable suivi-évaluation & redevabilité' },
-    { name: 'M. Ibrahim Cissé', role: 'Responsable administratif et financier' },
+    { name: 'Mme Fatou Konaté', role: 'Directrice Exécutive', desc: 'Coordination générale de la gestion opérationnelle, management des équipes et relation avec les partenaires.' },
+    { name: 'M. Jean-Marc Kouassi', role: 'Chef du Dép. des Opérations et des Programmes', desc: 'Planification, exécution technique des projets et encadrement des coordinateurs terrain.' },
+    { name: 'M. Ibrahim Cissé', role: 'Chef du Dép. Comptable et Financier', desc: 'Gestion budgétaire, comptabilité analytique SYSCOHADA et reporting financier aux bailleurs.' },
+    { name: 'Mme Affoué Bakayoko', role: 'Chef du Dép. Administration & RH', desc: 'Gestion du personnel, contrats, approvisionnements, logistique et sauvegardes sociales.' },
+    { name: 'Mme Bintou Sanogo', role: 'Chef du Dép. Suivi-Évaluation & Redevabilité', desc: 'Système d’indicateurs, collecte des données terrain, qualité et redevabilité communautaire.' },
+    { name: 'M. Sékou Diabaté', role: 'Chef du Dép. Communication & Partenariats', desc: 'Relations avec les bailleurs multilatéraux, mobilisation de ressources et communication institutionnelle.' },
+  ],
+  departments: [
+    {
+      title: 'Département des Opérations et des Programmes',
+      lead: 'M. Jean-Marc Kouassi',
+      icon: 'Briefcase',
+      responsibilities: [
+        'Planification stratégique, coordination opérationnelle et exécution technique de l’ensemble des projets (PASEA, SWEDD, PEJEDEC...).',
+        'Supervision directe des chefs de projets, des animateurs de terrain et des 4 bases opérationnelles régionales.',
+        'Coordination technique avec les ministères sectoriels (Santé, Éducation, Hydraulique, Famille/Femme) et les autorités locales.',
+      ],
+    },
+    {
+      title: 'Département Comptable et Financier',
+      lead: 'M. Ibrahim Cissé',
+      icon: 'Scale',
+      responsibilities: [
+        'Tenue rigoureuse de la comptabilité générale et analytique selon les normes SYSCOHADA et les exigences des bailleurs.',
+        'Mise en œuvre du contrôle interne préalable, principe de double signature et gestion des comptes bancaires dédiés.',
+        'Production périodique des rapports financiers certifiés, audits de conformité et gestion prévisionnelle de la trésorerie.',
+      ],
+    },
+    {
+      title: 'Département de l’Administration et des Ressources Humaines',
+      lead: 'Mme Affoué Bakayoko',
+      icon: 'Users',
+      responsibilities: [
+        'Gestion des recrutements transparents, administration du personnel et déploiement des équipes multidisciplinaires.',
+        'Application stricte des politiques de sauvegarde (PSEA : prévention exploitation sexuelle, politique sauvegarde de l’enfant).',
+        'Gestion du patrimoine, de la chaîne logistique, des achats courants et respect de la législation du travail ivoirienne.',
+      ],
+    },
+    {
+      title: 'Département Suivi-Évaluation & Redevabilité',
+      lead: 'Mme Bintou Sanogo',
+      icon: 'GraduationCap',
+      responsibilities: [
+        'Conception des plans de suivi-évaluation, matrices de cadres logiques et indicateurs SMART désagrégés par genre et groupe d’âge.',
+        'Collecte mobile géolocalisée des données sur le terrain, assurance qualité des statistiques et capitalisation des leçons apprises.',
+        'Opérationnalisation du Mécanisme de Gestion des Plaintes (MGP) et garantie de la redevabilité envers les communautés bénéficiaires.',
+      ],
+    },
+    {
+      title: 'Département Communication et Partenariats',
+      lead: 'M. Sékou Diabaté',
+      icon: 'Handshake',
+      responsibilities: [
+        'Développement des alliances stratégiques avec les bailleurs de fonds multilatéraux, agences des Nations Unies et fondations.',
+        'Élaboration des rapports annuels d’activités, fiches de projets institutionnelles et valorisation des résultats d’impact.',
+        'Gestion de la communication éthique, protection de l’image des populations vulnérables et organisation des visites bailleurs.',
+      ],
+    },
   ],
   orgChart: [
-    { level: 'Assemblée générale', children: [] as string[] },
-    { level: 'Conseil d’Administration', children: ['Commissariat aux comptes'] },
-    { level: 'Direction exécutive', children: [] as string[] },
-    { level: 'Départements', children: ['Programmes', 'Suivi-évaluation & gestion des connaissances', 'Administration & finances', 'Communication & partenariats'] },
-    { level: 'Bases opérationnelles', children: ['Katiola', 'Bouna', 'Korhogo', 'Bondoukou'] },
+    { level: 'Assemblée Générale', children: [] as string[] },
+    { level: 'Conseil d’Administration', children: ['Commissariat aux comptes (Audit externe indépendant)', 'Comité d’Audit Interne & Éthique'] },
+    { level: 'Direction Exécutive', children: ['Directrice Exécutive'] },
+    {
+      level: '5 Départements Opérationnels',
+      children: [
+        'Opérations & Programmes',
+        'Comptabilité & Finances',
+        'Administration & Ressources Humaines',
+        'Suivi-Évaluation & Redevabilité',
+        'Communication & Partenariats',
+      ],
+    },
+    { level: 'Bases Opérationnelles Régionales', children: ['Katiola (Hambol)', 'Bouna (Bounkani)', 'Korhogo (Poro)', 'Bondoukou (Gontougo)'] },
   ],
 }
 
