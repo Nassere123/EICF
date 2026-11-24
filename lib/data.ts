@@ -1372,6 +1372,300 @@ export const globalStats = {
 /** Phrase de synthèse générée automatiquement (CDC : « Résumé automatique certifié »). */
 export const impactSentence = `En 2026, l’ONG EICF certifie plus de 50 570 bénéficiaires directs uniques (et plus de 165 000 personnes touchées au total) dans 11 régions de Côte d’Ivoire, à travers 20+ projets capitalisés sur 18 années d’action continue.`
 
+/* ------------------------------------------------------------------ */
+/* Capacités Institutionnelles (Audit Page 5, Point B)                */
+/* ------------------------------------------------------------------ */
+
+export type InstitutionalCapacityPillar = {
+  id: string
+  num: string
+  title: string
+  subtitle: string
+  icon: string
+  overview: string
+  standards: string[]
+  keyMechanisms: { title: string; desc: string }[]
+  toolsAndSoftwares: string[]
+  concreteEvidence: string
+  keyDocuments: { title: string; type: string; code: string }[]
+}
+
+export const institutionalCapacities: InstitutionalCapacityPillar[] = [
+  {
+    id: 'gestion-projets',
+    num: '01',
+    title: 'Gestion des Projets & Cycle Opérationnel',
+    subtitle: 'Planification rigoureuse, exécution agile et reporting conforme aux exigences des bailleurs multilatéraux',
+    icon: 'Briefcase',
+    overview: 'L’ONG EICF applique une méthodologie éprouvée de Gestion Axée sur les Résultats (GAR) couvrant l’intégralité du cycle de projet, de l’analyse participative des besoins communautaires jusqu’à la capitalisation et l’évaluation finale indépendante.',
+    standards: [
+      'Cadre logique standardisé et Gestion Axée sur les Résultats (GAR)',
+      'Directives opérationnelles Banque mondiale, Système des Nations Unies (UNFPA, UNICEF, PNUD) et AFD',
+      'Plan de Travail Budgétisé Annuel (PTBA) et chronogramme de GANTT sous chemin critique',
+      'Revues périodiques trimestrielles de performance et gestion proactive des risques',
+    ],
+    keyMechanisms: [
+      {
+        title: 'Planification opérationnelle & PTBA',
+        desc: 'Chaque convention fait l’objet d’un plan de travail annuel budgétisé (PTBA), décliné en plans d’action mensuels et fiches d’activités détaillées avec jalons de contrôle.',
+      },
+      {
+        title: 'Coordination multisectorielle terrain',
+        desc: 'Mise en place de comités de pilotage mixtes associant services déconcentrés de l’État, autorités préfectorales, élus locaux et leaders communautaires.',
+      },
+      {
+        title: 'Reporting technique standardisé',
+        desc: 'Production de rapports d’étape mensuels, trimestriels et annuels adossés à des pièces justificatives complètes et vérifiables, dans le respect strict des échéances contractuelles.',
+      },
+      {
+        title: 'Capitalisation et clôture formelle',
+        desc: 'Ateliers de bilan avec les parties prenantes, transfert formel des acquis aux communautés et production de notes méthodologiques de capitalisation.',
+      },
+    ],
+    toolsAndSoftwares: ['MS Project', 'Trello / Asana Projets', 'KoboToolbox Collecte', 'Tableaux de bord KPI'],
+    concreteEvidence: 'Gestion réussie de 20+ projets complexes (dont PEJEDEC II & III, SWEDD, PASEA, CLEF, PDDIVS) avec un taux moyen d’exécution physique supérieur à 94 %.',
+    keyDocuments: [
+      { title: 'Manuel de gestion et de cycle de projet EICF', type: 'Manuel interne', code: 'MGP-EICF-2024' },
+      { title: 'Guide de reporting technique et de capitalisation', type: 'Guide pratique', code: 'GRT-EICF-V3' },
+    ],
+  },
+  {
+    id: 'gestion-financiere',
+    num: '02',
+    title: 'Gestion Financière & Contrôle Interne',
+    subtitle: 'Comptabilité SYSCOHADA, double signature conjointe, comptes bancaires dédiés et audits annuels sans réserve',
+    icon: 'Scale',
+    overview: 'La gestion fiduciaire d’EICF repose sur les plus hauts standards de transparence et d’étanchéité comptable, garantissant aux bailleurs une traçabilité totale et l’inviolabilité des fonds alloués.',
+    standards: [
+      'Référentiel comptable SYSCOHADA révisé (système normal, comptabilité d’engagement)',
+      'Séparation inaliénable des fonctions entre ordonnateur, comptable payeur et vérificateur',
+      'Règle impérative de double signature conjointe pour toute transaction bancaire',
+      'Comptes bancaires dédiés et exclusifs ouverts auprès d’institutions bancaires de premier rang',
+      'Audits financiers externes annuels et de clôture sans réserve',
+    ],
+    keyMechanisms: [
+      {
+        title: 'Comptabilité d’engagement informatisée',
+        desc: 'Utilisation d’un logiciel de gestion comptable et financière certifié (SAGE / Tompro) paramétré par projet, analytique et ligne budgétaire bailleur.',
+      },
+      {
+        title: 'Séparation stricte ordonnateur / payeur',
+        desc: 'L’ordonnancement des dépenses relève exclusivement de la Direction Exécutive, l’émission des paiements du Responsable Financier, et la validation finale nécessite la contresignature statutaire.',
+      },
+      {
+        title: 'Comptes bancaires séparés par projet',
+        desc: 'Aucun mélange de trésorerie n’est autorisé : chaque convention bailleur dispose d’un compte bancaire dédié et d’un compte d’avances strictement encadré.',
+      },
+      {
+        title: 'Audits et commissariat aux comptes',
+        desc: 'Contrôle externe annuel par un Commissaire aux comptes agréé et audits spécifiques diligentés par les bailleurs de fonds (tous certifiés sans réserve).',
+      },
+    ],
+    toolsAndSoftwares: ['SAGE Comptabilité & Paie', 'Tompro Multi-projets', 'Plateformes bancaires sécurisées (BICICI, NSIA, SGCI)'],
+    concreteEvidence: '18 années d’exercice continu sans aucune réserve d’audit majeur, validation intégrale des audits Banque mondiale sur PEJEDEC, SWEDD et PASEA.',
+    keyDocuments: [
+      { title: 'Manuel de procédures administratives, financières et comptables', type: 'Manuel certifié', code: 'MPAFC-EICF-2024' },
+      { title: 'Dernier rapport d’audit financier externe certifié', type: 'Rapport d’audit', code: 'AUD-EXT-2024' },
+    ],
+  },
+  {
+    id: 'passation-marches',
+    num: '03',
+    title: 'Passation des Marchés & Approvisionnements',
+    subtitle: 'Mise en concurrence transparente, commission d’attribution indépendante et tolérance zéro fraude',
+    icon: 'FileText',
+    overview: 'Nos procédures d’acquisition garantissent l’équité, l’économie, l’efficacité et la conformité scrupuleuse aux directives internationales de passation des marchés.',
+    standards: [
+      'Directives de passation des marchés de la Banque mondiale et standards internationaux UE / AFD',
+      'Code des marchés publics de la République de Côte d’Ivoire',
+      'Mise en concurrence systématique avec seuils de passation stricts',
+      'Commission interne d’attribution des marchés avec procès-verbaux formels d’ouverture et de jugement',
+      'Politique anti-fraude, anti-corruption et déclaration d’absence de conflit d’intérêts',
+    ],
+    keyMechanisms: [
+      {
+        title: 'Seuils d’acquisition transparents',
+        desc: 'Achats sous seuil sur 3 cotations proforma concurrentes, consultations restreintes sur cahier des charges au-delà du seuil intermédiaire, et appels d’offres ouverts pour les investissements lourds.',
+      },
+      {
+        title: 'Commission d’attribution collégiale',
+        desc: 'Toute sélection de prestataire ou d’équipement est confiée à une commission d’évaluation pluridisciplinaire indépendante consignant ses notes et décisions sur PV signé.',
+      },
+      {
+        title: 'Répertoire des fournisseurs agréés',
+        desc: 'Sélection et actualisation annuelle d’un catalogue de fournisseurs vérifiés (immatriculation fiscale RCCM/DFE, attestations de régularité sociale et fiscale).',
+      },
+      {
+        title: 'Audit de livraison et réception contradictoire',
+        desc: 'Commissions de réception technique sur site vérifiant la conformité exacte des livrables avant toute liquidation de facture finale.',
+      },
+    ],
+    toolsAndSoftwares: ['Grilles d’analyse multicritères', 'Base fournisseurs qualifiés', 'Matrice de conformité technique'],
+    concreteEvidence: 'Acquisition et réception certifiée de 788 latrines et kits d’hygiène (PASEA) et de kits d’insertion pour 6 000+ jeunes (PEJEDEC) sans aucune réclamation ou contestation.',
+    keyDocuments: [
+      { title: 'Manuel de passation des marchés et gestion des stocks', type: 'Manuel de référence', code: 'MPM-EICF-2024' },
+      { title: 'Charte d’intégrité des fournisseurs et sous-traitants', type: 'Charte contractuelle', code: 'CIF-EICF' },
+    ],
+  },
+  {
+    id: 'suivi-evaluation',
+    num: '04',
+    title: 'Suivi-Évaluation & Redevabilité (MEL)',
+    subtitle: 'Indicateurs SMART, collecte digitale géolocalisée KoboToolbox et redevabilité ascendante',
+    icon: 'BarChart3',
+    overview: 'Le système de Suivi, Évaluation, Redevabilité et Apprentissage (MEL) d’EICF transforme la donnée terrain en levier de pilotage stratégique, d’adaptation continue et de transparence absolue.',
+    standards: [
+      'Cadre logique standardisé et matrice d’indicateurs SMART déclinés (impact, effets, produits)',
+      'Digitalisation intégrale de la collecte terrain via KoboToolbox et formulaires mobiles ODK',
+      'Géolocalisation GPS obligatoire de toutes les infrastructures communautaires et points d’intervention',
+      'Protocole d’assurance qualité des données (DQA - Data Quality Assessment) à 3 niveaux',
+      'Boucle de redevabilité communautaire et restitution publique des résultats',
+    ],
+    keyMechanisms: [
+      {
+        title: 'Collecte géolocalisée temps réel',
+        desc: 'Agents de terrain équipés de smartphones pour renseigner les fiches d’enquêtes déconnectées avec coordonnées GPS, photos horodatées et vérification biométrique/signatures.',
+      },
+      {
+        title: 'Assurance qualité des données (DQA)',
+        desc: 'Contrôles de cohérence automatisés, audits aléatoires sur échantillon de 10 % par le coordinateur MEL et validation avant consolidation centrale.',
+      },
+      {
+        title: 'Revues de performance trimestrielles',
+        desc: 'Confrontation des cibles contractuelles aux réalisations effectives, analyse des écarts et plans d’actions correctifs immédiats.',
+      },
+      {
+        title: 'Évaluations indépendantes externes',
+        desc: 'Missions d’évaluation à mi-parcours et ex-post confiées à des consultants tiers pour mesurer l’impact réel et la durabilité.',
+      },
+    ],
+    toolsAndSoftwares: ['KoboToolbox Server', 'ODK Collect', 'Power BI / QGIS', 'Tableaux croisés dynamiques'],
+    concreteEvidence: 'Cartographie GPS certifiée de 100+ localités et 788 latrines, suivi nominatif et traçable de 50 570 bénéficiaires directs uniques.',
+    keyDocuments: [
+      { title: 'Plan institutionnel de suivi-évaluation (MEL Plan)', type: 'Manuel méthodologique', code: 'MELP-EICF-2024' },
+      { title: 'Guide d’assurance qualité des données de terrain (DQA)', type: 'Protocole technique', code: 'DQA-EICF' },
+    ],
+  },
+  {
+    id: 'sauvegardes-sociales-environnementales',
+    num: '05',
+    title: 'Sauvegardes Environnementales, Sociales & Éthique',
+    subtitle: 'Plan PGES, Mécanisme de Gestion des Plaintes (MGP), politique PSEA et protection de l’enfant',
+    icon: 'ShieldCheck',
+    overview: 'EICF applique une politique de tolérance zéro envers les violences, abus ou atteintes à l’environnement, et garantit un environnement sûr, inclusif et respectueux des droits humains dans chacune de ses interventions.',
+    standards: [
+      'Cadre Environnemental et Social (CES) de la Banque mondiale et normes de performance internationales',
+      'Plan de Gestion Environnementale et Sociale (PGES) systématiquement annexé à chaque sous-projet',
+      'Mécanisme de Gestion des Plaintes (MGP) indépendant, accessible et confidentiel',
+      'Politique PSEA (Prévention de l’Exploitation et des Abus Sexuels) alignée sur le Comité IASC',
+      'Politique institutionnelle de Sauvegarde et Protection de l’Enfant',
+    ],
+    keyMechanisms: [
+      {
+        title: 'Mécanisme de Gestion des Plaintes (MGP)',
+        desc: 'Dispositif multi-canaux (boîtes à plaintes villageoises sécurisées, numéro dédié, comités de médiation locaux) garantissant le traitement équitable et confidentiel sous 15 jours ouvrés.',
+      },
+      {
+        title: 'Politique PSEA stricte et contraignante',
+        desc: 'Signature obligatoire du code PSEA par 100 % du personnel, bénévoles et prestataires, modules obligatoires d’initiation et mécanisme d’alerte directe sécurisé.',
+      },
+      {
+        title: 'Sauvegardes environnementales sur site',
+        desc: 'Évaluation d’impact environnemental simplifié, gestion écologique des déchets de chantiers, reboisement compensatoire et préservation des ressources en eau.',
+      },
+      {
+        title: 'Inclusion sociale et genre',
+        desc: 'Quotas minimaux de participation des femmes (minimum 50 %), intégration active des personnes en situation de handicap et des ménages ultra-vulnérables.',
+      },
+    ],
+    toolsAndSoftwares: ['Registre MGP confidentiel', 'Fiches d’analyse d’incidents PSEA', 'Grilles d’inspection PGES'],
+    concreteEvidence: 'Mise en place de 65 comités villageois de gestion des plaintes opérationnels et zéro incident PSEA constaté sur l’ensemble des missions.',
+    keyDocuments: [
+      { title: 'Politique institutionnelle PSEA (Abus et exploitation sexuels)', type: 'Politique contraignante', code: 'POL-PSEA-2024' },
+      { title: 'Manuel opérationnel du Mécanisme de Gestion des Plaintes (MGP)', type: 'Manuel de procédure', code: 'MGP-PROC-2024' },
+      { title: 'Politique de Sauvegarde de l’Enfant', type: 'Politique de protection', code: 'PSE-EICF-2024' },
+    ],
+  },
+  {
+    id: 'ressources-humaines',
+    num: '06',
+    title: 'Ressources Humaines & Déploiement Terrain',
+    subtitle: 'Recrutement transparent, code de conduite signé par 100 % des équipes et forte capacité de projection locale',
+    icon: 'Users',
+    overview: 'Le capital humain d’EICF combine rigueur technique, maîtrise des langues locales et ancrage communautaire profond, permettant un déploiement opérationnel immédiat y compris dans les zones rurales isolées et frontalières.',
+    standards: [
+      'Manuel de gestion des ressources humaines et grille de classification équitable',
+      'Recrutement compétitif, ouvert et sans discrimination (égalité des chances)',
+      'Code d’éthique et de conduite professionnelle signé dès la prise de poste',
+      'Formation continue obligatoire (PSEA, premiers secours, sécurité terrain, sauvegarde)',
+      'Politique de protection et sécurité du personnel en mission',
+    ],
+    keyMechanisms: [
+      {
+        title: 'Bassin d’expertise pluridisciplinaire',
+        desc: 'Équipes composées de sociologues, ingénieurs WASH, agronomes, experts en éducation, spécialistes en inclusion financière et juristes.',
+      },
+      {
+        title: 'Antennes régionales et proximité',
+        desc: 'Bureaux et relais opérationnels décentralisés dans les chefs-lieux régionaux assurant une réactivité sous 24 à 48 heures sur le terrain.',
+      },
+      {
+        title: 'Logistique et mobilité tout-terrain',
+        desc: 'Parc de véhicules tout-terrain, motocycles équipés et protocoles stricts de sûreté/sécurité pour l’accès aux localités les plus enclavées.',
+      },
+      {
+        title: 'Égalité femmes-hommes et parité',
+        desc: 'Politique active de valorisation des compétences féminines aux postes de coordination de projet et de supervision technique.',
+      },
+    ],
+    toolsAndSoftwares: ['Logiciel RH & Paie', 'Grilles d’évaluation de performance annuelle', 'Protocoles de sécurité terrain'],
+    concreteEvidence: 'Capacité démontrée de déploiement simultané dans 6 à 11 régions (SWEDD, PEJEDEC, PASEA) avec plus de 45 cadres et animateurs communautaires mobilisés.',
+    keyDocuments: [
+      { title: 'Manuel des procédures de gestion des ressources humaines', type: 'Manuel RH', code: 'MRH-EICF-2024' },
+      { title: 'Code de conduite et d’éthique du personnel', type: 'Code éthique', code: 'CCE-EICF' },
+    ],
+  },
+  {
+    id: 'gestion-partenariats',
+    num: '07',
+    title: 'Partenariats & Coordination Institutionnelle',
+    subtitle: 'Protocoles avec les ministères sectoriels, alliance avec le corps préfectoral et les chefferies traditionnelles',
+    icon: 'Building',
+    overview: 'EICF inscrit chacune de ses interventions dans le strict respect de l’autorité publique et des priorités stratégiques de l’État de Côte d’Ivoire, en étroite concertation avec les élus locaux et la chefferie coutumière.',
+    standards: [
+      'Conventions et protocoles d’accord avec les ministères sectoriels de tutelle',
+      'Alignement formel sur le Plan National de Développement (PND 2021-2025 / 2026-2030) et les ODD',
+      'Concertation préalable systématique avec le corps préfectoral (Préfets et Sous-préfets)',
+      'Partenariat coutumier et protocolaire avec les chefs de canton, de village et comités villageois',
+      'Participation active aux cadres de concertation régionaux et clusters humanitaires/développement',
+    ],
+    keyMechanisms: [
+      {
+        title: 'Accords-cadres avec les ministères',
+        desc: 'Collaborations formalisées avec le Ministère de l’Éducation Nationale, le Ministère de la Santé, le Ministère de la Femme et le Ministère de la Jeunesse.',
+      },
+      {
+        title: 'Ancrage préfectoral et communal',
+        desc: 'Tenue obligatoire de réunions de cadrage et de restitution auprès des préfets de région, préfets de département et présidents de conseils régionaux.',
+      },
+      {
+        title: 'Co-construction communautaire',
+        desc: 'Signature d’engagements communautaires avec les chefferies traditionnelles et les chefs de terre pour garantir l’appropriation locale et la pérennité des ouvrages.',
+      },
+      {
+        title: 'Synergies opérationnelles inter-ONG',
+        desc: 'Partenariats opérationnels de consortium et d’échange de bonnes pratiques avec d’autres organisations nationales et internationales.',
+      },
+    ],
+    toolsAndSoftwares: ['Registre des conventions & protocoles', 'Fiches de liaison institutionnelle', 'Comptes-rendus de concertation'],
+    concreteEvidence: 'Protocole formel d’exécution validé sur l’ensemble des 11 régions d’intervention, 0 blocage communautaire ou institutionnel en 18 ans d’activité.',
+    keyDocuments: [
+      { title: 'Cadre stratégique de partenariat institutionnel', type: 'Document d’orientation', code: 'CSP-EICF' },
+      { title: 'Modèle type d’accord d’engagement communautaire', type: 'Convention type', code: 'AEC-EICF' },
+    ],
+  },
+]
+
 /**
  * Navigation principale (CDC §5) — volontairement resserrée à 5 entrées
  * pour alléger l’en-tête ; chaque entrée regroupe ses sous-rubriques.
@@ -1382,8 +1676,9 @@ export type NavItem = { label: string; href: string; match?: string[]; children?
 export const navigation: NavItem[] = [
   { label: 'Accueil', href: '/', match: ['/'] },
   {
-    label: 'L’ONG', href: '/a-propos', match: ['/a-propos'], children: [
+    label: 'L’ONG', href: '/a-propos', match: ['/a-propos', '/capacites-institutionnelles'], children: [
       { label: 'Qui sommes-nous', href: '/a-propos#presentation', desc: 'Histoire, vision, mission et valeurs' },
+      { label: 'Capacités Institutionnelles', href: '/capacites-institutionnelles', desc: 'Gestion fiduciaire, passation des marchés, sauvegardes' },
       { label: 'Notre approche', href: '/a-propos#approche', desc: 'Une démarche participative en 4 étapes' },
       { label: 'Gouvernance', href: '/a-propos#gouvernance', desc: 'Conseil, direction et organigramme' },
       { label: 'Engagements', href: '/a-propos#engagements', desc: 'Redevabilité, audits, PSEA' },

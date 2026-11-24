@@ -54,6 +54,13 @@ export default function AProposPage() {
               <span>Mot du Président Fondateur</span>
               <ArrowRight size={16} />
             </a>
+            <Link
+              href="/capacites-institutionnelles"
+              className="px-7 py-3.5 bg-white/10 hover:bg-white/20 backdrop-blur border border-white/30 text-white font-semibold rounded-full transition-all inline-flex items-center gap-2 text-sm sm:text-base"
+            >
+              <ShieldCheck size={16} />
+              <span>Capacités Institutionnelles</span>
+            </Link>
             <a
               href="#gouvernance"
               className="px-7 py-3.5 bg-white/10 hover:bg-white/20 backdrop-blur border border-white/30 text-white font-semibold rounded-full transition-all inline-flex items-center gap-2 text-sm sm:text-base"
@@ -703,6 +710,28 @@ export default function AProposPage() {
                 Ligne d’écoute et comités de redevabilité communautaires installés dans chaque localité bénéficiaire pour recueillir et traiter les retours.
               </p>
             </div>
+          </div>
+
+          {/* BANNIÈRE VERS NOS CAPACITÉS INSTITUTIONNELLES */}
+          <div className="mt-16 bg-primary text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="max-w-2xl">
+              <span className="text-secondary font-bold uppercase tracking-wider text-xs block mb-2">
+                Rigueur Fiduciaire &amp; Gestion Bailleurs
+              </span>
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold mb-3">
+                Découvrez nos 7 piliers de capacités institutionnelles
+              </h3>
+              <p className="text-white/80 text-sm sm:text-base leading-relaxed">
+                Gestion de projets (GAR), comptabilité SYSCOHADA, passation des marchés, dispositif MEL digitalisé (KoboToolbox) et sauvegardes environnementales et sociales (PGES/MGP/PSEA).
+              </p>
+            </div>
+            <Link
+              href="/capacites-institutionnelles"
+              className="px-7 py-3.5 bg-secondary hover:bg-secondaryHover text-textDark font-bold rounded-full transition-all shrink-0 inline-flex items-center gap-2 text-sm sm:text-base shadow-lg"
+            >
+              <span>Consulter nos capacités</span>
+              <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
       </section>

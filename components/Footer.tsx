@@ -83,6 +83,7 @@ export function Footer() {
             <div className="footer-links">
               <Link href="/">Accueil</Link>
               <Link href="/a-propos">À propos d’EICF</Link>
+              <Link href="/capacites-institutionnelles">Capacités institutionnelles</Link>
               <Link href="/a-propos#gouvernance">Gouvernance & organigramme</Link>
               <Link href="/cartographie">Cartographie des interventions</Link>
               <Link href="/impact">EICF Impact — nos résultats</Link>

@@ -27,12 +27,12 @@ export type AskSource = { label: string; href: string }
 export type AskAnswer = { text: string; bullets?: string[]; sources: AskSource[] }
 
 export const suggestedQuestions = [
+  'Quelles sont les capacités institutionnelles et fiduciaires d’EICF ?',
   'Dans quelles régions EICF intervient-elle ?',
   'Quels projets EICF a réalisés avec la Banque mondiale ?',
   'Quels sont les domaines d’intervention d’EICF ?',
   'Comment devenir partenaire ?',
   'Où télécharger le rapport annuel ?',
-  'Quels sont les résultats du projet SWEDD ?',
 ]
 
 export const normalize = (s: string) =>
@@ -135,7 +135,27 @@ export function answer(question: string): AskAnswer {
     }
   }
 
-  // 7. Documents / rapports
+  // 7. Capacités institutionnelles & fiduciaires
+  if (has(q, 'capacite', 'fiduciaire', 'syscohada', 'passation des marches', 'sauvegarde', 'psea', 'mgp', 'audit externe', 'controle interne', 'sage', 'kobotoolbox')) {
+    return {
+      text: 'L’ONG EICF dispose d’un dispositif institutionnel et fiduciaire rigoureux certifié pour la gestion de fonds internationaux (Banque mondiale, agences ONU, AFD) articulé autour de 7 piliers clés :',
+      bullets: [
+        'Gestion de projet axée sur les résultats (GAR, PTBA, suivi de chemin critique)',
+        'Gestion financière SYSCOHADA (logiciel certifié, double signature, comptes dédiés, audits sans réserve)',
+        'Passation des marchés transparente (mise en concurrence, commission d’attribution, seuils stricts)',
+        'Système MEL digitalisé (collecte KoboToolbox, géolocalisation GPS, DQA à 3 niveaux)',
+        'Sauvegardes environnementales et sociales (PGES, Mécanisme de Gestion des Plaintes MGP, politique PSEA)',
+        'Ressources humaines qualifiées (recrutement ouvert, code de conduite 100 % signé, forte mobilité)',
+        'Gestion partenariale étroite (accords-cadres ministériels, ancrage préfectoral et chefferies locales)',
+      ],
+      sources: [
+        { label: 'Nos Capacités Institutionnelles', href: '/capacites-institutionnelles' },
+        { label: 'Gouvernance & Organigramme', href: '/a-propos#gouvernance' },
+      ],
+    }
+  }
+
+  // 8. Documents / rapports
   if (has(q, 'rapport', 'telecharg', 'document', 'etude', 'guide', 'publication', 'manuel')) {
     const annual = documents.filter((d) => d.type === 'Rapports annuels')
     return {

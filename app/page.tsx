@@ -869,13 +869,23 @@ export default function HomePage() {
               </Link>
             ))}
           </div>
-          <Link
-            href="/partenaires"
-            className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
-          >
-            <span>Découvrir les 4 collèges de partenaires ({partners.length} institutions)</span>
-            <ArrowRight size={14} />
-          </Link>
+          <div className="flex flex-wrap justify-center items-center gap-6">
+            <Link
+              href="/partenaires"
+              className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
+            >
+              <span>Découvrir les 4 collèges de partenaires ({partners.length} institutions)</span>
+              <ArrowRight size={14} />
+            </Link>
+            <span className="text-muted/40 hidden sm:inline">·</span>
+            <Link
+              href="/capacites-institutionnelles"
+              className="inline-flex items-center gap-2 text-sm font-bold text-secondary hover:underline"
+            >
+              <span>Nos capacités institutionnelles &amp; conformité fiduciaire</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
         </div>
       </section>
 
