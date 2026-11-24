@@ -71,65 +71,95 @@ export function ImpactDashboard({ showHero = false }: ImpactDashboardProps) {
         </div>
       </div>
 
-      {/* Chiffres macro animés */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* Chiffres macro institutionnels consolidés (18 ans d'existence) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <div
           data-reveal
-          className="kpi-card bg-white rounded-2xl p-6 border border-black/5 shadow-xs hover:shadow-md transition-all"
+          className="kpi-card bg-white rounded-2xl p-5 border border-black/5 shadow-xs hover:shadow-md transition-all"
         >
-          <span className="text-xs font-extrabold uppercase tracking-wider text-secondary">
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-secondary">
             Bénéficiaires directs
           </span>
-          <strong className="text-3xl sm:text-4xl font-heading font-bold text-primary mt-1 block">
-            <CountUp value={globalStats.beneficiaires} suffix="+" />
+          <strong className="text-2xl sm:text-3xl font-heading font-bold text-primary mt-1 block">
+            <CountUp value={globalStats.beneficiairesDirects} suffix="+" />
           </strong>
-          <p className="text-xs sm:text-sm text-muted mt-1">
-            Personnes touchées directement
+          <p className="text-[11px] text-muted mt-1 leading-tight">
+            Uniques sans double comptage (165 000+ touchés au total)
           </p>
         </div>
 
         <div
           data-reveal
-          className="kpi-card bg-white rounded-2xl p-6 border border-black/5 shadow-xs hover:shadow-md transition-all"
+          className="kpi-card bg-white rounded-2xl p-5 border border-black/5 shadow-xs hover:shadow-md transition-all"
         >
-          <span className="text-xs font-extrabold uppercase tracking-wider text-secondary">
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-secondary">
+            Années d’expérience
+          </span>
+          <strong className="text-2xl sm:text-3xl font-heading font-bold text-primary mt-1 block">
+            <CountUp value={globalStats.anneesExperience} suffix="+" />
+          </strong>
+          <p className="text-[11px] text-muted mt-1 leading-tight">
+            Action continue depuis le 1er fév. 2008
+          </p>
+        </div>
+
+        <div
+          data-reveal
+          className="kpi-card bg-white rounded-2xl p-5 border border-black/5 shadow-xs hover:shadow-md transition-all"
+        >
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-secondary">
             Régions d’intervention
           </span>
-          <strong className="text-3xl sm:text-4xl font-heading font-bold text-primary mt-1 block">
+          <strong className="text-2xl sm:text-3xl font-heading font-bold text-primary mt-1 block">
             <CountUp value={globalStats.regions} />
           </strong>
-          <p className="text-xs sm:text-sm text-muted mt-1">
+          <p className="text-[11px] text-muted mt-1 leading-tight">
             Présence territoriale nationale
           </p>
         </div>
 
         <div
           data-reveal
-          className="kpi-card bg-white rounded-2xl p-6 border border-black/5 shadow-xs hover:shadow-md transition-all"
+          className="kpi-card bg-white rounded-2xl p-5 border border-black/5 shadow-xs hover:shadow-md transition-all"
         >
-          <span className="text-xs font-extrabold uppercase tracking-wider text-secondary">
-            Communautés suivies
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-secondary">
+            Villages bénéficiaires
           </span>
-          <strong className="text-3xl sm:text-4xl font-heading font-bold text-primary mt-1 block">
-            <CountUp value={globalStats.communautes} suffix="+" />
+          <strong className="text-2xl sm:text-3xl font-heading font-bold text-primary mt-1 block">
+            <CountUp value={globalStats.villages} suffix="+" />
           </strong>
-          <p className="text-xs sm:text-sm text-muted mt-1">
-            Villages et comités locaux
+          <p className="text-[11px] text-muted mt-1 leading-tight">
+            Comités de développement mobilisés
           </p>
         </div>
 
         <div
           data-reveal
-          className="kpi-card bg-white rounded-2xl p-6 border border-black/5 shadow-xs hover:shadow-md transition-all"
+          className="kpi-card bg-white rounded-2xl p-5 border border-black/5 shadow-xs hover:shadow-md transition-all"
         >
-          <span className="text-xs font-extrabold uppercase tracking-wider text-secondary">
-            Projets documentés
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-secondary">
+            Projets réalisés
           </span>
-          <strong className="text-3xl sm:text-4xl font-heading font-bold text-primary mt-1 block">
-            <CountUp value={globalStats.projets} />
+          <strong className="text-2xl sm:text-3xl font-heading font-bold text-primary mt-1 block">
+            <CountUp value={globalStats.projets} suffix="+" />
           </strong>
-          <p className="text-xs sm:text-sm text-muted mt-1">
+          <p className="text-[11px] text-muted mt-1 leading-tight">
             {globalStats.projetsEnCours} en cours · {globalStats.projetsAcheves} achevés
+          </p>
+        </div>
+
+        <div
+          data-reveal
+          className="kpi-card bg-white rounded-2xl p-5 border border-black/5 shadow-xs hover:shadow-md transition-all"
+        >
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-secondary">
+            Bailleurs mobilisés
+          </span>
+          <strong className="text-2xl sm:text-3xl font-heading font-bold text-primary mt-1 block">
+            <CountUp value={globalStats.bailleursMobilises} suffix="+" />
+          </strong>
+          <p className="text-[11px] text-muted mt-1 leading-tight">
+            Partenaires multilatéraux & bilatéraux
           </p>
         </div>
       </div>
@@ -173,17 +203,23 @@ export function ImpactDashboard({ showHero = false }: ImpactDashboardProps) {
             data-reveal
             className="bg-white rounded-3xl p-7 sm:p-9 border border-black/5 shadow-sm"
           >
-            <div className="flex items-center gap-4 mb-7 pb-5 border-b border-black/5">
-              <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-                {icons[group.icon] ?? <TrendingUp size={22} />}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-7 pb-5 border-b border-black/5">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+                  {icons[group.icon] ?? <TrendingUp size={22} />}
+                </div>
+                <div>
+                  <h3 className="text-2xl font-heading font-bold text-textDark">
+                    {group.label}
+                  </h3>
+                  <span className="text-xs text-muted font-medium">
+                    {group.referencePeriod}
+                  </span>
+                </div>
               </div>
-              <div>
-                <h3 className="text-2xl font-heading font-bold text-textDark">
-                  {group.label}
-                </h3>
-                <span className="text-xs text-muted font-medium">
-                  Suivi des indicateurs clés de performance (KPI)
-                </span>
+              <div className="text-xs bg-secondary/15 text-textDark font-medium px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 self-start sm:self-auto border border-secondary/20">
+                <span className="font-bold text-primary">📁 Projets :</span>
+                <span>{group.contributingProjects}</span>
               </div>
             </div>
 
@@ -193,11 +229,18 @@ export function ImpactDashboard({ showHero = false }: ImpactDashboardProps) {
                 return (
                   <div
                     key={idx}
-                    className="p-5 rounded-2xl bg-background border border-black/5 flex flex-col justify-between gap-3"
+                    className="p-5 rounded-2xl bg-background border border-black/5 flex flex-col justify-between gap-3 shadow-2xs"
                   >
-                    <span className="text-xs sm:text-sm font-bold text-text">
-                      {kpi.label}
-                    </span>
+                    <div>
+                      <span className="text-xs sm:text-sm font-bold text-text block">
+                        {kpi.label}
+                      </span>
+                      {kpi.typeBeneficiaire && (
+                        <span className="inline-block mt-1 text-[10px] font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                          {kpi.typeBeneficiaire}
+                        </span>
+                      )}
+                    </div>
 
                     <strong className="text-3xl font-heading font-bold text-primary leading-none my-1">
                       <CountUp value={kpi.value} suffix={kpi.suffix ?? ''} />

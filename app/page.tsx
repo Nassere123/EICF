@@ -689,21 +689,21 @@ export default function HomePage() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-8">
               <div>
                 <div className="text-3xl sm:text-4xl font-heading font-bold text-secondary">
-                  <CountUp value={10000} suffix="+" />
+                  <CountUp value={globalStats.beneficiairesDirects} suffix="+" />
                 </div>
-                <p className="text-xs sm:text-sm text-white/75 mt-1">Bénéficiaires directs communautaires</p>
+                <p className="text-xs sm:text-sm text-white/75 mt-1">Bénéficiaires directs certifiés</p>
               </div>
               <div>
                 <div className="text-3xl sm:text-4xl font-heading font-bold text-secondary">
-                  <CountUp value={5200} suffix="+" />
+                  <CountUp value={globalStats.femmesAGR} suffix=" femmes" />
                 </div>
-                <p className="text-xs sm:text-sm text-white/75 mt-1">Enfants en classes passerelles</p>
+                <p className="text-xs sm:text-sm text-white/75 mt-1">Bénéficiaires d’AGR & autonomisation</p>
               </div>
               <div>
                 <div className="text-3xl sm:text-4xl font-heading font-bold text-secondary">
                   <CountUp value={788} suffix=" latrines" />
                 </div>
-                <p className="text-xs sm:text-sm text-white/75 mt-1">Ouvrages PASEA réalisés</p>
+                <p className="text-xs sm:text-sm text-white/75 mt-1">Ouvrages PASEA réalisés (10 villages)</p>
               </div>
               <div>
                 <div className="text-3xl sm:text-4xl font-heading font-bold text-secondary">

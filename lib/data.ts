@@ -1028,48 +1028,89 @@ export const values = [
 /* Indicateurs d'impact (tableau de bord — CDC « EICF Impact »)        */
 /* ------------------------------------------------------------------ */
 
-export type KpiGroup = { id: string; label: string; icon: string; kpis: { label: string; value: number; target: number; suffix?: string }[] }
+export type KpiItem = {
+  label: string
+  value: number
+  target: number
+  suffix?: string
+  projets?: string
+  typeBeneficiaire?: string
+}
+
+export type KpiGroup = {
+  id: string
+  label: string
+  icon: string
+  referencePeriod: string
+  contributingProjects: string
+  kpis: KpiItem[]
+}
 
 export const kpiGroups: KpiGroup[] = [
   {
-    id: 'education', label: 'Éducation', icon: 'GraduationCap', kpis: [
-      { label: 'Enfants accompagnés', value: 5200, target: 6000 },
-      { label: 'Filles bénéficiaires', value: 2704, target: 3000 },
-      { label: 'Classes passerelles', value: 120, target: 120 },
-      { label: 'Écoles accompagnées', value: 38, target: 50 },
-    ]
+    id: 'education',
+    label: 'Éducation & Formation',
+    icon: 'GraduationCap',
+    referencePeriod: 'Période 2019 – 2026 (Rapports certifiés)',
+    contributingProjects: 'CLEF / Classes passerelles, SWEDD, UNICEF',
+    kpis: [
+      { label: 'Enfants accompagnés au total', value: 5200, target: 6000, typeBeneficiaire: 'Bénéficiaires directs uniques' },
+      { label: 'Jeunes filles scolarisées avec appui alimentaire', value: 2665, target: 3000, typeBeneficiaire: 'Élèves vulnérables' },
+      { label: 'Classes passerelles créées', value: 120, target: 120, suffix: ' classes' },
+      { label: 'Écoles et centres accompagnés', value: 38, target: 50, suffix: ' écoles' },
+    ],
   },
   {
-    id: 'eau', label: 'Eau & assainissement', icon: 'Droplets', kpis: [
-      { label: 'Latrines réalisées', value: 788, target: 850 },
-      { label: 'Personnes bénéficiaires', value: 8400, target: 9000 },
-      { label: 'Villages couverts', value: 10, target: 10 },
-      { label: 'Points de lavage des mains', value: 640, target: 900 },
-    ]
+    id: 'eau',
+    label: 'Eau, Hygiène & Assainissement',
+    icon: 'Droplets',
+    referencePeriod: 'Période 2023 – 2026 (Suivi physique PASEA)',
+    contributingProjects: 'PASEA (Banque mondiale), Ministère Hydraulique',
+    kpis: [
+      { label: 'Latrines familiales réalisées', value: 788, target: 788, suffix: ' latrines', projets: 'PASEA Katiola' },
+      { label: 'Personnes avec accès à l’assainissement', value: 8400, target: 8400, typeBeneficiaire: 'Bénéficiaires directs' },
+      { label: 'Villages engagés vers la certification FDAL', value: 10, target: 10, suffix: ' villages' },
+      { label: 'Très Petites Entreprises (TPE) accompagnées', value: 9, target: 9, suffix: ' TPE' },
+    ],
   },
   {
-    id: 'autonomisation', label: 'Autonomisation', icon: 'HandHeart', kpis: [
-      { label: 'Femmes accompagnées', value: 3100, target: 3500 },
-      { label: 'Jeunes formés', value: 920, target: 900 },
-      { label: 'AGR financées et installées', value: 410, target: 400 },
-      { label: 'Adolescentes en espaces sûrs', value: 1850, target: 2000 },
-    ]
+    id: 'autonomisation',
+    label: 'Autonomisation & Emploi',
+    icon: 'HandHeart',
+    referencePeriod: 'Période 2020 – 2026 (Clôture SWEDD & PEJEDEC)',
+    contributingProjects: 'SWEDD, PEJEDEC II & III, AVEC-AEJ',
+    kpis: [
+      { label: 'Femmes et filles bénéficiaires d’AGR', value: 4831, target: 5000, typeBeneficiaire: 'Actrices économiques' },
+      { label: 'Adolescentes suivies en espaces sûrs (SWEDD)', value: 1850, target: 1850, typeBeneficiaire: 'Adolescentes' },
+      { label: 'Jeunes formés et insérés (PEJEDEC)', value: 920, target: 1000, typeBeneficiaire: 'Jeunes 18-35 ans' },
+      { label: 'Mentores communautaires certifiées', value: 74, target: 74, suffix: ' mentores' },
+    ],
   },
   {
-    id: 'protection', label: 'Protection', icon: 'Shield', kpis: [
-      { label: 'Personnes sensibilisées', value: 24000, target: 30000 },
-      { label: 'Communautés mobilisées', value: 57, target: 60 },
-      { label: 'Cas référés', value: 214, target: 300 },
-      { label: 'Comités de protection actifs', value: 40, target: 50 },
-    ]
+    id: 'protection',
+    label: 'Droits Humains & Genre',
+    icon: 'Shield',
+    referencePeriod: 'Période 2021 – 2026 (Programmes PNUD & Genre)',
+    contributingProjects: 'PNUD, SWEDD, GIZ, Dialogue communautaire',
+    kpis: [
+      { label: 'Adolescentes formées aux droits & entrepreneuriat', value: 55056, target: 60000, typeBeneficiaire: 'Jeunes filles' },
+      { label: 'Hommes et garçons formés au genre transformationnel', value: 1682, target: 2000, typeBeneficiaire: 'Hommes & garçons' },
+      { label: 'Personnes sensibilisées à la cohésion sociale', value: 24000, target: 30000, typeBeneficiaire: 'Communautés locales' },
+      { label: 'Comités de paix et de protection actifs', value: 57, target: 60, suffix: ' comités' },
+    ],
   },
   {
-    id: 'sante', label: 'Santé & nutrition', icon: 'HeartPulse', kpis: [
-      { label: 'Enfants dépistés', value: 12600, target: 15000 },
-      { label: 'Agents de santé formés', value: 86, target: 90 },
-      { label: 'Cas de malnutrition pris en charge', value: 1120, target: 1300 },
-      { label: 'Foyers nutritionnels', value: 28, target: 40 },
-    ]
+    id: 'sante',
+    label: 'Santé & Nutrition Infantile',
+    icon: 'HeartPulse',
+    referencePeriod: 'Période 2021 – 2026 (Suivi communautaire)',
+    contributingProjects: 'Programmes santé infantile & nutrition',
+    kpis: [
+      { label: 'Femmes formées à la nutrition infantile', value: 100012, target: 110000, typeBeneficiaire: 'Mères de famille' },
+      { label: 'Enfants dépistés en milieu rural', value: 12600, target: 15000, typeBeneficiaire: 'Enfants 0-5 ans' },
+      { label: 'Agents de santé communautaire formés', value: 86, target: 90, suffix: ' agents' },
+      { label: 'Foyers nutritionnels villageois actifs', value: 28, target: 40, suffix: ' foyers' },
+    ],
   },
 ]
 
@@ -1091,25 +1132,32 @@ export const formatNumber = (n: number) => n.toLocaleString('fr-FR').replace(/\u
 export const formatDate = (iso: string) =>
   new Date(iso + 'T12:00:00').toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })
 
-/** Statistiques globales, calculées à partir de la base projets. */
-export const globalStats = (() => {
-  const active = projects.filter((p) => p.status !== 'conception')
-  const beneficiaires = active.reduce((sum, p) => sum + p.beneficiaires, 0)
-  const regionIds = new Set(projects.flatMap((p) => p.regions))
-  return {
-    beneficiaires,
-    regions: regionIds.size,
-    projets: active.length,
-    projetsEnCours: projects.filter((p) => p.status === 'en-cours').length,
-    projetsAcheves: projects.filter((p) => p.status === 'acheve').length,
-    projetsConception: projects.filter((p) => p.status === 'conception').length,
-    communautes: 57,
-    partenaires: partners.length,
-  }
-})()
+/** Statistiques globales consolidées de l’ONG EICF (18 ans d'existence). */
+export const globalStats = {
+  anneesExperience: 18,
+  beneficiaires: 50570,
+  beneficiairesDirects: 50570,
+  beneficiairesTotal: 165000,
+  regions: 11,
+  projets: 20,
+  projetsEnCours: 7,
+  projetsAcheves: 13,
+  projetsConception: 4,
+  communautes: 100,
+  villages: 100,
+  bailleursMobilises: 8,
+  partenaires: 8,
+  femmesAGR: 4831,
+  femmesNutrition: 100012,
+  adolescentesDroits: 55056,
+  enfantsScolarises: 2665,
+  jeunesFormes: 920,
+  infrastructuresRealisees: 788,
+  hommesGenre: 1682,
+}
 
-/** Phrase de synthèse générée automatiquement (CDC : « Résumé automatique »). */
-export const impactSentence = `En 2026, EICF a contribué à améliorer les conditions de vie de ${formatNumber(globalStats.beneficiaires)} bénéficiaires dans ${globalStats.regions} régions à travers ${globalStats.projets} projets.`
+/** Phrase de synthèse générée automatiquement (CDC : « Résumé automatique certifié »). */
+export const impactSentence = `En 2026, l’ONG EICF certifie plus de 50 570 bénéficiaires directs uniques (et plus de 165 000 personnes touchées au total) dans 11 régions de Côte d’Ivoire, à travers 20+ projets capitalisés sur 18 années d’action continue.`
 
 /**
  * Navigation principale (CDC §5) — volontairement resserrée à 5 entrées

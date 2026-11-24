@@ -189,7 +189,9 @@ export function CountUp({
   className?: string
 }) {
   const ref = useRef<HTMLSpanElement>(null)
-  const [display, setDisplay] = useState(0)
+  // Valeur réelle par défaut pour éviter tout affichage de 0 statique au chargement
+  const [display, setDisplay] = useState(value)
+  const hasAnimated = useRef(false)
 
   useEffect(() => {
     const el = ref.current
@@ -198,26 +200,54 @@ export function CountUp({
       setDisplay(value)
       return
     }
-    let raf = 0
+
+    const startAnimation = () => {
+      if (hasAnimated.current) return
+      hasAnimated.current = true
+      setDisplay(0)
+      const start = performance.now()
+      let raf = 0
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / duration)
+        const eased = 1 - Math.pow(1 - t, 4)
+        setDisplay(Math.round(value * eased))
+        if (t < 1) {
+          raf = requestAnimationFrame(tick)
+        } else {
+          setDisplay(value)
+        }
+      }
+      raf = requestAnimationFrame(tick)
+    }
+
+    // Si déjà visible à l'écran, lancer l'animation immédiatement
+    const rect = el.getBoundingClientRect()
+    const inView = rect.top < window.innerHeight && rect.bottom > 0
+    if (inView) {
+      startAnimation()
+      return
+    }
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return
         io.disconnect()
-        const start = performance.now()
-        const tick = (now: number) => {
-          const t = Math.min(1, (now - start) / duration)
-          const eased = 1 - Math.pow(1 - t, 4)
-          setDisplay(Math.round(value * eased))
-          if (t < 1) raf = requestAnimationFrame(tick)
-        }
-        raf = requestAnimationFrame(tick)
+        startAnimation()
       },
-      { threshold: 0.4 }
+      { threshold: 0.05, rootMargin: '0px 0px -20px 0px' }
     )
     io.observe(el)
+
+    // Garantie absolue : afficher la valeur réelle si le scroll ne s'est pas déclenché
+    const fallbackTimer = window.setTimeout(() => {
+      if (!hasAnimated.current) {
+        setDisplay(value)
+      }
+    }, 1200)
+
     return () => {
       io.disconnect()
-      cancelAnimationFrame(raf)
+      window.clearTimeout(fallbackTimer)
     }
   }, [value, duration])
 
