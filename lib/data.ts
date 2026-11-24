@@ -852,13 +852,57 @@ export const governance = {
   ],
 }
 
-export const history = [
-  { year: '2008', text: 'Création officielle d’EICF le 1er février 2008 à Abidjan par son Président Fondateur BROU N’guessan Albert et des cadres engagés du développement.' },
-  { year: '2015', text: 'Premiers projets d’éducation et d’alphabétisation dans le Bounkani.' },
-  { year: '2018', text: 'Ouverture des bases opérationnelles de Bouna et de Katiola.' },
-  { year: '2021', text: 'Lancement des classes passerelles avec l’UNICEF et programmes d’insertion des jeunes.' },
-  { year: '2023', text: 'Démarrage du projet SWEDD et interventions d’envergure avec la Banque mondiale.' },
-  { year: '2026', text: 'Présence territoriale nationale dans 11 régions et nouvelle stratégie décennale.' },
+export type HistoryItem = {
+  year: string
+  title: string
+  text: string
+  partner?: string
+  region?: string
+}
+
+export const history: HistoryItem[] = [
+  {
+    year: '2008',
+    title: 'Fondation officielle & Ancrage institutionnel',
+    text: 'Création officielle d’EICF le 1er février 2008 à Abidjan par son Président Fondateur BROU N’guessan Albert et des cadres engagés du développement communautaire en Côte d’Ivoire.',
+    partner: 'Initiative fondatrice',
+    region: 'Abidjan & Sud-Comoé',
+  },
+  {
+    year: '2011 - 2014',
+    title: 'Cohésion Sociale, Paix & Post-Crise',
+    text: 'Déploiement des programmes de dialogue intercommunautaire, réconciliation et soutien à l’entrepreneuriat local en partenariat avec le PNUD et la GIZ.',
+    partner: 'PNUD & GIZ',
+    region: 'Tonkpi, Cavally & Bouna',
+  },
+  {
+    year: '2015 - 2018',
+    title: 'Insertion des Jeunes & Autonomie Économique (PEJEDEC II & III)',
+    text: 'Mise en œuvre des projets PEJEDEC II et III financés par la Banque mondiale (THIMO, AVEC et création d’AGR) et accompagnement des associations villageoises AVEC-AEJ.',
+    partner: 'Banque mondiale & BCP-Emploi',
+    region: 'Bagoué, Agnéby-Tiassa & Folon',
+  },
+  {
+    year: '2019 - 2021',
+    title: 'Éducation Inclusive (CLEF) & Développement Urbain (PDDIVS)',
+    text: 'Déploiement du projet CLEF / Classes passerelles pour la réinsertion scolaire des enfants hors système et mise en œuvre du projet PDDIVS pour le développement durable des villes secondaires.',
+    partner: 'UNICEF & Bailleurs sectoriels',
+    region: 'San Pédro & Commune de Bouna',
+  },
+  {
+    year: '2022 - 2024',
+    title: 'Grands Programmes Structurants : PASEA & SWEDD',
+    text: 'Exécution du projet PASEA (788 latrines et 9 TPE accompagnées dans le Hambol) et accompagnement de 1 850 adolescentes en espaces sûrs dans le cadre du projet SWEDD (clôturé le 31 décembre 2024).',
+    partner: 'Banque mondiale & Ministères sectoriels',
+    region: 'Hambol, Bounkani, Gontougo, Bélier, N’Zi, Moronou, Iffou',
+  },
+  {
+    year: '2025 - 2026',
+    title: 'Maturité Institutionnelle : 18 ans d’action continue',
+    text: 'Consolidation institutionnelle, présence dans 11 régions de Côte d’Ivoire, mobilisation de plus de 50 000 bénéficiaires et accréditation auprès des partenaires techniques et financiers internationaux.',
+    partner: 'Partenaires multilatéraux & État',
+    region: '11 Régions nationales',
+  },
 ]
 
 export const values = [

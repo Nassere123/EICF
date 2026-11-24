@@ -31,6 +31,7 @@ import {
   news,
   partners,
   globalStats,
+  history,
   formatNumber,
   formatDate,
   statusLabel,
@@ -285,15 +286,15 @@ export default function HomePage() {
               <div className="flex gap-8 my-8 py-6 border-y border-black/10">
                 <div>
                   <div className="text-3xl sm:text-4xl font-heading font-bold text-primary">18+</div>
-                  <p className="text-xs sm:text-sm text-muted mt-1">Années d’action (depuis 2008)</p>
+                  <p className="text-xs sm:text-sm text-muted mt-1">Années d’action (depuis le 1er fév. 2008)</p>
                 </div>
                 <div>
                   <div className="text-3xl sm:text-4xl font-heading font-bold text-primary">11</div>
                   <p className="text-xs sm:text-sm text-muted mt-1">Régions de Côte d’Ivoire</p>
                 </div>
                 <div>
-                  <div className="text-3xl sm:text-4xl font-heading font-bold text-primary">57+</div>
-                  <p className="text-xs sm:text-sm text-muted mt-1">Comités communautaires</p>
+                  <div className="text-3xl sm:text-4xl font-heading font-bold text-primary">100+</div>
+                  <p className="text-xs sm:text-sm text-muted mt-1">Villages & comités mobilisés</p>
                 </div>
               </div>
 
@@ -317,6 +318,62 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3 bis. PARCOURS HISTORIQUE & CRÉDIBILITÉ INSTITUTIONNELLE (18 ANS D'ACTION CONTINUE) */}
+      <section className="py-20 bg-white border-y border-black/5" id="histoire">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div>
+              <span className="text-secondary font-bold tracking-wider uppercase text-xs sm:text-sm">
+                Expérience & Ancrage Réel
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-textDark mt-2">
+                18 ans d’action continue{' '}
+                <span className="italic text-primary">(2008 – 2026)</span>
+              </h2>
+              <p className="text-muted text-base max-w-2xl mt-2">
+                Créée le 1er février 2008, l’ONG EICF a bâti au fil des années une expérience diversifiée reconnue par les bailleurs multilatéraux (Banque mondiale, PNUD, GIZ, UNICEF) et l’État de Côte d’Ivoire.
+              </p>
+            </div>
+            <Link
+              href="/a-propos#histoire"
+              className="inline-flex items-center gap-2 text-primary hover:text-primaryHover font-semibold text-sm transition-colors group"
+            >
+              <span>Consulter l’historique détaillé</span>
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {history.slice(0, 6).map((h) => (
+              <div
+                key={h.year}
+                data-reveal
+                className="bg-background rounded-2xl p-6 border border-black/5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+                    <span className="text-2xl font-heading font-bold text-primary">{h.year}</span>
+                    {h.partner && (
+                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-secondary/20 text-textDark">
+                        {h.partner}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="font-heading font-bold text-textDark text-base mb-2">{h.title}</h3>
+                  <p className="text-muted text-xs sm:text-sm leading-relaxed">{h.text}</p>
+                </div>
+                {h.region && (
+                  <div className="mt-4 pt-3 border-t border-black/5 text-xs text-muted font-medium flex items-center gap-1.5">
+                    <span>📍</span>
+                    <span>{h.region}</span>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>

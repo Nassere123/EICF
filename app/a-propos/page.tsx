@@ -170,14 +170,35 @@ export default function AProposPage() {
             </div>
 
             <div className="lg:col-span-6 bg-white p-7 sm:p-9 rounded-3xl border border-black/5 shadow-sm">
-              <h3 className="text-xl font-heading font-bold text-textDark mb-6">
-                Jalons historiques de l’organisation
-              </h3>
-              <div className="timeline">
+              <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
+                <h3 className="text-xl font-heading font-bold text-textDark">
+                  Jalons historiques de l’organisation
+                </h3>
+                <span className="text-xs font-bold px-3 py-1 bg-secondary/20 text-textDark rounded-full">
+                  18 ans d’action continue
+                </span>
+              </div>
+              <div className="space-y-6">
                 {history.map((h) => (
-                  <div key={h.year} className="tl-item">
-                    <strong>{h.year}</strong>
-                    <p>{h.text}</p>
+                  <div key={h.year} className="relative pl-7 border-l-2 border-secondary/60 pb-2">
+                    <span className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-white border-4 border-secondary" />
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <span className="font-heading font-bold text-primary text-lg">{h.year}</span>
+                      <span className="font-semibold text-textDark text-sm">{h.title}</span>
+                    </div>
+                    <p className="text-sm text-muted mt-1 leading-relaxed">{h.text}</p>
+                    {h.partner && (
+                      <div className="flex gap-2 mt-2 flex-wrap text-xs">
+                        <span className="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
+                          {h.partner}
+                        </span>
+                        {h.region && (
+                          <span className="px-2.5 py-0.5 rounded-full bg-black/5 text-muted">
+                            📍 {h.region}
+                          </span>
+                        )}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
