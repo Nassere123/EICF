@@ -19,6 +19,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/partenaires',
     '/appels-a-partenariat',
     '/contact',
+    '/mentions-legales',
+    '/politique-de-confidentialite',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
