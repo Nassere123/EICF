@@ -55,11 +55,14 @@ export default function MediathequePage() {
   // État du modal de demande institutionnelle (pour documents sur demande)
   const [requestModalDoc, setRequestModalDoc] = useState<DocumentItem | null>(null)
   const [requestSubmitted, setRequestSubmitted] = useState(false)
+  const [isSubmittingRequest, setIsSubmittingRequest] = useState(false)
+  const [requestRefCode, setRequestRefCode] = useState('')
   const [requestForm, setRequestForm] = useState({
     name: '',
     organization: '',
     email: '',
     purpose: '',
+    honeypot: '',
   })
 
   const filteredDocs = documents.filter((d) => {
@@ -94,12 +97,15 @@ export default function MediathequePage() {
 
   const handleRequestSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setRequestSubmitted(true)
+    if (requestForm.honeypot) return
+
+    setIsSubmittingRequest(true)
     setTimeout(() => {
-      setRequestSubmitted(false)
-      setRequestModalDoc(null)
-      setRequestForm({ name: '', organization: '', email: '', purpose: '' })
-    }, 3500)
+      const ref = 'DEM-DOC-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000)
+      setRequestRefCode(ref)
+      setIsSubmittingRequest(false)
+      setRequestSubmitted(true)
+    }, 600)
   }
 
   return (
@@ -638,15 +644,39 @@ export default function MediathequePage() {
             </button>
 
             {requestSubmitted ? (
-              <div className="text-center py-8 space-y-4">
+              <div className="text-center py-6 space-y-4">
                 <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
                   <CheckCircle2 size={32} />
                 </div>
                 <h3 className="font-serif text-2xl font-bold text-primary">Demande transmise avec succès</h3>
-                <p className="text-muted text-sm leading-relaxed max-w-sm mx-auto">
-                  Votre demande pour <strong>{requestModalDoc.title}</strong> a bien été enregistrée. Notre Direction
-                  Exécutive vous fera parvenir la version intégrale sécurisée sous 24h ouvrées.
+                <div className="bg-background rounded-xl p-4 text-xs text-left max-w-sm mx-auto space-y-1.5 border border-border">
+                  <div className="flex justify-between">
+                    <span className="text-muted">Numéro de suivi :</span>
+                    <strong className="font-mono text-primary font-bold">{requestRefCode}</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted">Document :</span>
+                    <strong className="text-textDark truncate max-w-[190px]">{requestModalDoc.title}</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted">Délai d’envoi :</span>
+                    <span className="text-emerald-800 font-bold">Sous 24h ouvrées</span>
+                  </div>
+                </div>
+                <p className="text-muted text-xs leading-relaxed max-w-sm mx-auto">
+                  Notre Direction Exécutive procède à la vérification de votre affiliation institutionnelle et vous fera parvenir le lien de téléchargement sécurisé.
                 </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setRequestSubmitted(false)
+                    setRequestModalDoc(null)
+                    setRequestForm({ name: '', organization: '', email: '', purpose: '', honeypot: '' })
+                  }}
+                  className="px-6 py-2.5 rounded-full bg-primary text-white text-xs font-bold hover:bg-primaryDark transition-colors"
+                >
+                  Fermer
+                </button>
               </div>
             ) : (
               <div>
@@ -664,6 +694,17 @@ export default function MediathequePage() {
                 </p>
 
                 <form onSubmit={handleRequestSubmit} className="space-y-3.5">
+                  <div style={{ display: 'none' }} aria-hidden="true">
+                    <input
+                      type="text"
+                      name="_gotcha_doc"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={requestForm.honeypot}
+                      onChange={(e) => setRequestForm({ ...requestForm, honeypot: e.target.value })}
+                    />
+                  </div>
+
                   <div>
                     <label className="block text-xs font-bold text-textDark mb-1">
                       Nom et Prénom *
@@ -719,6 +760,10 @@ export default function MediathequePage() {
                     />
                   </div>
 
+                  <p className="text-[10px] text-muted leading-relaxed">
+                    Les informations recueillies sont strictement confidentielles et réservées au traitement de votre demande de communication documentaire.
+                  </p>
+
                   <div className="pt-2 flex gap-3">
                     <button
                       type="button"
@@ -729,10 +774,17 @@ export default function MediathequePage() {
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 py-3 px-4 rounded-xl bg-primary hover:bg-primaryDark text-white font-bold text-xs shadow-md transition-all inline-flex items-center justify-center gap-2"
+                      disabled={isSubmittingRequest}
+                      className="flex-1 py-3 px-4 rounded-xl bg-primary hover:bg-primaryDark disabled:bg-primary/60 text-white font-bold text-xs shadow-md transition-all inline-flex items-center justify-center gap-2"
                     >
-                      <Send size={14} />
-                      <span>Transmettre la demande</span>
+                      {isSubmittingRequest ? (
+                        <span>Transmission...</span>
+                      ) : (
+                        <>
+                          <Send size={14} />
+                          <span>Transmettre la demande</span>
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>

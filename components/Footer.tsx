@@ -154,10 +154,13 @@ export function Footer() {
                 }}
               >
                 <Check size={16} />
-                <span>Merci pour votre inscription !</span>
+                <span>Merci pour votre inscription certifiée !</span>
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="newsletter">
+                <div style={{ display: 'none' }} aria-hidden="true">
+                  <input type="text" name="_gotcha_nl" tabIndex={-1} autoComplete="off" />
+                </div>
                 <input
                   type="email"
                   value={email}
@@ -176,13 +179,14 @@ export function Footer() {
         {/* Bas de page */}
         <div className="footer-bottom">
           <p>
-            &copy; {new Date().getFullYear()} {org.fullName} (EICF). Tous droits
+            &copy; {new Date().getFullYear()} {org.fullName} (ONG EICF). Tous droits
             réservés.
           </p>
-          <div style={{ display: 'flex', gap: '20px' }}>
-            <Link href="/a-propos#engagements">Transparence & Redevabilité</Link>
-            <Link href="/mediatheque">Rapports annuels</Link>
-            <Link href="/contact">Mentions légales</Link>
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+            <Link href="/capacites-institutionnelles">Transparence &amp; Redevabilité</Link>
+            <Link href="/mediatheque">Rapports &amp; Audits</Link>
+            <Link href="/mentions-legales">Mentions légales</Link>
+            <Link href="/politique-de-confidentialite">Politique de confidentialité</Link>
           </div>
         </div>
       </div>
