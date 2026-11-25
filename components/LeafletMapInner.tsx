@@ -12,15 +12,10 @@ import {
 import L from 'leaflet'
 import {
   ArrowRight,
-  Bot,
   CheckCircle2,
   Clock,
   Sparkles,
   MapPin,
-  Building,
-  Users,
-  ShieldCheck,
-  ExternalLink,
   ChevronRight,
   Filter,
 } from 'lucide-react'
@@ -29,7 +24,6 @@ import {
   projects,
   statusLabel,
   formatNumber,
-  getPartner,
   type Region,
   type Project,
 } from '@/lib/data'
@@ -138,9 +132,6 @@ export default function LeafletMapInner({ onAskAi }: LeafletMapProps) {
     return regProjects.some((p) => p.status === selectedStatus)
   })
 
-  const activeRegion = regions.find((r) => r.id === activeRegionId) ?? regions[0]
-  const activeRegionProjects = projects.filter((p) => p.regions.includes(activeRegion.id))
-
   const handleMarkerClick = (reg: Region) => {
     setActiveRegionId(reg.id)
     if (typeof (window as any)?.__eicfPanToMarker === 'function') {
@@ -165,7 +156,7 @@ export default function LeafletMapInner({ onAskAi }: LeafletMapProps) {
                 type="button"
                 className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
                   selectedZone === zone
-                    ? 'bg-primary text-white shadow-xs'
+                    ? 'bg-secondary text-textDark border-secondary font-bold shadow-xs'
                     : 'bg-white text-textDark border border-border hover:bg-muted/10'
                 }`}
                 onClick={() => setSelectedZone(zone)}
@@ -412,24 +403,6 @@ export default function LeafletMapInner({ onAskAi }: LeafletMapProps) {
                           ))}
                         </div>
                       </div>
-
-                      <button
-                        type="button"
-                        onClick={() => handleMarkerClick(reg)}
-                        style={{
-                          width: '100%',
-                          padding: '6px 10px',
-                          borderRadius: '6px',
-                          background: 'var(--green)',
-                          color: '#fff',
-                          fontSize: '11px',
-                          fontWeight: 700,
-                          cursor: 'pointer',
-                          border: 'none',
-                        }}
-                      >
-                        Consulter la fiche opérationnelle ci-dessous
-                      </button>
                     </div>
                   </Popup>
                 </Marker>
@@ -454,216 +427,7 @@ export default function LeafletMapInner({ onAskAi }: LeafletMapProps) {
               </span>
             </div>
             <span className="text-muted text-[11px]">
-              {filteredRegions.length} région(s) affichée(s) · Cliquez sur un point pour inspecter le territoire
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* FICHE OPÉRATIONNELLE DE TERRITOIRE (INSPECTION DRAWER) */}
-      <div id="fiche-territoire" className="bg-white rounded-3xl p-6 sm:p-10 border border-border shadow-sm scroll-mt-20">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-border">
-          <div>
-            <div className="inline-flex items-center gap-2 text-xs font-bold text-secondary uppercase tracking-wider mb-1">
-              <MapPin size={15} />
-              <span>Fiche Opérationnelle de Territoire</span>
-              <span>·</span>
-              <span>Zone {activeRegion.zone}</span>
-            </div>
-            <h3 className="font-serif text-2xl sm:text-3xl text-primary font-bold">
-              Région du {activeRegion.name}
-            </h3>
-            <p className="text-xs sm:text-sm text-muted mt-0.5">
-              Chef-lieu régional : <strong>{activeRegion.chefLieu}</strong> · {activeRegion.departements.length} département(s) couvert(s)
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={() => {
-                const q = `Quelles sont les réalisations physiques et les projets de l'ONG EICF dans la région du ${activeRegion.name} ?`
-                if (onAskAi) onAskAi(q)
-                else {
-                  const fab = document.querySelector('.ask-fab') as HTMLElement
-                  if (fab) fab.click()
-                }
-              }}
-              className="px-4 py-2.5 rounded-full bg-secondary/15 hover:bg-secondary/25 text-primary text-xs font-bold transition-all inline-flex items-center gap-2"
-            >
-              <Bot size={15} className="text-secondary" />
-              <span>Interroger Ask EICF sur {activeRegion.name}</span>
-            </button>
-          </div>
-        </div>
-
-        {/* 4 MACRO CHIFFRES RÉGIONAUX */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-6">
-          <div className="p-4 rounded-2xl bg-background border border-border">
-            <span className="text-xs uppercase font-bold text-muted block">Projets exécutés</span>
-            <span className="font-serif text-2xl font-extrabold text-primary block mt-1">
-              {activeRegionProjects.length}
-            </span>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-background border border-border">
-            <span className="text-xs uppercase font-bold text-muted block">Bénéficiaires directs</span>
-            <span className="font-serif text-2xl font-extrabold text-secondary block mt-1">
-              {formatNumber(activeRegionProjects.reduce((s, p) => s + p.beneficiaires, 0))}
-            </span>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-background border border-border">
-            <span className="text-xs uppercase font-bold text-muted block">Départements</span>
-            <span className="font-serif text-2xl font-extrabold text-primary block mt-1">
-              {activeRegion.departements.length}
-            </span>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-background border border-border">
-            <span className="text-xs uppercase font-bold text-muted block">Villages &amp; localités</span>
-            <span className="font-serif text-2xl font-extrabold text-primary block mt-1">
-              {activeRegion.villagesCount ?? 12}+
-            </span>
-          </div>
-        </div>
-
-        {/* DÉTAIL DES PROJETS DANS LA RÉGION AVEC RÉALISATIONS PHYSIQUES */}
-        <div className="space-y-4 pt-2">
-          <h4 className="font-serif text-lg font-bold text-primary flex items-center gap-2">
-            <Building size={18} className="text-secondary" />
-            <span>Détail des projets, bailleurs et réalisations physiques dans le {activeRegion.name}</span>
-          </h4>
-
-          <div className="space-y-4">
-            {activeRegionProjects.map((p) => {
-              const statusBadge =
-                p.status === 'en-cours' ? (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-300 text-xs font-bold">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span>En cours</span>
-                  </span>
-                ) : p.status === 'acheve' ? (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-800 border border-blue-300 text-xs font-bold">
-                    <CheckCircle2 size={13} className="text-blue-600" />
-                    <span>Achevé &amp; Capitalisé</span>
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-300 text-xs font-bold">
-                    <Clock size={13} className="text-amber-600" />
-                    <span>En conception</span>
-                  </span>
-                )
-
-              return (
-                <div
-                  key={p.slug}
-                  className="p-5 rounded-2xl bg-background border border-border hover:border-secondary transition-all"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
-                    <div className="flex items-center gap-3">
-                      <h5 className="font-serif text-base sm:text-lg font-bold text-primary">
-                        {p.name}
-                      </h5>
-                      {statusBadge}
-                    </div>
-
-                    <Link
-                      href={`/projets-actualites/${p.slug}`}
-                      className="text-xs font-bold text-primary hover:text-secondary inline-flex items-center gap-1 shrink-0"
-                    >
-                      <span>Fiche projet complète</span>
-                      <ExternalLink size={13} />
-                    </Link>
-                  </div>
-
-                  <p className="text-xs sm:text-sm text-textDark/85 mb-3 leading-relaxed">
-                    {p.summary}
-                  </p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-border/60 text-xs">
-                    <div>
-                      <strong className="text-muted uppercase tracking-wider block text-[10px]">
-                        Bailleur / Partenaire :
-                      </strong>
-                      <span className="font-semibold text-textDark">
-                        {p.partners.map((s) => getPartner(s)?.short ?? s).join(', ')}
-                      </span>
-                    </div>
-
-                    <div>
-                      <strong className="text-muted uppercase tracking-wider block text-[10px]">
-                        Bénéficiaires certifiés :
-                      </strong>
-                      <span className="font-semibold text-secondary">
-                        {formatNumber(p.beneficiaires)} {p.beneficiairesLabel}
-                      </span>
-                    </div>
-
-                    <div>
-                      <strong className="text-muted uppercase tracking-wider block text-[10px]">
-                        Période / Taux d’avancement :
-                      </strong>
-                      <span className="font-semibold text-textDark">
-                        {p.periode} {p.tauxRealisation ? `(${p.tauxRealisation}%)` : ''}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-
-        {/* DÉCOUPAGE PAR DÉPARTEMENTS ET VILLAGES */}
-        <div className="mt-8 pt-6 border-t border-border">
-          <h4 className="font-serif text-base sm:text-lg font-bold text-primary mb-4 flex items-center gap-2">
-            <Users size={17} className="text-secondary" />
-            <span>Départements, sous-préfectures et villages bénéficiaires</span>
-          </h4>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {activeRegion.departements.map((dep, dIdx) => (
-              <div key={dIdx} className="p-4 rounded-2xl bg-white border border-border">
-                <span className="text-xs font-bold uppercase text-primary tracking-wider block mb-2">
-                  Département de {dep.name}
-                </span>
-
-                <div className="space-y-3">
-                  {dep.sousPrefectures.map((sp, spIdx) => (
-                    <div key={spIdx} className="text-xs">
-                      <span className="font-bold text-textDark block mb-1">
-                        Sous-préfecture de {sp.name} :
-                      </span>
-                      {sp.localites.map((loc, locIdx) => (
-                        <div key={locIdx} className="pl-3 border-l-2 border-secondary/40 my-1 text-muted">
-                          <strong className="text-textDark">{loc.name}</strong> — {loc.detail}
-                          {loc.villages && loc.villages.length > 0 && (
-                            <span className="block text-[11px] text-muted/80 mt-0.5">
-                              Villages : {loc.villages.join(', ')}
-                            </span>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* MENTION LÉGALE DE SAUVEGARDE ÉTHIQUE (Conformité Audit Page 7) */}
-        <div className="mt-8 p-4 rounded-xl bg-primary/5 border border-primary/20 flex items-start gap-3 text-xs text-textDark/85">
-          <ShieldCheck size={18} className="text-primary shrink-0 mt-0.5" />
-          <div>
-            <strong className="text-primary font-bold block mb-0.5">
-              Sauvegarde éthique et protection des données sensibles (Audit EICF Page 7) :
-            </strong>
-            <span>
-              Conformément à la politique de sauvegarde des populations vulnérables et aux directives internationales,
-              les coordonnées géographiques publiées correspondent aux chefs-lieux et aux centres communautaires agrégés
-              afin de préserver la vie privée et la sécurité des bénéficiaires.
+              {filteredRegions.length} région(s) affichée(s) · Cliquez sur un point pour voir les projets
             </span>
           </div>
         </div>
