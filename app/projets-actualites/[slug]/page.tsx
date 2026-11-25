@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import {
@@ -22,6 +23,26 @@ import {
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const project = getProject(slug)
+  if (!project) return { title: 'Projet introuvable' }
+
+  return {
+    title: `${project.name} — ${project.fullName}`,
+    description: project.summary || project.objectifs[0],
+    openGraph: {
+      title: `${project.name} — ${project.fullName} | ONG EICF`,
+      description: project.summary,
+      images: [project.image],
+    },
+  }
 }
 
 export default async function ProjetDetailPage({

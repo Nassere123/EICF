@@ -1,6 +1,18 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Download, Users } from 'lucide-react'
 import { ImpactDashboard } from '@/components/ImpactDashboard'
+
+export const metadata: Metadata = {
+  title: 'Tableau de Bord d’Impact & Résultats Certifiés',
+  description:
+    'Indicateurs clés de performance (KPI), bénéficiaires directs certifiés (50 570+) et réalisations physiques consolidées de l’ONG EICF depuis 2008.',
+  openGraph: {
+    title: 'Tableau de Bord d’Impact EICF',
+    description:
+      'Mesurer chaque changement : 50 570+ bénéficiaires, 11 régions, 788 latrines, 1 560 adolescentes et 3 200 jeunes formés.',
+  },
+}
 
 export default function ImpactPage() {
   return (

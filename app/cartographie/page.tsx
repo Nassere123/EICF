@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import {
   MapPin,
@@ -13,6 +14,17 @@ import {
 } from 'lucide-react'
 import { InteractiveMap } from '@/components/InteractiveMap'
 import { regions, projects, formatNumber, statusLabel, getPartner } from '@/lib/data'
+
+export const metadata: Metadata = {
+  title: 'Cartographie des Interventions & Traçabilité Géographique',
+  description:
+    'Visualisez la cartographie interactive des projets et réalisations physiques de l’ONG EICF à travers 11 régions de Côte d’Ivoire : Hambol, Bounkani, Bagoué, San Pédro, Tonkpi, Folon, etc.',
+  openGraph: {
+    title: 'Cartographie des Interventions | ONG EICF',
+    description:
+      'Traçabilité géographique complète des réalisations d’EICF au niveau des départements, sous-préfectures et villages bénéficiaires.',
+  },
+}
 
 export default function CartographiePage() {
   const traceabilityExamples = [

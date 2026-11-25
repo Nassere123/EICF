@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import {
   Handshake,
@@ -11,6 +12,17 @@ import {
   CheckCircle2,
 } from 'lucide-react'
 import { projects, formatNumber } from '@/lib/data'
+
+export const metadata: Metadata = {
+  title: 'Appels à Partenariat & Projets en Recherche de Financement',
+  description:
+    'Découvrez les projets en phase de conception de l’ONG EICF ouverts au cofinancement : agro-écologie féminine, écoles vertes et résilience face aux inondations.',
+  openGraph: {
+    title: 'Appels à Partenariat | ONG EICF',
+    description:
+      'Co-construire l’avenir : projets innovants à fort impact communautaire en attente de partenaires techniques et financiers.',
+  },
+}
 
 export default function AppelsPartenariatPage() {
   const conceptionProjects = projects.filter((p) => p.status === 'conception')

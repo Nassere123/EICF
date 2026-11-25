@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import {
@@ -15,6 +16,26 @@ import { news, formatDate, projects, getPartner } from '@/lib/data'
 
 export function generateStaticParams() {
   return news.map((n) => ({ slug: n.slug }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const article = news.find((n) => n.slug === slug)
+  if (!article) return { title: 'Article introuvable' }
+
+  return {
+    title: article.title,
+    description: article.excerpt,
+    openGraph: {
+      title: `${article.title} | ONG EICF`,
+      description: article.excerpt,
+      images: [article.image],
+    },
+  }
 }
 
 export default async function ActualiteDetailPage({

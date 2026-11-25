@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import {
@@ -18,6 +19,26 @@ import {
 
 export function generateStaticParams() {
   return domains.map((d) => ({ slug: d.slug }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const domain = getDomain(slug)
+  if (!domain) return { title: 'Domaine introuvable' }
+
+  return {
+    title: `${domain.title} — Expertise Technique`,
+    description: domain.objective,
+    openGraph: {
+      title: `${domain.title} | Domaines d’Intervention ONG EICF`,
+      description: domain.objective,
+      images: [domain.image],
+    },
+  }
 }
 
 export default async function DomaineDetailPage({
