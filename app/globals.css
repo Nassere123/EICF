@@ -546,9 +546,14 @@ p { margin: 0; }
   transition: all 0.3s var(--ease);
 }
 .chip:hover { color: var(--green); background: var(--paper); }
-.chip.is-active { background: var(--green); color: #fff; box-shadow: 0 8px 20px -10px rgba(6, 53, 42, 0.7); }
+.chip.is-active {
+  background: var(--gold);
+  color: var(--ink);
+  font-weight: 700;
+  box-shadow: 0 4px 14px -4px rgba(226, 178, 58, 0.45);
+}
 .chip .count { font-size: 11px; padding: 1px 7px; border-radius: 999px; background: rgba(0, 0, 0, 0.06); }
-.chip.is-active .count { background: rgba(255, 255, 255, 0.2); }
+.chip.is-active .count { background: rgba(0, 0, 0, 0.12); color: var(--ink); font-weight: 700; }
 
 .filter-bar {
   display: flex;

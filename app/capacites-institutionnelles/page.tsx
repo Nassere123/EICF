@@ -282,14 +282,14 @@ export default function CapacitesInstitutionnellesPage() {
             </p>
 
             {/* FILTRES INTERACTIFS */}
-            <div className="flex flex-wrap justify-center gap-2 mt-8">
+            <div className="flex flex-wrap justify-center gap-2.5 mt-8">
               <button
                 type="button"
                 onClick={() => setActivePillar('all')}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all ${
+                className={`px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all border ${
                   activePillar === 'all'
-                    ? 'bg-primary text-white shadow-md'
-                    : 'bg-white text-textDark border border-border hover:bg-muted/10'
+                    ? 'bg-secondary text-textDark border-secondary font-bold shadow-xs'
+                    : 'bg-[#FBF8F3] text-textDark/85 border-black/10 hover:bg-white hover:border-black/20'
                 }`}
               >
                 Tous les 7 piliers
@@ -299,13 +299,13 @@ export default function CapacitesInstitutionnellesPage() {
                   key={p.id}
                   type="button"
                   onClick={() => setActivePillar(p.id)}
-                  className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all inline-flex items-center gap-2 ${
+                  className={`px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all inline-flex items-center gap-2 border ${
                     activePillar === p.id
-                      ? 'bg-primary text-white shadow-md'
-                      : 'bg-white text-textDark border border-border hover:bg-muted/10'
+                      ? 'bg-secondary text-textDark border-secondary font-bold shadow-xs'
+                      : 'bg-[#FBF8F3] text-textDark/85 border-black/10 hover:bg-white hover:border-black/20'
                   }`}
                 >
-                  <span className="text-[11px] opacity-75">{p.num}</span>
+                  <span className={`text-[11px] px-1.5 py-0.5 rounded-full ${activePillar === p.id ? 'bg-black/10 font-bold' : 'bg-black/5 opacity-75'}`}>{p.num}</span>
                   <span>{p.title.split('&')[0]}</span>
                 </button>
               ))}

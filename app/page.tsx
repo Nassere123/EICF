@@ -72,13 +72,6 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
-              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold text-xs sm:text-sm mb-6">
-                <span className="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse flex-shrink-0" />
-                <span>
-                  <CountUp value={globalStats.beneficiaires} suffix="+" /> bénéficiaires accompagnés dans {globalStats.regions} régions
-                </span>
-              </div>
-
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-textDark mb-6 leading-tight">
                 Agir aujourd’hui<br />
                 <span className="text-primary italic font-heading">
@@ -166,56 +159,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. TROIS AXES PHARES — Cartes icônes centrées (style Charity Organization) */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link
-              href="/domaines-intervention/eau-hygiene-assainissement"
-              data-reveal
-              className="p-8 rounded-2xl bg-background border border-black/5 hover:shadow-xl transition-all text-center group block"
-            >
-              <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                <Droplets size={30} />
-              </div>
-              <h3 className="text-2xl font-heading font-bold text-textDark mb-3">Eau & Assainissement</h3>
-              <p className="text-muted text-sm sm:text-base leading-relaxed">
-                Ouvrages durables, latrines familiales (PASEA — 788 latrines à Katiola) et hygiène en milieu rural.
-              </p>
-            </Link>
-
-            <Link
-              href="/domaines-intervention/education-formation-alphabetisation"
-              data-reveal
-              className="p-8 rounded-2xl bg-background border border-black/5 hover:shadow-xl transition-all text-center group block"
-            >
-              <div className="w-16 h-16 mx-auto bg-secondary/20 rounded-full flex items-center justify-center mb-6 text-primary group-hover:bg-secondary group-hover:text-textDark transition-colors">
-                <GraduationCap size={30} />
-              </div>
-              <h3 className="text-2xl font-heading font-bold text-textDark mb-3">Éducation & Jeunes Filles</h3>
-              <p className="text-muted text-sm sm:text-base leading-relaxed">
-                Classes passerelles et espaces sûrs (SWEDD) pour le maintien scolaire et l’émancipation des adolescentes.
-              </p>
-            </Link>
-
-            <Link
-              href="/domaines-intervention/paix-cohesion-sociale"
-              data-reveal
-              className="p-8 rounded-2xl bg-background border border-black/5 hover:shadow-xl transition-all text-center group block"
-            >
-              <div className="w-16 h-16 mx-auto bg-accent rounded-full flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                <Scale size={30} />
-              </div>
-              <h3 className="text-2xl font-heading font-bold text-textDark mb-3">Paix & Cohésion Sociale</h3>
-              <p className="text-muted text-sm sm:text-base leading-relaxed">
-                Dialogues intercommunautaires, médiation locale et prévention des conflits dans les zones frontalières.
-              </p>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. MOT DU PRÉSIDENT FONDATEUR — Patron « How It Started » avec cadre vert incliné */}
+      {/* 2. MOT DU PRÉSIDENT FONDATEUR — Patron « How It Started » avec cadre vert incliné */}
       <section className="py-24 bg-background" id="mot-du-president">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">

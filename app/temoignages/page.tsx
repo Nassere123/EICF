@@ -98,11 +98,12 @@ export default function TemoignagesPage() {
       {/* SECTION TÉMOIGNAGES AVEC FILTRES & RECHERCHE */}
       <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* BARRE D'OUTILS ET FILTRES */}
-          <div className="mb-12 space-y-6">
-            <div className="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4">
+          {/* BARRE D'OUTILS ET FILTRES DANS UN CADRE INSTITUTIONNEL ÉLÉGANT */}
+          <div className="mb-12 bg-white rounded-3xl p-6 sm:p-8 border border-black/8 shadow-sm">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-6 border-b border-black/6">
               <div>
-                <span className="text-secondary font-bold tracking-wider uppercase text-xs">
+                <span className="inline-flex items-center gap-2 text-secondary font-bold tracking-wider uppercase text-xs">
+                  <span className="w-2 h-2 rounded-full bg-secondary" />
                   Portraits &amp; Récits de Terrain
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-heading font-bold text-textDark mt-1">
@@ -110,34 +111,43 @@ export default function TemoignagesPage() {
                 </h2>
               </div>
 
-              {/* Champ de recherche */}
-              <div className="relative max-w-md w-full">
+              {/* Champ de recherche avec cadre soigné */}
+              <div className="relative w-full md:w-80 lg:w-96">
                 <Search
                   size={18}
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-muted"
                 />
                 <input
                   type="text"
                   placeholder="Rechercher par prénom, localité ou projet..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-full border border-border bg-white text-xs sm:text-sm text-textDark placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  className="w-full pl-11 pr-4 py-3 rounded-full border border-black/12 bg-[#FBF8F3] text-xs sm:text-sm text-textDark placeholder-muted/80 focus:outline-none focus:ring-2 focus:ring-secondary/40 focus:border-secondary focus:bg-white transition-all shadow-2xs"
                 />
               </div>
             </div>
 
-            {/* Chips de filtrage par domaine */}
-            <div className="flex flex-wrap gap-2 pt-2">
+            {/* Chips de filtrage par domaine avec cadres harmonieux et état actif doré/doux */}
+            <div className="flex flex-wrap gap-2.5 pt-6">
               <button
                 type="button"
                 onClick={() => setSelectedDomain('all')}
-                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
+                className={`group px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all inline-flex items-center gap-2 border ${
                   selectedDomain === 'all'
-                    ? 'bg-primary text-white shadow-sm'
-                    : 'bg-white text-textDark hover:bg-white/80 border border-border'
+                    ? 'bg-secondary text-textDark border-secondary font-bold shadow-xs'
+                    : 'bg-[#FBF8F3] text-textDark/85 hover:text-textDark hover:bg-white border-black/10 hover:border-black/20'
                 }`}
               >
-                Tous les domaines ({stories.length})
+                <span>Tous les domaines</span>
+                <span
+                  className={`text-[11px] px-2 py-0.5 rounded-full transition-colors ${
+                    selectedDomain === 'all'
+                      ? 'bg-black/12 text-textDark font-bold'
+                      : 'bg-black/5 text-muted group-hover:text-textDark'
+                  }`}
+                >
+                  {stories.length}
+                </span>
               </button>
 
               {domains.map((dom) => {
@@ -149,14 +159,22 @@ export default function TemoignagesPage() {
                     key={dom}
                     type="button"
                     onClick={() => setSelectedDomain(dom)}
-                    className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
+                    className={`group px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all inline-flex items-center gap-2 border ${
                       isActive
-                        ? 'bg-primary text-white shadow-sm'
-                        : 'bg-white text-textDark hover:bg-white/80 border border-border'
+                        ? 'bg-secondary text-textDark border-secondary font-bold shadow-xs'
+                        : 'bg-[#FBF8F3] text-textDark/85 hover:text-textDark hover:bg-white border-black/10 hover:border-black/20'
                     }`}
                   >
                     <span>{dom}</span>
-                    <span className="ml-1.5 opacity-70">({count})</span>
+                    <span
+                      className={`text-[11px] px-2 py-0.5 rounded-full transition-colors ${
+                        isActive
+                          ? 'bg-black/12 text-textDark font-bold'
+                          : 'bg-black/5 text-muted group-hover:text-textDark'
+                      }`}
+                    >
+                      {count}
+                    </span>
                   </button>
                 )
               })}
@@ -176,7 +194,7 @@ export default function TemoignagesPage() {
                   setSelectedDomain('all')
                   setSearchQuery('')
                 }}
-                className="mt-4 px-5 py-2 rounded-full bg-primary text-white text-xs font-bold hover:bg-primaryDark transition-colors"
+                className="mt-4 px-6 py-2.5 rounded-full bg-secondary hover:bg-secondaryHover text-textDark text-xs font-bold transition-all shadow-sm"
               >
                 Réinitialiser les filtres
               </button>
@@ -194,9 +212,8 @@ export default function TemoignagesPage() {
                   >
                     {/* Colonne Image & Badges */}
                     <div
-                      className={`lg:col-span-5 relative min-h-[340px] lg:min-h-[460px] overflow-hidden ${
-                        isEven ? 'lg:order-2' : ''
-                      }`}
+                      className={`lg:col-span-5 relative min-h-[340px] lg:min-h-[460px] overflow-hidden ${isEven ? 'lg:order-2' : ''
+                        }`}
                     >
                       <img
                         src={s.image}
@@ -204,7 +221,7 @@ export default function TemoignagesPage() {
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent lg:hidden" />
-                      
+
                       {/* Badge flottant sur l'image */}
                       <div className="absolute bottom-4 left-4 right-4 lg:hidden text-white">
                         <strong className="block text-lg font-bold">

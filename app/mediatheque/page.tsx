@@ -326,16 +326,16 @@ export default function MediathequePage() {
                       key={cat.id}
                       type="button"
                       onClick={() => setSelectedCategory(cat.id)}
-                      className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all inline-flex items-center gap-2 ${
+                      className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all inline-flex items-center gap-2 border ${
                         selectedCategory === cat.id
-                          ? 'bg-primary text-white shadow-md'
-                          : 'bg-white text-textDark border border-border hover:bg-muted/10'
+                          ? 'bg-secondary text-textDark border-secondary font-bold shadow-xs'
+                          : 'bg-[#FBF8F3] text-textDark/85 border-black/10 hover:bg-white hover:border-black/20'
                       }`}
                     >
                       <span>{cat.label}</span>
                       <span
                         className={`text-[11px] px-2 py-0.5 rounded-full ${
-                          selectedCategory === cat.id ? 'bg-white/20 text-white' : 'bg-muted/15 text-muted'
+                          selectedCategory === cat.id ? 'bg-black/12 text-textDark font-bold' : 'bg-black/5 text-muted'
                         }`}
                       >
                         {count}
